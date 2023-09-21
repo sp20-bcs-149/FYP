@@ -2,7 +2,11 @@ import GenericService from "./GenericServices";
 
 class ProfileService extends GenericService{
     constructor() {
-        super();   
+        super();  
+        
+        
+
+        
     }
     addProduct =(data) => {this.post("profile",data)};
     // deleteProduct =(_id) => {this.delete("products/"+_id)};
