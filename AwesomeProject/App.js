@@ -9,10 +9,12 @@ export default function App() {
   return (
       <>
         <Navigation />
-        <StatusBar style="auto" />    
+        <StatusBar style="auto" />  
+          
       </>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
