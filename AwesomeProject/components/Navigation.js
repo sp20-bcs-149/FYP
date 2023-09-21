@@ -34,14 +34,14 @@ import News from '../Screen/user/News';
 import PdfPrintOut from '../Screen/user/PdfPrintOut';
 import ReminderVaccine from '../Screen/user/ReminderVaccine';
 import ChildTrack from '../Screen/user/ChildTrack';
-import BookVaccine from '../Screen/user/BookVaccine';
 import VerificationForm from '../Screen/Clinic/VerificationForm';
 import UserSchedule from '../Screen/user/UserSchedule';
-import ChoseClinic from '../Screen/user/ChoseClinic';
-import DateDay from '../Screen/user/DateDay';
 import Alert from '../Screen/user/alert';
-import VaccineSelection from '../Screen/user/VaccineSelection';
-
+import ScheduleHome from '../Screen/user/ScheduleHome';
+import BookAppointment from './user/schedule/BookAppointment';
+import Completed from './user/schedule/Complete';
+import Pending from './user/schedule/Pending';
+import Success from './user/schedule/Success';
 // all admin screen
 import AlertSend from '../Screen/admin/alertsend';
 import AlertAdminforEditDelete from '../Screen/admin/alertAdminforEditDelete';
@@ -78,13 +78,14 @@ const Navigation = () =>{
                 <Stack.Screen name="Schedule" component={Schedule} />
                 <Stack.Screen name="UserSchedule" component={UserSchedule} />
                 <Stack.Screen name="News" component={News} />
-                <Stack.Screen name="ChoseClinic" component={ChoseClinic} />
-                <Stack.Screen name="DateDay" component={DateDay} />
                 <Stack.Screen name="PdfPrintOut" component={PdfPrintOut} />
                 <Stack.Screen name="ReminderVaccine" component={ReminderVaccine} />
                 <Stack.Screen name="Alert" component={Alert} />
-                <Stack.Screen name="BookVaccine" component={BookVaccine} />
-                <Stack.Screen name="VaccineSelection" component={VaccineSelection} />
+                <Stack.Screen name="ScheduleHome" component={ScheduleHome} />
+                <Stack.Screen name="BookAppointment" component={BookAppointment} />
+                <Stack.Screen name="Completed" component={Completed} />
+                <Stack.Screen name="Pending" component={Pending} />
+                <Stack.Screen name="Success" component={Success} />
 
 {/* all admin componets */}
                 <Stack.Screen name="AlertSend" component={AlertSend} />

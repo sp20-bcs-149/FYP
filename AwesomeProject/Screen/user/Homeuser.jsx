@@ -104,7 +104,7 @@ const Homeuser = ({navigation}) => {
 {/* 3 */}
                         <Pressable
                         // style={[styles.button, styles.buttonClose]}
-                        onPress={() => navigation.navigate("UserSchedule")}>
+                        onPress={() => navigation.navigate("ScheduleHome")}>
                             <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                                 <MaterialIcons name='schedule' size={45} color='white' />
                                 <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Schedule</Text>
