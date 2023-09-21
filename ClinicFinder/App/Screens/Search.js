@@ -10,7 +10,7 @@ export default function Search() {
   const { location, setLocation } = useContext(UserLocationContext);
 
   useEffect(() => {
-    GetNearBySearchPlace("Vaccination Center");
+    GetNearBySearchPlace("hospital");
   }, []);
   const GetNearBySearchPlace = (value) => {
     GlobalApi.searchByText(value).then((resp) => {
