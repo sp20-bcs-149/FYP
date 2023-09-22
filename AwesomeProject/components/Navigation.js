@@ -42,6 +42,9 @@ import BookAppointment from './user/schedule/BookAppointment';
 import Completed from './user/schedule/Complete';
 import Pending from './user/schedule/Pending';
 import Success from './user/schedule/Success';
+//findclinic
+import ClinicFinder from '../Screen/user/FindClinicMap';
+
 // all admin screen
 import AlertSend from '../Screen/admin/alertsend';
 import AlertAdminforEditDelete from '../Screen/admin/alertAdminforEditDelete';
@@ -53,52 +56,71 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () =>{
     return (
-        <NavigationContainer>
-            {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
-            <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Login'}>
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Splash" component={SplashScreen} />
-                <Stack.Screen name="SignUp" component={SignUp} />
-                <Stack.Screen name="Login" component={Login} />
-                <Stack.Screen name="EmailAuthentication" component={EmailAuthentication} />
-                <Stack.Screen name="DeliveryBottomNavigation" component={DeliveryBottomNavigation} />
-                <Stack.Screen name="AdminBottomNavigation" component={AdminBottomNavigation} />
-                <Stack.Screen name="UserBottomNavigation" component={UserBottomNavigation} />
-                <Stack.Screen name="AdminDrawer" component={AdminDrawer} />
-                <Stack.Screen name="UserDrawer" component={UserDrawer} />
-                <Stack.Screen name="DeliveryDrawer" component={DeliveryDrawer} />
-{/* all user components */}
+      <NavigationContainer>
+        {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName={"Login"}
+        >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="EmailAuthentication"
+            component={EmailAuthentication}
+          />
+          <Stack.Screen
+            name="DeliveryBottomNavigation"
+            component={DeliveryBottomNavigation}
+          />
+          <Stack.Screen
+            name="AdminBottomNavigation"
+            component={AdminBottomNavigation}
+          />
+          <Stack.Screen
+            name="UserBottomNavigation"
+            component={UserBottomNavigation}
+          />
+          <Stack.Screen name="AdminDrawer" component={AdminDrawer} />
+          <Stack.Screen name="UserDrawer" component={UserDrawer} />
+          <Stack.Screen name="DeliveryDrawer" component={DeliveryDrawer} />
+          {/* all user components */}
 
-                <Stack.Screen name="Homeuser" component={Homeuser} />
-                <Stack.Screen name="UserProfile" component={UserProfile} />
-                <Stack.Screen name="PersonalModel" component={PersonalModel} />
-                <Stack.Screen name="Family" component={Family} />
-                <Stack.Screen name="ChildRecord" component={ChildRecord} />
-                <Stack.Screen name="ChildTrack" component={ChildTrack} />
-                <Stack.Screen name="Schedule" component={Schedule} />
-                <Stack.Screen name="UserSchedule" component={UserSchedule} />
-                <Stack.Screen name="News" component={News} />
-                <Stack.Screen name="PdfPrintOut" component={PdfPrintOut} />
-                <Stack.Screen name="ReminderVaccine" component={ReminderVaccine} />
-                <Stack.Screen name="Alert" component={Alert} />
-                <Stack.Screen name="ScheduleHome" component={ScheduleHome} />
-                <Stack.Screen name="BookAppointment" component={BookAppointment} />
-                <Stack.Screen name="Completed" component={Completed} />
-                <Stack.Screen name="Pending" component={Pending} />
-                <Stack.Screen name="Success" component={Success} />
+          <Stack.Screen name="Homeuser" component={Homeuser} />
+          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="PersonalModel" component={PersonalModel} />
+          <Stack.Screen name="Family" component={Family} />
+          <Stack.Screen name="ChildRecord" component={ChildRecord} />
+          <Stack.Screen name="ChildTrack" component={ChildTrack} />
+          <Stack.Screen name="Schedule" component={Schedule} />
+          <Stack.Screen name="UserSchedule" component={UserSchedule} />
+          <Stack.Screen name="News" component={News} />
+          <Stack.Screen name="PdfPrintOut" component={PdfPrintOut} />
+          <Stack.Screen name="ReminderVaccine" component={ReminderVaccine} />
+          <Stack.Screen name="Alert" component={Alert} />
+          <Stack.Screen name="ScheduleHome" component={ScheduleHome} />
+          <Stack.Screen name="BookAppointment" component={BookAppointment} />
+          <Stack.Screen name="Completed" component={Completed} />
+          <Stack.Screen name="Pending" component={Pending} />
+          <Stack.Screen name="Success" component={Success} />
+          <Stack.Screen name="ClinicFinder" component={ClinicFinder} />
 
-{/* all admin componets */}
-                <Stack.Screen name="AlertSend" component={AlertSend} />
-                <Stack.Screen name="NewsSend" component={NewsSend} />
-                <Stack.Screen name="AlertAdminforEditDelete" component={AlertAdminforEditDelete} />
+          {/* all admin componets */}
+          <Stack.Screen name="AlertSend" component={AlertSend} />
+          <Stack.Screen name="NewsSend" component={NewsSend} />
+          <Stack.Screen
+            name="AlertAdminforEditDelete"
+            component={AlertAdminforEditDelete}
+          />
 
-{/* all clinic component */}
-                <Stack.Screen name="VerificationForm" component={VerificationForm} />
+          {/* all clinic component */}
+          <Stack.Screen name="VerificationForm" component={VerificationForm} />
 
-{/* all rider component */}
-            </Stack.Navigator>
-        </NavigationContainer>
-    )
+          {/* all rider component */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    );
 }
 
 
