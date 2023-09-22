@@ -11,59 +11,63 @@ import { ScrollView } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 export default function PlaceDetail() {
-  const param=useRoute().params;
-  const [place,setPlace]=useState([]);
+  const param = useRoute().params;
+  const [place, setPlace] = useState(null);
 
-  useEffect(()=>{
-   setPlace(param.place)
-    
-  },[])
+  useEffect(() => {
+    setPlace(param.place);
+  }, [param]);
 
-  const onDirectionClick=()=>{
-    const url=Platform.select({
-      ios:"maps:"+place.geometry.location.lat + "," + place.geometry.location.lng + "?q=" + place.vicinity,
-      android:"geo:"+place.geometry.location.lat + "," + place.geometry.location.lng + "?q=" + place.vicinity,
-    });
+  const onDirectionClick = () => {
+    if (place) {
+      const url = Platform.select({
+        ios: `maps:0,0?q=${place.geometry.location.lat},${place.geometry.location.lng}(${place.name})`,
+        android: `geo:${place.geometry.location.lat},${place.geometry.location.lng}?q=${place.name}`,
+      });
 
-    Linking.openURL(url)
+      Linking.openURL(url);
+    }
   }
+
   return (
     <ScrollView style={{ padding: 20, backgroundColor: Colors.WHITE, flex: 1 }}>
-      <PlaceDetailItem
-        place={place}
-        onDirectionClick={() => onDirectionClick()}
-      />
-      <GoogleMapView placeList={[place]} />
-      <TouchableOpacity
-        style={{
-          backgroundColor: Colors.PRIMARY,
-          padding: 15,
-          alignContent: "center",
-          alignItem: "center",
-          margin: 5,
-          display:'flex',
-          flexDirection:'row',
-          gap:10,
-          justifyContent:'center',
-          alignItems:'center',
-          borderRadius: 50,
-          paddingBottom: 15,
-        }}
-        onPress={() => onDirectionClick()}
-      >
-          <Ionicons name="navigate-circle-outline" 
-          size={30} color="white" />
+      {place && (
+        <>
+          <PlaceDetailItem
+            place={place}
+            onDirectionClick={onDirectionClick}
+          />
+          <GoogleMapView placeList={[place]} />
+          <TouchableOpacity
+            style={{
+              backgroundColor: Colors.PRIMARY,
+              padding: 15,
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 5,
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 10,
+              borderRadius: 50,
+              paddingBottom: 15,
+            }}
+            onPress={onDirectionClick}
+          >
+            <Ionicons name="navigate-circle-outline"
+              size={30} color="white" />
 
-        <Text
-          style={{
-            fontFamily: "raleway",
-            textAlign: "center",
-            color: Colors.WHITE,
-          }}
-        >
-          Get Direction on Google Map
-        </Text>
-      </TouchableOpacity>
+            <Text
+              style={{
+                fontFamily: "raleway",
+                textAlign: "center",
+                color: Colors.WHITE,
+              }}
+            >
+              Get Direction on Google Map
+            </Text>
+          </TouchableOpacity>
+        </>
+      )}
     </ScrollView>
   );
 }
