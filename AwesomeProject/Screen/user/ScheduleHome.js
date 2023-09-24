@@ -16,7 +16,7 @@ const ScheduleHome = ({ navigation }) => {
         navigation={navigation}
       />
       <View>
-        <Image source={require("../../components/src/images/banner.jpg")} style={styles.banner} />
+        <Image source={require("../../components/src/images/main.png")} style={styles.banner} />
         <Text style={styles.heading}>Registered Clinics</Text>
         <FlatList
           data={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
@@ -114,8 +114,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   banner: {
-    width: "100%",
-    height: 200,
+    width: "75%",
+    height: 175,
     borderRadius: 10,
     marginTop: 10,
     alignSelf: "center",
