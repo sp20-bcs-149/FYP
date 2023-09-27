@@ -5,9 +5,15 @@ import PersonalModel from "../../components/user/PersonalModel";
 import myURL from "../../services/myurls";
 import axios from "axios";
 import Ionicons from '@expo/vector-icons/Ionicons';
-const Family = ({navigation}) => {
 
-//map
+import { useRoute } from "@react-navigation/native";
+import { Entypo } from "@expo/vector-icons"; 
+import FolderModel from "../../components/user/familyProfile/folderModel";
+
+const Family = ({navigation}) => {
+  const route = useRoute();
+  let Token_id = route.params?.token_id;
+
     const [data, setData] = useState([]);
 
     console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
@@ -18,7 +24,7 @@ const Family = ({navigation}) => {
 
     const fetchData = async () => {
     try {
-      const response = await axios.get(myURL+'/family/?my_ID=64ec3b18abb2135f54d8c8ae');
+      const response = await axios.get(myURL + `/family/?my_ID=${Token_id}`);
       setData(response.data);
       console.log("============>FAMILY DATA: " + JSON.stringify(response.data));
 
@@ -27,6 +33,7 @@ const Family = ({navigation}) => {
     }
     };
 
+  const [modalVisible, setModalVisible] = useState(false);
 
 
 
@@ -36,55 +43,43 @@ const Family = ({navigation}) => {
             <View style={style.container}>
                 <ScrollView>
 
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%'}}> 
-                    <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,textAlign:'center',fontWeight:'900'}}>
-                        Family : {}
+                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',}}> 
+                    <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,fontWeight:'900',flexDirection:'row'}}>
+                        Family Profile
                     </Text>
+                    <View>
+                        <Pressable
+                            onPress={() => setModalVisible(!modalVisible)}
+                          >
+
+                            <Entypo name="folder" size={24} color="white" />
+                        </Pressable>
+                    </View>
                 </View>
                 <View style={{flex:9/10,backgroundColor:'#FFFFFF',width:'100%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-evenly'}}> 
-                    {/* 1 - start */}
-                     <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                    <View style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                        <Ionicons name='person' size={45} color='white' />
-                        <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Child</Text>
-                        <Text style={{color:"white"}}>Profile</Text>
-                    </View>
-                    </Pressable>
-                    {/* 1 - end */}
+ 
+                    {
+                    data.map((item) => (
+                        <Pressable key={item._id} onPress={()=>{navigation.navigate("ChildRecord",{child_id : item._id})}}>
+                        <View  style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
+                            <Ionicons name='person' size={45} color='white' />
+                            <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>{item.Folder_Name}</Text>
+                            <Text style={{color:"white"}}>Profile</Text>
+                        </View>
+                        </Pressable>
 
-                    {/* 1 - start */}
-                    <View style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                        <Ionicons name='person' size={45} color='white' />
-                        <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Mother</Text>
-                        <Text style={{color:"white"}}>Profile</Text>
-                    </View>
-
-{/* 
-                    {data.map((item) => (
-                            <View key={item.id} style={{backgroundColor:"lightgray",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <AntDesign name="addfolder" size={50} color="white" />
-
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>ADD</Text>
-                                <Text style={{color:"white"}}>New Profile</Text>
-                            </View>
-                    ))}         */}
-                    {/* 1 - end */}   
-                    
-
-
-
-
+                        ))
+                    }
 
                 </View>
                 
                 </ScrollView>
-{/* Profile MODEL start */}
+                      <FolderModel
+                            modalVisible={modalVisible}
+                            setModalVisible={setModalVisible}
+                            my_ID={Token_id}
+                        />
 
-                {/* <PersonalModel  modalVisible={modalVisible} setModalVisible={setModalVisible} /> */}
-
-{/* Profile Model End */}
             </View>
         </>
         ):(

@@ -8,7 +8,7 @@ import PlaceList from "../../components/user/findClinic/PlaceList";
 import { ScrollView } from 'react-native'
 import { UserLocationContext } from '../../Context/UserLocationContext'
 
-export default function ClinicFinder() {
+export default function ClinicFinder({navigation}) {
 
 
 
@@ -34,11 +34,13 @@ export default function ClinicFinder() {
     })
   } 
   return (
-    <ScrollView style={{padding:20,backgroundColor:'#fff',flex:1}}>
-        <Header/>
-        <GoogleMapView placeList={placeList} />
-        <CategoryList setSelectedCategory={(value)=>GetNearBySearchPlace(value)}/>
-       {placeList? <PlaceList placeList={placeList} />:null}
+    <ScrollView style={{ padding: 20, backgroundColor: "#fff", flex: 1 }}>
+      <Header navigation={navigation} />
+      <GoogleMapView placeList={placeList} />
+      <CategoryList
+        setSelectedCategory={(value) => GetNearBySearchPlace(value)}
+      />
+      {placeList ? <PlaceList placeList={placeList} /> : null}
     </ScrollView>
-  )
+  );
 }

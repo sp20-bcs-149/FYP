@@ -1,26 +1,29 @@
-import { View, Text, Image, StyleSheet, TextInput, Dimensions } from 'react-native'
+import { View, Text, Image, StyleSheet, TextInput, Dimensions, Pressable } from 'react-native'
 import React from 'react'
 import Colors from './Colors'
+import { Ionicons } from "@expo/vector-icons";
 
-export default function Header() {
+export default function Header({navigation}) {
   return (
-    <View style={{display:'flex',flexDirection:'row',
-    justifyContent:'space-evenly',gap:10,
-    alignItems:'center'
-    }}>
-        <Image source={require('./../../../assets/logo.png')}
-            style={styles.logo}/>
+    <View
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 10,
+        alignItems: "center",
+      }}
+    >
+      <Image
+        source={require("./../../../assets/logo.png")}
+        style={styles.logo}
+      />
 
-        <View>
-            <TextInput placeholder='Search' 
-                style={styles.searchBar}
-            />
-        </View>  
-        <Image source={require('./../../../assets/user.png')} 
-            style={styles.userImage}
-        /> 
+      <Pressable onPress={()=>{navigation.navigate("Search");}}>
+        <Ionicons name="search-circle" size={35} color="black" />
+      </Pressable>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

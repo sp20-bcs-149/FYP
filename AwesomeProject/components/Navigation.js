@@ -44,6 +44,8 @@ import Pending from './user/schedule/Pending';
 import Success from './user/schedule/Success';
 //findclinic
 import ClinicFinder from '../Screen/user/FindClinicMap';
+import Search from '../Screen/user/Search';
+import PlaceDetail from './user/findClinic/search/PlaceDetail';
 
 // all admin screen
 import AlertSend from '../Screen/admin/alertsend';
@@ -60,7 +62,7 @@ const Navigation = () =>{
         {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
         <Stack.Navigator
           screenOptions={{ headerShown: false }}
-          initialRouteName={"Login"}
+          initialRouteName={"Homeuser"}
         >
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Splash" component={SplashScreen} />
@@ -105,6 +107,8 @@ const Navigation = () =>{
           <Stack.Screen name="Pending" component={Pending} />
           <Stack.Screen name="Success" component={Success} />
           <Stack.Screen name="ClinicFinder" component={ClinicFinder} />
+          <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
 
           {/* all admin componets */}
           <Stack.Screen name="AlertSend" component={AlertSend} />
