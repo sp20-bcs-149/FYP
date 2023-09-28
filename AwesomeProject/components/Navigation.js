@@ -44,7 +44,13 @@ import Completed from "./user/schedule/Complete";
 import Pending from "./user/schedule/Pending";
 import Success from "./user/schedule/Success";
 //findclinic
+<<<<<<< HEAD
 import ClinicFinder from "../Screen/user/FindClinicMap";
+=======
+import ClinicFinder from '../Screen/user/FindClinicMap';
+import Search from '../Screen/user/Search';
+import PlaceDetail from './user/findClinic/search/PlaceDetail';
+>>>>>>> a6c92553ab2bef9dc889ede980ffa84aeaf8f124
 
 // all admin screen
 import AlertSend from "../Screen/admin/alertsend";
@@ -53,6 +59,7 @@ import NewsSend from "../Screen/admin/NewsSend";
 
 const Stack = createNativeStackNavigator();
 
+<<<<<<< HEAD
 const Navigation = () => {
   return (
     <NavigationContainer>
@@ -105,6 +112,61 @@ const Navigation = () => {
         <Stack.Screen name="Pending" component={Pending} />
         <Stack.Screen name="Success" component={Success} />
         <Stack.Screen name="ClinicFinder" component={ClinicFinder} />
+=======
+const Navigation = () =>{
+    return (
+      <NavigationContainer>
+        {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
+        <Stack.Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName={"Homeuser"}
+        >
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Splash" component={SplashScreen} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="EmailAuthentication"
+            component={EmailAuthentication}
+          />
+          <Stack.Screen
+            name="DeliveryBottomNavigation"
+            component={DeliveryBottomNavigation}
+          />
+          <Stack.Screen
+            name="AdminBottomNavigation"
+            component={AdminBottomNavigation}
+          />
+          <Stack.Screen
+            name="UserBottomNavigation"
+            component={UserBottomNavigation}
+          />
+          <Stack.Screen name="AdminDrawer" component={AdminDrawer} />
+          <Stack.Screen name="UserDrawer" component={UserDrawer} />
+          <Stack.Screen name="DeliveryDrawer" component={DeliveryDrawer} />
+          {/* all user components */}
+
+          <Stack.Screen name="Homeuser" component={Homeuser} />
+          <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="PersonalModel" component={PersonalModel} />
+          <Stack.Screen name="Family" component={Family} />
+          <Stack.Screen name="ChildRecord" component={ChildRecord} />
+          <Stack.Screen name="ChildTrack" component={ChildTrack} />
+          <Stack.Screen name="Schedule" component={Schedule} />
+          <Stack.Screen name="UserSchedule" component={UserSchedule} />
+          <Stack.Screen name="News" component={News} />
+          <Stack.Screen name="PdfPrintOut" component={PdfPrintOut} />
+          <Stack.Screen name="ReminderVaccine" component={ReminderVaccine} />
+          <Stack.Screen name="Alert" component={Alert} />
+          <Stack.Screen name="ScheduleHome" component={ScheduleHome} />
+          <Stack.Screen name="BookAppointment" component={BookAppointment} />
+          <Stack.Screen name="Completed" component={Completed} />
+          <Stack.Screen name="Pending" component={Pending} />
+          <Stack.Screen name="Success" component={Success} />
+          <Stack.Screen name="ClinicFinder" component={ClinicFinder} />
+          <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
+>>>>>>> a6c92553ab2bef9dc889ede980ffa84aeaf8f124
 
         {/* all admin componets */}
         <Stack.Screen name="AlertSend" component={AlertSend} />

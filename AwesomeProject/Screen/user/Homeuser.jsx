@@ -148,7 +148,7 @@ const Homeuser = ({ navigation }) => {
           {/* 2 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("Family")}
+            onPress={() => navigation.navigate("Family", { token_id: Tokendata._id })}
           >
             <View
               style={{
