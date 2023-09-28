@@ -5,11 +5,16 @@ import MyComponentAlert from '../AlertCall';
 
 import myURL from '../../../services/myurls';
 
-const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
+const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
   // user register _id and Role get Here and pass to the post method
 
   console.log(" my_ID in Folder_Name  " + my_ID);
-  const [Folder_Name, SetFolderName] = useState("");
+  const [name, Setname] = useState("");
+  const [gender, Setgender] = useState("");
+  const [height, Setheight] = useState("");
+  const [weight, Setweight] = useState("");
+  const [medical_history, Setmedical_history] = useState("");
+  const [age, Setage] = useState("");
 
   const [errormsg, setErrormsg] = useState(null);
 
@@ -65,7 +70,7 @@ const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
                   marginLeft: 20,
                 }}
               >
-                Folder Name
+                Name
               </Text>
               <TextInput
                 style={styles.input}
@@ -73,15 +78,125 @@ const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
                   setErrormsg(null);
                 }}
                 onChangeText={(text) => {
-                  SetFolderName(text);
+                  Setname(text);
                 }}
-                placeholder="Folder Name"
+                placeholder="Name"
+              />
+
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Gender
+              </Text>
+              <TextInput
+                style={styles.input}
+                onPressIn={() => {
+                  setErrormsg(null);
+                }}
+                onChangeText={(text) => {
+                  Setgender(text);
+                }}
+                placeholder="Gender"
+              />
+
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Height
+              </Text>
+              <TextInput
+                style={styles.input}
+                onPressIn={() => {
+                  setErrormsg(null);
+                }}
+                onChangeText={(text) => {
+                  Setheight(text);
+                }}
+                placeholder="Height"
+              />
+
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Weight
+              </Text>
+              <TextInput
+                style={styles.input}
+                onPressIn={() => {
+                  setErrormsg(null);
+                }}
+                onChangeText={(text) => {
+                  Setweight(text);
+                }}
+                placeholder="Weight"
+              />
+
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Medical_history
+              </Text>
+              <TextInput
+                style={styles.input}
+                onPressIn={() => {
+                  setErrormsg(null);
+                }}
+                onChangeText={(text) => {
+                  Setmedical_history(text);
+                }}
+                placeholder="Medical history"
+              />
+
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Age
+              </Text>
+              <TextInput
+                style={styles.input}
+                onPressIn={() => {
+                  setErrormsg(null);
+                }}
+                onChangeText={(text) => {
+                  Setage(text);
+                }}
+                placeholder="Age"
               />
 
               <Pressable
                 onPress={(e) => {
                   axios
-                    .post(myURL + "/family/", { my_ID, Folder_Name })
+                    .post(myURL + "/family/familyInside", { my_ID, name,gender,height,weight,medical_history,age })
                     .then((res) => {
                       console.log(res.data);
                       console.log("Profile Save!! ");
@@ -134,7 +249,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    flex:4/10,
+    flex:9/10,
     width:'90%',
     margin: 5,
     backgroundColor: 'white',
@@ -191,4 +306,4 @@ const styles = StyleSheet.create({
 
 
 
-export default FolderModel;
+export default CreateRecordModel;

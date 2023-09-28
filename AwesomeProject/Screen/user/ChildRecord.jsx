@@ -3,7 +3,8 @@ import { Text,View,StyleSheet,ScrollView, Pressable } from 'react-native';
 import myURL from '../../services/myurls';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
-
+import { Entypo } from "@expo/vector-icons"; 
+import CreateRecordModel from '../../components/user/familyProfile/CreateRecords';
 import { useRoute } from "@react-navigation/native";
 
 const ChildRecord = ({navigation}) => {
@@ -28,15 +29,19 @@ const ChildRecord = ({navigation}) => {
         console.error(error);
       }
     };
+    const [modalVisible, setModalVisible] = useState(false);
 
     return (
     <>
             <View style={style.container}>
             <ScrollView style={{width:'100%'}}>
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',flexDirection:'column'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
                         ChildRecord
                     </Text>
+                    <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                      <Entypo name="add-user" size={45} color="white" />
+                    </Pressable>
                 </View>
                 <View style={{flex:9/10,backgroundColor:'#FFFFFF',width:"100%",alignItems:'center'}}> 
                     {
@@ -65,6 +70,13 @@ const ChildRecord = ({navigation}) => {
                 </View>
                 
             </ScrollView>
+
+            <CreateRecordModel
+              modalVisible={modalVisible}
+              setModalVisible={setModalVisible}
+              my_ID={child_id}
+            />
+
             </View>
     </>
   )
