@@ -53,7 +53,7 @@ const NewsSend = ({navigation}) => {
 
     return (  
         <>
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
                         News
                     </Text>
@@ -65,7 +65,7 @@ const NewsSend = ({navigation}) => {
 
                          <Text style={{alignSelf:'center',fontSize:10,marginTop:20}}>      
                           {
-                              errormsg ? (<View style={{backgroundColor:"#C2185B",margin:10}}><Text style={{alignSelf:'center',borderRadius:10,padding:5,color:'white',fontSize:10}}>{errormsg}</Text></View>) : null 
+                              errormsg ? (<View style={{backgroundColor:"#E92424",margin:10}}><Text style={{alignSelf:'center',borderRadius:10,padding:5,color:'white',fontSize:10}}>{errormsg}</Text></View>) : null 
                           }
                          </Text>
 
@@ -97,7 +97,7 @@ const NewsSend = ({navigation}) => {
                                 senddata();
                             }
                          }> 
-                            <Text style={{borderRadius:10,alignSelf:'center',color:'white',fontSize:15,marginTop:20,backgroundColor:'#E92424',height:40,width:"60%",textAlign:'center',padding:10,fontWeight:'bold'}}>Profile</Text>
+                            <Text style={{borderRadius:10,alignSelf:'center',color:'white',fontSize:15,marginTop:20,backgroundColor:'#329998',height:40,width:"60%",textAlign:'center',padding:10,fontWeight:'bold'}}>Send News</Text>
                         </Pressable>
                         {/* <MyComponentAlert /> */}
 
