@@ -46,7 +46,7 @@ export default function ClinicScreen() {
               <FeaturedRow
                 key={index}
                 title={item.title}
-                restaurants={item.restaurants}
+                categories={item.categories}
                 description={item.description}
               />
             );

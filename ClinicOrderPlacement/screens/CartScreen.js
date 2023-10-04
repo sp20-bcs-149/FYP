@@ -6,14 +6,22 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { featured } from "../Constants";
 import { themeColors } from "../themes";
 import * as Icon from "react-native-feather";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRestaurant } from "../slices/RestaurantSlice";
-import { removeFromCart, selectCartItems, selectCartTotal } from "../slices/cartSlice";
+import {
+  selectRestaurant,
+  setRestaurant,
+} from "../slices/RestaurantSlice";
+import {
+  removeFromCart,
+  selectCartItems,
+  selectCartTotal,
+} from "../slices/cartSlice";
 
 export default function CartScreen() {
   const restaurant = useSelector(selectRestaurant);
@@ -23,6 +31,7 @@ export default function CartScreen() {
   const [groupedItems, setGroupedItems] = useState({});
   const deliveryFee = 2;
   const dispatch = useDispatch();
+  const Navigation = useNavigation()
 
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
@@ -36,9 +45,19 @@ export default function CartScreen() {
     setGroupedItems(items);
   }, [cartItems]);
 
+  const handlePlaceOrder = () => {
+    if (cartItems.length > 0) {
+      navigation.navigate("OrderPreparing");
+    } else {
+      Alert.alert(
+        "Empty Cart",
+        "You can't place an order with an empty cart. Please add items to your cart before placing an order."
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* backbutton */}
       <View style={styles.header}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -52,7 +71,6 @@ export default function CartScreen() {
         </View>
       </View>
 
-      {/* delivery Time */}
       <View style={styles.deliveryTimeContainer}>
         <Image
           source={require("../assets/Images/bikeGuy.png")}
@@ -64,24 +82,22 @@ export default function CartScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Vaccines */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
-        {
-          Object.entries(groupedItems).map(([key, items]) => {
-            let dish =items[0];
+        {Object.entries(groupedItems).map(([key, items]) => {
+          let dish = items[0];
           return (
             <View key={key} style={styles.dishContainer}>
               <Text style={styles.quantityText}>{items.length}x </Text>
               <Image source={dish.image} style={styles.dishImage} />
               <Text style={styles.dishName}>{dish.name}</Text>
               <Text style={styles.dishPrice}>${dish.price}</Text>
-              <TouchableOpacity 
-              onPress={()=>
-dispatch(removeFromCart({id: dish.id}))}
-              style={styles.minusButton}>
+              <TouchableOpacity
+                onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                style={styles.minusButton}
+              >
                 <Icon.Minus
                   stroke="white"
                   height={20}
@@ -94,7 +110,6 @@ dispatch(removeFromCart({id: dish.id}))}
         })}
       </ScrollView>
 
-      {/* total payment calculation */}
       <View style={styles.totalContainer}>
         <View style={styles.totalRow}>
           <Text style={styles.totalLabel}>Subtotal</Text>
@@ -108,12 +123,14 @@ dispatch(removeFromCart({id: dish.id}))}
 
         <View style={styles.totalRow}>
           <Text style={styles.totalLabelBold}>Order Total</Text>
-          <Text style={styles.totalValueBold}>${deliveryFee + cartTotal}</Text>
+          <Text style={styles.totalValueBold}>
+            ${deliveryFee + cartTotal}
+          </Text>
         </View>
 
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("OrderPreparing")}
+            onPress={handlePlaceOrder}
             style={styles.placeOrderButton}
           >
             <Text style={styles.placeOrderButtonText}>Place Order</Text>

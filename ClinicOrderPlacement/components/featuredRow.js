@@ -9,7 +9,7 @@ import {
 import { themeColors } from "../themes";
 import RestaurantCard from "./restaurantCard";
 
-export default function FeaturedRow({ title, description, restaurants }) {
+export default function FeaturedRow({ title, description, categories }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -17,16 +17,16 @@ export default function FeaturedRow({ title, description, restaurants }) {
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Text style={styles.seeAll}>See All</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.scrollViewContent}
       >
-        {restaurants.map((restaurant, index) => (
+        {categories.map((restaurant, index) => (
           <RestaurantCard item={restaurant} key={index} />
         ))}
       </ScrollView>
