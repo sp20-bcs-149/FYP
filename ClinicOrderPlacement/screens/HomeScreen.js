@@ -37,7 +37,7 @@ export default function ClinicScreen() {
         }}
       >
         {/* categories */}
-        <Categories />
+        {/* <Categories /> */}
 
         {/* featured */}
         <View style={{ marginTop: 25 }}>
