@@ -8,12 +8,13 @@ var ClinicProfileSchema = mongoose.Schema({
   cnic: Number,
   country: String,
   phoneno: String,
-  location: String,
+  latitude: Number,
+  longitude: Number,
 });
 
-var ClinicProfile = mongoose.model("ClinicProfile", ClinicProfileSchema);
+var clinicProfile = mongoose.model("ClinicProfile", ClinicProfileSchema);
 
-function validateClinicProfile(data) {
+function validateclinicProfile(data) {
   const schema = Joi.object({
     my_ID: Joi.string(),
     my_ROLE: Joi.string(),
@@ -21,10 +22,11 @@ function validateClinicProfile(data) {
     cnic: Joi.number().min(2).required(),
     country: Joi.string().min(2).required(),
     phoneno: Joi.string().min(2).required(),
-    location: Joi.string().min(2).required(),
+    latitude: Joi.number().required(),
+    longitude: Joi.number().required(),
   });
   return schema.validate(data, { abortEarly: false });
 }
 
-module.exports.ClinicProfile = ClinicProfile;
-module.exports.validate = validateClinicProfile;
+module.exports.ClinicProfile = clinicProfile;
+module.exports.validate = validateclinicProfile;

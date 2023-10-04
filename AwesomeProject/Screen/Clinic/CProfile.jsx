@@ -20,7 +20,7 @@ import myURL from "../../services/myurls";
 import PersonalModelProfile from "../../components/user/PersonalModelProfile";
 
 import { useRoute } from "@react-navigation/native";
-const ClinicProfile = ({ navigation, token_id }) => {
+const CProfile = ({ navigation, token_id }) => {
   const route = useRoute();
   let Token = route.params?.token;
   console.log("tok", Token._id);
@@ -33,7 +33,7 @@ const ClinicProfile = ({ navigation, token_id }) => {
 
   const getClinicProfile = () => {
     axios
-      .get(`${myURL}/Clinic/clinicProfile?my_ID=${Token._id}`)
+      .get(`${myURL}/routes/Clinic/clinicProfile?my_ID=${Token._id}`)
       .then((res) => {
         console.log("match User ID" + res.data);
         setresData(res.data);
@@ -205,4 +205,4 @@ const ClinicProfile = ({ navigation, token_id }) => {
   );
 };
 
-export default ClinicProfile;
+export default CProfile;

@@ -21,7 +21,7 @@ import { Foundation } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
 import myURL from "../../services/myurls";
-import clinicProfile from "./clinicProfile";
+import clinicProfile from "./CProfile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import jwtDecode from "jsonwebtoken";
 import jwtDecode from "jwt-decode";
@@ -93,13 +93,16 @@ const Homeclinic = ({ navigation }) => {
             // style={[styles.button, styles.buttonClose]}
             onPress={() => {
               axios
-                .get(`${myURL}/Clinic/clinicProfile?my_ID=${Tokendata._id}`)
+                .get(
+                  `${myURL}/routes/Clinic/clinicProfile?my_ID=${Tokendata._id}`
+                )
                 .then((res) => {
                   console.log("match User ID" + res.data);
                   setCheckProfile(res.data);
                   navigation.navigate("ClinicProfile", { token: Tokendata });
                 })
                 .catch((err) => {
+                  console.log("error in profile loading");
                   console.log(err);
                   setCheckProfile();
                   setModalVisible(!modalVisible);
