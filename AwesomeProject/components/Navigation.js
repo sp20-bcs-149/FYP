@@ -45,12 +45,15 @@ import Pending from "./user/schedule/Pending";
 import Success from "./user/schedule/Success";
 //findclinic
 import ClinicFinder from "../Screen/user/FindClinicMap";
-import Search from '../Screen/user/Search';
-import PlaceDetail from './user/findClinic/search/PlaceDetail';
+import Search from "../Screen/user/Search";
+import PlaceDetail from "./user/findClinic/search/PlaceDetail";
 // all admin screen
 import AlertSend from "../Screen/admin/alertsend";
 import AlertAdminforEditDelete from "../Screen/admin/alertAdminforEditDelete";
 import NewsSend from "../Screen/admin/NewsSend";
+
+//All clinic screen
+import ClinicProfile from "../Screen/Clinic/CProfile";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,6 +84,10 @@ const Navigation = () => {
         <Stack.Screen
           name="UserBottomNavigation"
           component={UserBottomNavigation}
+        />
+        <Stack.Screen
+          name="ClinicBottomNavigation"
+          component={ClinicBottomNavigation}
         />
         <Stack.Screen name="AdminDrawer" component={AdminDrawer} />
         <Stack.Screen name="UserDrawer" component={UserDrawer} />
@@ -119,6 +126,7 @@ const Navigation = () => {
 
         {/* all clinic component */}
         <Stack.Screen name="VerificationForm" component={VerificationForm} />
+        <Stack.Screen name="ClinicProfile" component={ClinicProfile} />
 
         {/* all rider component */}
       </Stack.Navigator>
