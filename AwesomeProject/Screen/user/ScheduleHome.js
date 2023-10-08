@@ -4,10 +4,20 @@ import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CommonBtn from "../../components/user/schedule/CommonBtn";
 import Header from "../../components/user/schedule/Header";
+import { useRoute } from "@react-navigation/native";
 
 const ScheduleHome = ({ navigation }) => {
-  const topRatedClinics = Array.from({ length: 6 }, (_, index) => index + 1);
+  
+  const route = useRoute();
+  let user = route.params?.user;
 
+  const topRatedClinics = Array.from({ length: 6 }, (_, index) => index + 1);
+  const mydata = [
+    {id:'kdfjkld1',my_ID:"1234",my_ROLE:"clinic",name:'Iqra Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld2',my_ID:"123",my_ROLE:"clinic",name:'Faisla Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld3',my_ID:"12",my_ROLE:"clinic",name:'Bulma',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld4',my_ID:"1",my_ROLE:"clinic",name:'GOKU',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  ]
   return (
     <View style={styles.container}>
       <Header
@@ -17,30 +27,11 @@ const ScheduleHome = ({ navigation }) => {
       />
       <View>
         <Image source={require("../../components/src/images/main.png")} style={styles.banner} />
-        <Text style={styles.heading}>Registered Clinics</Text>
-        <FlatList
-          data={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => {
-            return (
-              <TouchableOpacity key={index}>
-                <LinearGradient
-                  colors={["#329998", "#52B4B3", "#8CECEA"]}
-                  style={styles.linearGradient}
-                >
-                  <Text style={styles.clinicName}>
-                    {"Clinic " + (index + 1)}
-                  </Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            );
-          }}
-        />
       </View>
-      <Text style={styles.heading}>Top Rated Clinics</Text>
+      <Text style={styles.heading}>All Clinics</Text>
+      {/* get => all clinic register in my app and get location,name,etc */}
       <FlatList
-        data={topRatedClinics}
+        data={mydata}
         numColumns={2}
         renderItem={({ item, index }) => {
           return (
@@ -49,8 +40,8 @@ const ScheduleHome = ({ navigation }) => {
                 source={require("../../components/src/images/vac.png")}
                 style={styles.cliImage}
               />
-              <Text style={styles.cliName}>Clinic {index + 1}</Text>
-              <Text style={styles.cliAdd}>Location {index + 1}</Text>
+              <Text style={styles.cliName}> {item.name}</Text>
+              <Text style={styles.cliAdd}>Location {}</Text>
               <Text
                 style={[
                   styles.cliStatus,
@@ -69,7 +60,7 @@ const ScheduleHome = ({ navigation }) => {
                 txt={"Book Appointment"}
                 onClick={() => {
                   if (index / 2 == 0) {
-                    navigation.navigate("BookAppointment");
+                    navigation.navigate("BookAppointment",{clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude});
                   }
                 }}
               />
@@ -79,7 +70,7 @@ const ScheduleHome = ({ navigation }) => {
       />
       <View style={styles.bottomView}>
         <TouchableOpacity  onPress={()=>{
-          navigation.navigate('Complete')
+          navigation.navigate('Completed',{user:user})
         }}>
           <Image
             source={require('../../components/src/images/complete.png')}
@@ -87,7 +78,7 @@ const ScheduleHome = ({ navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity onPress={()=>{
-          navigation.navigate('Pending')
+          navigation.navigate('Pending',{user:user})
         }}>
           <Image
             source={require('../../components/src/images/pending.png')}
@@ -95,7 +86,7 @@ const ScheduleHome = ({ navigation }) => {
           />
         </TouchableOpacity>
         <TouchableOpacity  onPress={()=>{
-          navigation.navigate('BookAppointment')
+          navigation.navigate('ScheduleHome',{user:user})
         }}>
           <Image
             source={require('../../components/src/images/BookAppointment.jpg')}

@@ -9,6 +9,8 @@ var registerdata = require("./routes/users/registerdata");
 var profileRouter = require("./routes/OnlyUserRoutes/profile");
 var familyRoute = require("./routes/Family/folder");
 var familyInsideRoute = require("./routes/Family/folderInside");
+var userSchedule = require("./routes/users/ScheduleAnyPerson");
+
 // clinic
 var EntryVaccineTakenRecord = require("./routes/Clinic/UserVaccineTakenDataInset/entryTakenVaccine");
 var temp = require("./routes/temp");
@@ -50,6 +52,9 @@ app.use("/OnlyUserRoutes/profile", profileRouter);
 
 app.use("/family", familyRoute);
 app.use("/family/familyInside", familyInsideRoute);
+app.use("/user/scheduleAppointment/", userSchedule);
+
+app.use("/user/scheduleAppointment",userSchedule);
 //clinic
 app.use(
   "/Clinic/UserVaccineTakenDataInset/entryTakenVaccine",

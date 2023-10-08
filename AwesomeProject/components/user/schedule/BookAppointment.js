@@ -10,23 +10,59 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Alert,
+  Dimensions,
+  Linking
 } from "react-native";
 import Header from "./Header";
 import { FlatList } from "react-native";
 import CommonBtn from "./CommonBtn";
+import { useRoute } from "@react-navigation/native";
+import axios from "axios";
+import myURL from "../../../services/myurls";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
+// GET => Clicked Clinic name , clinic vaccine registered, 
+// post => clinic id, vaccine name, data , slot, user_id & name, cnic 
+// post => clinic id, vaccine name, date , slot, name, cnic 
 const BookAppointment = ({ navigation }) => {
+  const route = useRoute();
+  let clinic = route.params?.clinicName;
+  let my_ID = route.params?.user;
+  let longi = route.params?.longitude;
+  let lati = route.params?.latitude;
+  console.log("location " +typeof parseFloat(longi) + " " +typeof parseFloat(lati) );
+  console.log(" User_id ===>" +my_ID + " ");
+  const mydata = [
+    {id:'kdfjkld',vaccine_name:'Hep B',description:'haha',price:'100',img:'no',},
+    {id:'kdfjkld',vaccine_name:'COCO B',description:'haha',price:'100',img:'no',},
+    {id:'kdfjkld',vaccine_name:'COCO C',description:'haha',price:'100',img:'no',},
+  ]
+
+  const clinicLocation = {
+    latitude: parseFloat(lati), // Dummy latitude for clinic location
+    longitude: parseFloat(longi), // Dummy longitude for clinic location
+  };
+
   const [selectedSlot, setSelectedSlot] = useState(-1);
   const [selectedVaccine, setSelectedVaccine] = useState(null);
   const [selectedDay, setSelectedDay] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
   const [patientName, setPatientName] = useState("");
   const [cnicNumber, setCnicNumber] = useState("");
+  const [status, setStatus] = useState("pending");
+//  const [currentTime, setCurrentTime] = useState("");
 
   const [isDateSelected, setIsDateSelected] = useState(false);
   const [isSlotSelected, setIsSlotSelected] = useState(false);
   const [isNameEntered, setIsNameEntered] = useState(false);
   const [isCnicEntered, setIsCnicEntered] = useState(false);
+
+  const [mapRegion, setmapRegion] = useState({
+    latitude: 31.5204,
+    longitude: 74.3587,
+    latitudeDelta: 0.0122,
+    longitudeDelta: 0.0121,
+  });
 
   const [slots, setSlots] = useState([
     { sloT: "10:00-12:00PM", selected: false },
@@ -34,6 +70,7 @@ const BookAppointment = ({ navigation }) => {
     { sloT: "02:00-04:00PM", selected: false },
     { sloT: "04:00-06:00PM", selected: false },
     { sloT: "06:00-08:00PM", selected: false },
+    { sloT: "08:00-10:00PM", selected: false },
     { sloT: "08:00-10:00PM", selected: false },
   ]);
   const [days, setDays] = useState([]);
@@ -75,6 +112,7 @@ const BookAppointment = ({ navigation }) => {
     return days;
   };
 
+  console.log("----->> " + typeof my_ID,typeof selectedVaccine,typeof selectedDay,typeof selectedSlot,typeof patientName,typeof cnicNumber);
   const vaccineOptions = ["Polio", "Hep A", "Hep B", "Influenza", "Monococcal"];
 
   const handleConfirmVaccination = (vaccine) => {
@@ -131,14 +169,42 @@ const BookAppointment = ({ navigation }) => {
       return;
     }
 
-    // Passing the appointment details to Success screen
-    navigation.navigate("Success", {
-      selectedVaccine,
-      selectedDay: days[selectedDay].day,
-      selectedSlot: slots[selectedSlot].sloT,
-      patientName,
-      cnicNumber,
-    });
+      // Create a new Date object to get the current date and time
+      const currentDate = new Date();
+
+      // Extract hours, minutes, and seconds
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+
+      // Format the time as a string
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+      // Update the state with the current time
+      currentTime = formattedTime;
+
+    axios
+      .post(myURL+"/user/scheduleAppointment/", {my_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
+      .then((res) => {
+      console.log(res.data);
+      Alert.alert("BOOK SCHEDULE");
+      navigation.navigate("Success", {
+          selectedVaccine,
+          selectedDay: days[selectedDay].day,
+          selectedSlot: slots[selectedSlot].sloT,
+          patientName,
+          cnicNumber,
+      })
+      
+      // {Alert.alert("Hi")}
+      })
+      .catch((err)=> {
+      console.log(err);
+      })
+
+      
+  
+
   };
 
   return (
@@ -149,13 +215,46 @@ const BookAppointment = ({ navigation }) => {
         keyboardShouldPersistTaps="handled" 
         keyboardDismissMode="on-drag" 
        > 
-                <Header
+          <Header
             icon={require("../../src/images/backbutton.png")}
             title={"Book Appointment"}
             navigation={navigation}
           />
+          <View style={{ borderRadius: 20, overflow: "hidden" }}>
+            <MapView
+              style={{
+                width: Dimensions.get("screen").width * 1,
+                height: Dimensions.get("screen").height * 0.25,
+                alignSelf: "center",
+                marginBottom: 10,
+              }}
+              provider={PROVIDER_GOOGLE}
+              showsUserLocation={true}
+              followsUserLocation={true}
+              region={mapRegion}
+            >
+              <Marker
+                coordinate={{
+                  latitude: clinicLocation.latitude,
+                  longitude: clinicLocation.longitude,
+                }}
+                title="Clinic Name"
+                description="Address"
+              />
+            </MapView>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  `https://www.google.com/maps/dir/?api=1&destination=${clinicLocation.latitude},${clinicLocation.longitude}`
+                )
+              }
+            >
+              <Text style={styles.directions}>Get Directions</Text>
+            </TouchableOpacity>
+          </View>
+
           <Image source={require("../../src/images/vac.png")} style={styles.cliImg} />
-          <Text style={styles.name}>Iqra Medical Complex</Text>
+          <Text style={styles.name}>{clinic}</Text>
 
           <TouchableOpacity
             onPress={() => setModalVisible(true)}
@@ -167,12 +266,12 @@ const BookAppointment = ({ navigation }) => {
           <Modal animationType="slide" transparent={true} visible={modalVisible}>
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                {vaccineOptions.map((vaccine, index) => (
+                {mydata.map((vaccine, index) => (
                   <TouchableOpacity
                     key={index}
-                    onPress={() => handleConfirmVaccination(vaccine)}
+                    onPress={() => handleConfirmVaccination(vaccine.vaccine_name)}
                   >
-                    <Text style={styles.modalText}>{vaccine}</Text>
+                    <Text style={styles.modalText}>{vaccine.vaccine_name}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
@@ -233,6 +332,8 @@ const BookAppointment = ({ navigation }) => {
               data={slots}
               renderItem={({ item, index }) => {
                 return (
+                  <>
+                  {/* {if(selectedDay)} */}
                   <TouchableOpacity
                     style={[
                       styles.timeSlot,
@@ -252,6 +353,7 @@ const BookAppointment = ({ navigation }) => {
                       {item.sloT}
                     </Text>
                   </TouchableOpacity>
+                  </>
                 );
               }}
             />
@@ -389,6 +491,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: 15,
     fontSize: 16,
+  },
+  directions: {
+    textAlign: "center",
+    color: "#329998",
+    fontSize: 16,
+    textDecorationLine: "underline",
+    marginTop: 10,
   },
 });
 

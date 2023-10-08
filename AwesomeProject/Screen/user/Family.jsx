@@ -44,23 +44,25 @@ const Family = ({navigation}) => {
                 <ScrollView>
 
                 <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',}}> 
-                    <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,fontWeight:'900',flexDirection:'row'}}>
+                    <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,fontWeight:'900',flexDirection:'row',textAlign:'center'}}>
                         Family Profile
                     </Text>
                     <View>
-                        <Pressable
-                            onPress={() => setModalVisible(!modalVisible)}
-                          >
 
-                            <Entypo name="folder" size={24} color="white" />
-                        </Pressable>
                     </View>
                 </View>
+
+                <Pressable onPress={() => setModalVisible(!modalVisible)} >
+                    <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
+                        <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>Create Folder</Text>
+                    </View>
+                </Pressable>
+
                 <View style={{flex:9/10,backgroundColor:'#FFFFFF',width:'100%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-evenly'}}> 
  
                     {
                     data.map((item) => (
-                        <Pressable key={item._id} onPress={()=>{navigation.navigate("ChildRecord",{child_id : item._id})}}>
+                        <Pressable key={item._id} onPress={()=>{navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name})}}>
                         <View  style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                             <Ionicons name='person' size={45} color='white' />
                             <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>{item.Folder_Name}</Text>

@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import Header from "./Header";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
+import axios from "axios";
+import myURL from "../../../services/myurls";
+import { useRoute } from "@react-navigation/native";
 
 const Pending = () => {
+  const route = useRoute();
+  let user = route.params?.user;
   const navigation = useNavigation(); // Initialize the navigation object
+    const [data,setResData] = useState([]);
+
+    
+  const getpendingAppointment = () => {
+    axios
+      .get(`${myURL}/user/scheduleAppointment/pending/?my_ID=${user}`)
+      .then((res) => {
+        console.log("match User ID" + res.data);
+        setResData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(()=>{
+    getpendingAppointment();
+  },[])
 
   const handleBackButton = () => {
     navigation.goBack(); // Navigate back
@@ -19,7 +42,7 @@ const Pending = () => {
       />
       <View>
         <FlatList
-          data={[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}
+          data={data}
           renderItem={({ item, index }) => {
             return (
               <View style={styles.itemView}>
@@ -28,8 +51,8 @@ const Pending = () => {
                   style={styles.docImage}
                 />
                 <View>
-                  <Text style={styles.name}>{"Pending  Appointment"}</Text>
-                  <Text style={styles.timing}>{"08:10PM"}</Text>
+                  <Text style={styles.name}>{item.selectedVaccine}</Text>
+                  <Text style={styles.timing}>{item.currentTime} AM</Text>
                 </View>
                 <Text style={styles.status}>{"Pending"}</Text>
               </View>

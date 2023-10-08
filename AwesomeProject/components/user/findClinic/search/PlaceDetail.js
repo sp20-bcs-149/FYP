@@ -11,7 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import { useRoute } from "@react-navigation/native";
 
-
+/// error in params  //
 export default function PlaceDetail() {
       const route = useRoute();
       let Place = route.params?.place;
