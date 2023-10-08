@@ -54,6 +54,7 @@ app.use("/family", familyRoute);
 app.use("/family/familyInside", familyInsideRoute);
 app.use("/user/scheduleAppointment/", userSchedule);
 
+app.use("/user/scheduleAppointment",userSchedule);
 //clinic
 app.use(
   "/Clinic/UserVaccineTakenDataInset/entryTakenVaccine",

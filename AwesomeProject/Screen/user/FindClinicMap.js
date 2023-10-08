@@ -40,7 +40,7 @@ export default function ClinicFinder({navigation}) {
       <CategoryList
         setSelectedCategory={(value) => GetNearBySearchPlace(value)}
       />
-      {placeList ? <PlaceList placeList={placeList} /> : null}
+      {placeList ? <PlaceList placeList={placeList} navigation={navigation} /> : null}
     </ScrollView>
   );
 }

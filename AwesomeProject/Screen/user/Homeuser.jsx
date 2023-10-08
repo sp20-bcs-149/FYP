@@ -173,7 +173,7 @@ const Homeuser = ({ navigation }) => {
           {/* 3 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("ScheduleHome")}
+            onPress={() => navigation.navigate("ScheduleHome",{user:Tokendata._id})}
           >
             <View
               style={{

@@ -5,12 +5,9 @@ import PlaceItem from './PlaceItem'
 import PlaceItemBig from './PlaceItemBig'
 import { useNavigation } from '@react-navigation/native'
 
-export default function PlaceList({placeList}) {
+export default function PlaceList({placeList,navigation}) {
 
   const navigator=useNavigation();
-  const onPlaceClick=(item)=>{
-    navigator.navigate('place-detail',{place:item}); 
-  }
   return (
     <View>
       <Text
@@ -21,7 +18,7 @@ export default function PlaceList({placeList}) {
       data={placeList}
       renderItem={({item,index})=>(
         <TouchableOpacity key={index} 
-        onPress={()=>onPlaceClick(item)}>
+        onPress={()=>navigation.navigate('PlaceDetail',{place:item})}>
             {index%4==0?
             <PlaceItemBig place={item} />
             :<PlaceItem place={item} />}

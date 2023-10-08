@@ -65,7 +65,7 @@ const ChildRecord = ({navigation}) => {
                                     <View><Text style={{fontSize:11,}}>Height : {item.height} cm</Text></View>
                                 </View>
                             </View>
-                            <Pressable style={{backgroundColor:'red',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{name:item.name,weight:item.weight,height:item.height})}}>
+                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{Clicked_child_id:item._id,name:item.name,weight:item.weight,height:item.height})}}>
                                 <View style={{alignSelf:'center',marginLeft:-20}}>
                                   <AntDesign name="caretright" size={24} color="#3C7DA3" style={{}} />
                                 </View>

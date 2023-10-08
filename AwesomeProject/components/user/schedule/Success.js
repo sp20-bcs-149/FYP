@@ -27,7 +27,7 @@ const Success = ({ route, navigation }) => {
       <TouchableOpacity
         style={styles.bckBtn}
         onPress={() => {
-          navigation.navigate("ScheduleHome");
+          navigation.navigate("Homeuser");
         }}
       >
         <Text>Go To Home</Text>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text,View,StyleSheet,ScrollView } from 'react-native';
+import { Text,View,StyleSheet,ScrollView, TouchableOpacity } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
@@ -14,7 +14,158 @@ const ChildTrack = ({navigation}) => {
   let name = route.params?.name;
   let weight = route.params?.weight;
   let height = route.params?.height;
+  let Clicked_child_id = route.params?.Clicked_child_id;
 
+    const vaccines = [
+      {
+        "disease": "Childhood TB",
+        "causative_agent": "Bacteria",
+        "vaccine": "BCG",
+        "doses": 1,
+        "age_of_administration": "Soon after birth",
+        "age": {
+          "dose": "BCG",
+          "age_in_days": 1
+        }
+      },
+      {
+        "disease": "Poliomyelitis",
+        "causative_agent": "Virus",
+        "vaccine": "OPV",
+        "doses": 4,
+        "age_of_administration": [
+          "OPV0: Soon after birth",
+          "OPV1: 6 weeks",
+          "OPV2: 10 weeks",
+          "OPV3: 14 weeks"  
+        ],
+        "age": [
+          {"dose": "OPV0", "age_in_days": 1},
+          {"dose": "OPV1", "age_in_days": 42},
+          {"dose": "OPV2", "age_in_days": 70},
+          {"dose": "OPV3", "age_in_days": 98}
+        ]
+      },
+      {
+        "disease": "Poliomyelitis",
+        "causative_agent": "Virus",
+        "vaccine": "IPV",
+        "doses": 1,
+        "age_of_administration": "IPV-I: 14 weeks",
+        "age": {
+          "dose": "IPV-I",
+          "age_in_days": 98
+        }
+      },
+      {
+        "disease": "Diphtheria",
+        "causative_agent": "Bacteria",
+        "vaccine": "Pentavalent vaccine (DTP+Hep B + Hib)",
+        "doses": 3,
+        "age_of_administration": [
+          "Penta1: 6 weeks",
+          "Penta2: 10 weeks",
+          "Penta3: 14 weeks"
+        ],
+        "age": [
+          {"dose": "Penta1", "age_in_days": 42},
+          {"dose": "Penta2", "age_in_days": 70},
+          {"dose": "Penta3", "age_in_days": 98}
+        ]
+      },
+      {
+        "disease": "Tetanus",
+        "causative_agent": "Bacteria",
+        "vaccine": "Pentavalent vaccine (DTP+Hep B + Hib)",
+        "doses": 3,
+        "age_of_administration": [
+          "Penta1: 6 weeks",
+          "Penta2: 10 weeks",
+          "Penta3: 14 weeks"
+        ],
+        "age": [
+          {"dose": "Penta1", "age_in_days": 42},
+          {"dose": "Penta2", "age_in_days": 70},
+          {"dose": "Penta3", "age_in_days": 98}
+        ]
+      },
+      {
+        "disease": "Pertussis",
+        "causative_agent": "Bacteria",
+        "vaccine": "Pentavalent vaccine (DTP+Hep B + Hib)",
+        "doses": 3,
+        "age_of_administration": [
+          "Penta1: 6 weeks",
+          "Penta2: 10 weeks",
+          "Penta3: 14 weeks"
+        ],
+        "age": [
+          {"dose": "Penta1", "age_in_days": 42},
+          {"dose": "Penta2", "age_in_days": 70},
+          {"dose": "Penta3", "age_in_days": 98}
+        ]
+      },
+      {
+        "disease": "Hepatitis B",
+        "causative_agent": "Virus",
+        "vaccine": "Pentavalent vaccine (DTP+Hep B + Hib)",
+        "doses": 3,
+        "age_of_administration": [
+          "Penta1: 6 weeks",
+          "Penta2: 10 weeks",
+          "Penta3: 14 weeks"
+        ],
+        "age": [
+          {"dose": "Penta1", "age_in_days": 42},
+          {"dose": "Penta2", "age_in_days": 70},
+          {"dose": "Penta3", "age_in_days": 98}
+        ]
+      },
+      {
+        "disease": "Hib pneumonia and meningitis",
+        "causative_agent": "Bacteria",
+        "vaccine": "Pentavalent vaccine (DTP+Hep B + Hib)",
+        "doses": 3,
+        "age_of_administration": [
+          "Penta1: 6 weeks",
+          "Penta2: 10 weeks",
+          "Penta3: 14 weeks"
+        ],
+        "age": [
+          {"dose": "Penta1", "age_in_days": 42},
+          {"dose": "Penta2", "age_in_days": 70},
+          {"dose": "Penta3", "age_in_days": 98}
+        ]
+      },
+      {
+        "disease": "Diarrhoea due to rotavirus",
+        "causative_agent": "Virus",
+        "vaccine": "Rotavirus",
+        "doses": 2,
+        "age_of_administration": [
+          "Rota 1: 6 weeks",
+          "Rota 2: 10 weeks"
+        ],
+        "age": [
+          {"dose": "Rota 1", "age_in_days": 42},
+          {"dose": "Rota 2", "age_in_days": 70}
+        ]
+      },
+      {
+        "disease": "Measles",
+        "causative_agent": "Virus",
+        "vaccine": "Measles",
+        "doses": 2,
+        "age_of_administration": [
+          "Measles1: 9 months",
+          "Measles2: 15 months"
+        ],
+        "age": [
+          {"dose": "Measles1", "age_in_days": 270},
+          {"dose": "Measles2", "age_in_days": 450}
+        ]
+      }
+    ]
     return (
     <>
             <View style={style.container}>
@@ -56,32 +207,6 @@ const ChildTrack = ({navigation}) => {
                             <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>feedback</Text></View>
                         </View>
                         {/* 1 end */}
-                        {/* 1 */}
-                        <View style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="star" size={35} color="#329998" />
-
-
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>Hepatitus B</Text>
-                                <Text style={{fontSize:10,}}>Vaccine name: bOPV</Text>
-                                <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
-                            </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>feedback</Text></View>
-                        </View>
-                        {/* 1 end */}
-                        {/* 1 */}
-                        <View style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="star" size={35} color="#329998" />
-
-
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>Hepatitus B</Text>
-                                <Text style={{fontSize:10,}}>Vaccine name: bOPV</Text>
-                                <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
-                            </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>feedback</Text></View>
-                        </View>
-                        {/* 1 end */}
 
                     </View>
                     <View style={{marginBottom:30,}}></View>
@@ -90,42 +215,27 @@ const ChildTrack = ({navigation}) => {
                     <View style={{justifyContent:'flex-start',width:'80%'}}>
                         <View style={{backgroundColor:'#F6F6F6',marginTop:20,}}><Text>REMANING VACCINE</Text></View>
                         {/* 1 */}
-                        <View style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="staro" size={35} color="#329998" />
+                        {
+                            vaccines.map((item) => (
+                                <View key={item.disease} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
+                                    <AntDesign name="staro" size={35} color="#329998" />
 
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>Hepatitus B</Text>
-                                <Text style={{fontSize:10,}}>Vaccine name: bOPV</Text>
-                                <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
-                            </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Schedule</Text></View>
-                        </View>
+                                    <View style={{flexDirection:'column',}}>
+                                        <Text style={{fontSize:11,fontWeight:'bold'}}>Hepatitus B</Text>
+                                        <Text style={{fontSize:10,}}>Vaccine name: bOPV</Text>
+                                        <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
+                                    </View>
+                                    <TouchableOpacity onPress={()=>{navigation.navigate('ScheduleHome',{user:Clicked_child_id})}}>
+                                        <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Schedule</Text></View>
+                                    </TouchableOpacity>
+                                </View>
+
+
+                            ))
+
+                        }
+
                         {/* 1 end */}
-                        {/* 1 */}
-                        <View style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="staro" size={35} color="#329998" />
-
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>Hepatitus B</Text>
-                                <Text style={{fontSize:10,}}>Vaccine name: bOPV</Text>
-                                <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
-                            </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Schedule</Text></View>
-                        </View>
-                        {/* 1 end */}
-                        {/* 1 */}
-                        <View style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="staro" size={35} color="#329998" />
-
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>Hepatitus B</Text>
-                                <Text style={{fontSize:10,}}>Vaccine name: bOPV</Text>
-                                <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
-                            </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Schedule</Text></View>
-                        </View>
-                        {/* 1 end */}
-
 
                     </View>
                     <View style={{marginBottom:30,}}></View>
