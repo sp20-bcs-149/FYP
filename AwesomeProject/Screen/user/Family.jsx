@@ -43,7 +43,7 @@ const Family = ({navigation}) => {
             <View style={style.container}>
                 <ScrollView>
 
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',}}> 
                     <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,fontWeight:'900',flexDirection:'row',textAlign:'center'}}>
                         Family Profile
                     </Text>
@@ -63,7 +63,7 @@ const Family = ({navigation}) => {
                     {
                     data.map((item) => (
                         <Pressable key={item._id} onPress={()=>{navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name})}}>
-                        <View  style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
+                        <View  style={{backgroundColor:"#329998",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                             <Ionicons name='person' size={45} color='white' />
                             <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>{item.Folder_Name}</Text>
                             <Text style={{color:"white"}}>Profile</Text>
