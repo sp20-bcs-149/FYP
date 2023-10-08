@@ -18,12 +18,12 @@ const ChoseClinic = ({navigation}) => {
 
 
                     {/* 1 - start */}
-                    <View style={{backgroundColor:"#3C7DA3",width:"90%",height:100,borderRadius:10,justifyContent:'space-evenly',alignItems:'center',marginTop:20}}>
+                    <View style={{backgroundColor:"#329998",width:"90%",height:100,borderRadius:10,justifyContent:'space-evenly',alignItems:'center',marginTop:20}}>
                         <View style={{width:"100%",justifyContent:'space-evenly',flexDirection:'row'}}>
                             {/* <Ionicons name='person' size={35} color='black' /> */}
                             <View style={{flexDirection:'column'}}>    
                                 <Text style={{fontSize:25,fontWeight:'bold',color:'white'}}>Text Clinic</Text>
-                                <View><Text style={{fontSize:11,color:'white'}}>vaccines on the Official Vaccines pages ... </Text></View>
+                                <View><Text style={{fontSize:11,color:'white'}}>Vaccines on the Official Vaccines pages ... </Text></View>
                             </View>
                         </View>
                         <View style={style.line}></View>

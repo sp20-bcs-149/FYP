@@ -9,7 +9,7 @@ const Schedule = () => {
     <>
             <View style={style.container}>
             <ScrollView style={{width:'100%'}}>
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
                         Schedule
                     </Text>
@@ -31,7 +31,7 @@ const Schedule = () => {
                         </View>
                         <View style={style.line}></View>
                         <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
-                            <AntDesign name="edit" size={24} color="#3C7DA3" />
+                            <AntDesign name="edit" size={24} color="#329998" />
                             <Ionicons name='person' size={25} color='#E6EDED' />
                             <AntDesign name="delete" size={24} color="#FF0000" />                        
                         </View>
@@ -60,7 +60,7 @@ const Schedule = () => {
                         </View>
                         <View style={style.line}></View>
                         <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
-                            <AntDesign name="edit" size={24} color="#3C7DA3" />
+                            <AntDesign name="edit" size={24} color="#329998" />
                             <Ionicons name='person' size={25} color='#E6EDED' />
                             <AntDesign name="delete" size={24} color="#FF0000" />                        
                         </View>
@@ -88,7 +88,7 @@ const Schedule = () => {
                         </View>
                         <View style={style.line}></View>
                         <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
-                            <AntDesign name="edit" size={24} color="#3C7DA3" />
+                            <AntDesign name="edit" size={24} color="#329998" />
                             <Ionicons name='person' size={25} color='#E6EDED' />
                             <AntDesign name="delete" size={24} color="#FF0000" />                        
                         </View>
@@ -114,7 +114,7 @@ const Schedule = () => {
                         </View>
                         <View style={style.line}></View>
                         <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
-                            <AntDesign name="edit" size={24} color="#3C7DA3" />
+                            <AntDesign name="edit" size={24} color="#329998" />
                             <Ionicons name='person' size={25} color='#E6EDED' />
                             <AntDesign name="delete" size={24} color="#FF0000" />                        
                         </View>
@@ -140,7 +140,7 @@ const Schedule = () => {
                         </View>
                         <View style={style.line}></View>
                         <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
-                            <AntDesign name="edit" size={24} color="#3C7DA3" />
+                            <AntDesign name="edit" size={24} color="#329998" />
                             <Ionicons name='person' size={25} color='#E6EDED' />
                             <AntDesign name="delete" size={24} color="#FF0000" />                        
                         </View>

@@ -9,7 +9,7 @@ const PdfPrintOut = () => {
     <>
             <View style={style.container}>
             <ScrollView width="100%">
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:20,padding:20,textAlign:'center',fontWeight:'700'}}>
                         Certification Information
                     </Text>
@@ -21,9 +21,9 @@ const PdfPrintOut = () => {
 
                 
                 <View style={{backgroundColor:"#FFFFFF",width:"90%",alignSelf:'center',height:100,borderRadius:10,justifyContent:'space-evenly',alignItems:'center',marginTop:20,marginBottom:5,}}>
-                    <Text style={{fontSize:12,fontWeight:'700',color:'#3C7DA3',margin:-10,}}>Type : Vaccination</Text>
-                    <Text style={{fontSize:12,fontWeight:'700',color:'#3C7DA3',margin:-10,}}>Status : Valid </Text>
-                    <Text style={{fontSize:12,fontWeight:'700',color:'#3C7DA3',margin:-10,}}>Dose : 1 of 2</Text>
+                    <Text style={{fontSize:12,fontWeight:'700',color:'#329998',margin:-10,}}>Type : Vaccination</Text>
+                    <Text style={{fontSize:12,fontWeight:'700',color:'#329998',margin:-10,}}>Status : Valid </Text>
+                    <Text style={{fontSize:12,fontWeight:'700',color:'#329998',margin:-10,}}>Dose : 1 of 2</Text>
                 </View>
                 
 
@@ -110,7 +110,7 @@ const style = StyleSheet.create({
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'#3C7DA3'
+        backgroundColor:'#329998'
     }
     ,
     line: {

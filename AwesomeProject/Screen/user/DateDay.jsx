@@ -31,7 +31,7 @@ class DateDay extends Component {
     const renderedItems = [];
     for (let i = 0; i < 10; i++) {
         renderedItems.push(
-                <Text key={i} style={{ backgroundColor:`${isSelected? 'red':'#3C7DA3' }`,padding:10,borderRadius:20,color:'#FFFFFF',textAlign:'center',marginLeft:20,marginTop:20,}}> 10 : 30 AM</Text>
+                <Text key={i} style={{ backgroundColor:`${isSelected? 'red':'#329998' }`,padding:10,borderRadius:20,color:'#FFFFFF',textAlign:'center',marginLeft:20,marginTop:20,}}> 10 : 30 AM</Text>
 
         );
     }

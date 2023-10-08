@@ -9,7 +9,7 @@ const ReminderVaccine = () => {
     <>
             <View style={style.container}>
             <ScrollView width="100%">
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:20,padding:20,textAlign:'center',fontWeight:'700'}}>
                         Certification Information
                     </Text>
@@ -49,7 +49,7 @@ const style = StyleSheet.create({
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'#3C7DA3'
+        backgroundColor:'#329998'
     }
     ,
     line: {
