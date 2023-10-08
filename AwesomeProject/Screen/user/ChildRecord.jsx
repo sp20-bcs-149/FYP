@@ -6,10 +6,11 @@ import axios from 'axios';
 import { Entypo } from "@expo/vector-icons"; 
 import CreateRecordModel from '../../components/user/familyProfile/CreateRecords';
 import { useRoute } from "@react-navigation/native";
-
+import { AntDesign } from '@expo/vector-icons'; 
 const ChildRecord = ({navigation}) => {
   const route = useRoute();
   let child_id = route.params?.child_id;
+  let Folder_Name = route.params?.folderName;
 
 
     const [ChildData, setChildData] = useState([]);
@@ -37,31 +38,40 @@ const ChildRecord = ({navigation}) => {
             <ScrollView style={{width:'100%'}}>
                 <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',flexDirection:'column'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
-                        ChildRecord
+                        {Folder_Name}
                     </Text>
-                    <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                      <Entypo name="add-user" size={45} color="white" />
-                    </Pressable>
                 </View>
+                <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                  <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
+                      <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>New Child</Text>
+                  </View>
+                </Pressable>
+
                 <View style={{flex:9/10,backgroundColor:'#FFFFFF',width:"100%",alignItems:'center'}}> 
                     {
                         ChildData.map((item) => (
-                            <Pressable key={item._id} onPress={()=>{navigation.navigate("ChildTrack")}}>
-                            <View  style={{backgroundColor:"#E6EDED",width:"90%",height:100,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
+                            <View key={item._id} style={{flexDirection:'row',justifyContent:'center',width:"90%",backgroundColor:"#E6EDED",width:"90%",height:80,borderRadius:10,alignItems:'center',marginTop:10}}>
+
+                            <View  style={{}}>
+                                <View style={{width:"85%",justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
                                     <Ionicons name='person' size={35} color='black' />
                                     <Text style={{fontSize:25,fontWeight:'bold'}}>{item.name}</Text>
                                     <View><Text style={{backgroundColor:'#329998',color:'white'}}>{item.gender}</Text></View>
                                 </View>
-                                <View style={style.line}></View>
-                                <View style={{width:"100%",justifyContent:'space-around',flexDirection:'row'}}>
+                                {/* <View style={style.line}></View> */}
+                                <View style={{width:"85%",justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
                                     <View><Text style={{fontSize:11,}}>Age : {item.age} Year</Text></View>
                                     <View><Text style={{fontSize:11,}}>Weight : {item.weight} Kg</Text></View>
                                     <View><Text style={{fontSize:11,}}>Height : {item.height} cm</Text></View>
                                 </View>
-
                             </View>
+                            <Pressable style={{backgroundColor:'red',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{name:item.name,weight:item.weight,height:item.height})}}>
+                                <View style={{alignSelf:'center',marginLeft:-20}}>
+                                  <AntDesign name="caretright" size={24} color="#3C7DA3" style={{}} />
+                                </View>
                             </Pressable>
+                            </View>
+
                         ))
 
                     }
@@ -91,9 +101,11 @@ const style = StyleSheet.create({
     }
     ,
     line: {
-        height: 1,
-        width:'90%',
-        backgroundColor: '#B9B0B0', // Set your desired line color
+        height: 0.5,
+        width:'80%',
+        backgroundColor: '#9A9292', // Set your desired line color
+        alignItems:'center',
+        alignSelf:'center'
   },
 })
 
