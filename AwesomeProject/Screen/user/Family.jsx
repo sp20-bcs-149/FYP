@@ -9,18 +9,28 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons"; 
 import FolderModel from "../../components/user/familyProfile/folderModel";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Family = ({navigation}) => {
   const route = useRoute();
   let Token_id = route.params?.token_id;
 
     const [data, setData] = useState([]);
+    const [refresh, setRefresh] = useState(false);
+
+
+    const pullMe = () => {
+        setRefresh(true);
+        setTimeout(() => {
+            setRefresh(false);
+        }, 4000);
+    };
 
     console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
     // console.log("=========================>HOME USER TOKEN USER SERVICE" + JSON.stringify(userService.getLoggedInUser()));
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [refresh]);
 
     const fetchData = async () => {
     try {
@@ -72,7 +82,6 @@ const Family = ({navigation}) => {
 
                         ))
                     }
-
                 </View>
                 
                 </ScrollView>
@@ -81,8 +90,11 @@ const Family = ({navigation}) => {
                             setModalVisible={setModalVisible}
                             my_ID={Token_id}
                         />
-
+                
             </View>
+            <TouchableOpacity onPress={pullMe()} >
+                <Text>Refresh</Text>
+            </TouchableOpacity>
         </>
         ):(
             <Text>LOADING....</Text>
@@ -105,4 +117,4 @@ const style = StyleSheet.create({
 })
 
 
-export default Family;
+export default Family ;

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {View ,Text, StyleSheet, ScrollView, SafeAreaView,Image,Pressable,Modal,TextInput,Alert} from 'react-native';
 import axios from 'axios';
 import MyComponentAlert from '../AlertCall';
-
 import myURL from '../../../services/myurls';
 
 const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
@@ -16,6 +15,7 @@ const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID })
   const [medical_history, Setmedical_history] = useState("");
   const [age, Setage] = useState("");
 
+  
   const [errormsg, setErrormsg] = useState(null);
 
   return (
@@ -202,7 +202,7 @@ const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID })
                       console.log("Profile Save!! ");
                       setModalVisible(!modalVisible);
                       Alert.alert("SAVE PROFILE");
-
+                      pullMe();
                       // {Alert.alert("Hi")}
                     })
                     .catch((err) => {

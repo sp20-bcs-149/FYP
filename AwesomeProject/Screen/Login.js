@@ -26,9 +26,7 @@ const Login = ({ navigation }) => {
   function checkfiled() {
     if (!email || !password) {
       setErrormsg("Please fillout all the filled !!! ");
-    } else {
-      setErrormsg("Incorrect Email & Password");
-    }
+    } 
   }
 
   // useEffect( async()=>{
@@ -186,6 +184,7 @@ const Login = ({ navigation }) => {
                       // window.location.href = "/";
                     })
                     .catch((err) => {
+                      setErrormsg("Incorrect Email & Password");
                       console.log(err);
                     });
                   checkfiled();

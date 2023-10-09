@@ -45,7 +45,7 @@ const ScheduleHome = ({ navigation }) => {
                 style={styles.cliImage}
               />
               <Text style={styles.cliName}> {item.name}</Text>
-              <Text style={styles.cliAdd}>Location {}</Text>
+              {/* <Text style={styles.cliAdd}>Location {}</Text> */}
               <Text
                 style={[
                   styles.cliStatus,
