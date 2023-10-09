@@ -14,14 +14,14 @@ export default function Header({navigation}) {
         alignItems: "center",
       }}
     >
-      <Image
+      {/* <Image
         source={require("./../../../assets/logo.png")}
         style={styles.logo}
-      />
+      /> */}
 
-      <Pressable onPress={()=>{navigation.navigate("Search");}}>
+      {/* <Pressable onPress={()=>{navigation.navigate("Search");}}>
         <Ionicons name="search-circle" size={35} color="black" />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 }

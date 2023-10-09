@@ -102,12 +102,12 @@ const PersonalModel = ({navigation,modalVisible,setModalVisible,token}) => {
                         <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(country)=>{SetCountry(country)}}  placeholder="Enter Country"/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Medical</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(medical)=>{SetMedical(medical)}}  placeholder="Enter Medical"/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(medical)=>{SetMedical(medical)}}  placeholder="Enter Medical(Any Prior Disease)"/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Allergies</Text>
                         <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(allergies)=>{SetAllergies(allergies)}}  placeholder="Enter Allergies"/>
 
-                        {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>
+                        {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>  
                         <TextInput style={styles.input} onChangeText={(country)=>{setcountry(country)}}  placeholder="Enter Image"/> */}
 
 
