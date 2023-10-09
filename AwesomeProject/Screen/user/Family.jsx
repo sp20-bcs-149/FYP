@@ -19,18 +19,11 @@ const Family = ({navigation}) => {
     const [refresh, setRefresh] = useState(false);
 
 
-    const pullMe = () => {
-        setRefresh(true);
-        setTimeout(() => {
-            setRefresh(false);
-        }, 4000);
-    };
-
     console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
     // console.log("=========================>HOME USER TOKEN USER SERVICE" + JSON.stringify(userService.getLoggedInUser()));
     useEffect(() => {
         fetchData();
-    }, [refresh]);
+    },[]);
 
     const fetchData = async () => {
     try {
@@ -53,7 +46,7 @@ const Family = ({navigation}) => {
             <View style={style.container}>
                 <ScrollView>
 
-                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',}}> 
+                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',}}> 
                     <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,fontWeight:'900',flexDirection:'row',textAlign:'center'}}>
                         Family Profile
                     </Text>
@@ -61,7 +54,7 @@ const Family = ({navigation}) => {
 
                     </View>
                 </View>
-{/* <Text>Hello</Text> */}
+
                 <Pressable onPress={() => setModalVisible(!modalVisible)} >
                     <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
                         <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>Create Folder</Text>
@@ -73,7 +66,7 @@ const Family = ({navigation}) => {
                     {
                     data.map((item) => (
                         <Pressable key={item._id} onPress={()=>{navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name})}}>
-                        <View  style={{backgroundColor:"#329998",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
+                        <View  style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                             <Ionicons name='person' size={45} color='white' />
                             <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>{item.Folder_Name}</Text>
                             <Text style={{color:"white"}}>Profile</Text>
@@ -92,12 +85,9 @@ const Family = ({navigation}) => {
                         />
                 
             </View>
-            <TouchableOpacity onPress={pullMe()} >
-                <Text>Refresh</Text>
-            </TouchableOpacity>
         </>
         ):(
-            <Text>LOADING....</Text>
+            <Text>LOADINg....</Text>
         )
     )
 
@@ -117,4 +107,4 @@ const style = StyleSheet.create({
 })
 
 
-export default Family ;
+export default Family;
