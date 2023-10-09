@@ -244,7 +244,7 @@ const SignUp = ({ navigation }) => {
                 onChangeText={(role) => {
                   setRole(role.toLowerCase());
                 }}
-                placeholder="User || Admin || Delivery|| clinic"
+                placeholder="User || Admin || Delivery || Clinic"
               />
 
               <TouchableOpacity

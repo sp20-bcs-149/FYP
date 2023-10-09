@@ -19,12 +19,12 @@ const Family = ({navigation}) => {
     const [refresh, setRefresh] = useState(false);
 
 
-    const pullMe = () => {
-        setRefresh(true);
-        setTimeout(() => {
-            setRefresh(false);
-        }, 4000);
-    };
+    // const pullMe = () => {
+    //     setRefresh(true);
+    //     setTimeout(() => {
+    //         setRefresh(false);
+    //     }, 4000);
+    // };
 
     console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
     // console.log("=========================>HOME USER TOKEN USER SERVICE" + JSON.stringify(userService.getLoggedInUser()));
@@ -92,9 +92,9 @@ const Family = ({navigation}) => {
                         />
                 
             </View>
-            <TouchableOpacity onPress={pullMe()} >
+            {/* <TouchableOpacity onPress={pullMe()} >
                 <Text>Refresh</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </>
         ):(
             <Text>LOADING....</Text>
