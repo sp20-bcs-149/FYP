@@ -58,7 +58,7 @@ const style = StyleSheet.create({
     line: {
         height: 1,
         width:'90%',
-        backgroundColor: '#B9B0B0', // Set your desired line color
+        backgroundColor: '#B9B0B0',
   },
 })
 

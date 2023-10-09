@@ -87,7 +87,7 @@ const PdfPrintOut = () => {
                         </View>
                         <View style={{width:"auto",justifyContent:'flex-start',paddingLeft:20,paddingTop:20}}>
                             <Text style={{fontSize:11,fontWeight:'700',color:'gray',}}>Country of Vaccination</Text>
-                            <Text style={{fontSize:14,fontWeight:'700',color:'black',fontWeight:'900'}}>Indonesia</Text>
+                            <Text style={{fontSize:14,fontWeight:'700',color:'black',fontWeight:'900'}}>Pakistan</Text>
                         </View>
 
 

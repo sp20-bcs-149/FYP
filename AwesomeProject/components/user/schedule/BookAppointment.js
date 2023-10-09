@@ -33,9 +33,11 @@ const BookAppointment = ({ navigation }) => {
   console.log("location " +typeof parseFloat(longi) + " " +typeof parseFloat(lati) );
   console.log(" User_id ===>" +my_ID + " ");
   const mydata = [
-    {id:'kdfjkld',vaccine_name:'Hep B',description:'haha',price:'100',img:'no',},
-    {id:'kdfjkld',vaccine_name:'COCO B',description:'haha',price:'100',img:'no',},
-    {id:'kdfjkld',vaccine_name:'COCO C',description:'haha',price:'100',img:'no',},
+    {id:'kdfjkld',vaccine_name:'Hep B',description:'haha',price:'$10',img:'no',},
+    {id:'kdfjkld',vaccine_name:'DPT',description:'haha',price:'$10',img:'no',},
+    {id:'kdfjkld',vaccine_name:'Rabies',description:'haha',price:'$10',img:'no',},
+    {id:'kdfjkld',vaccine_name:'Polio',description:'haha',price:'$10',img:'no',},
+    {id:'kdfjkld',vaccine_name:'Hep A',description:'haha',price:'$10',img:'no',},
   ]
 
   const clinicLocation = {

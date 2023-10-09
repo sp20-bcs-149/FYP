@@ -51,7 +51,7 @@ const Family = ({navigation}) => {
 
                     </View>
                 </View>
-
+{/* <Text>Hello</Text> */}
                 <Pressable onPress={() => setModalVisible(!modalVisible)} >
                     <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
                         <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>Create Folder</Text>
@@ -85,7 +85,7 @@ const Family = ({navigation}) => {
             </View>
         </>
         ):(
-            <Text>LOADINg....</Text>
+            <Text>LOADING....</Text>
         )
     )
 

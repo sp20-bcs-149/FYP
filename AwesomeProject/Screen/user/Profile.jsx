@@ -200,7 +200,7 @@ const UserProfile = ({ navigation, token_id }) => {
                 borderBottomColor: "#ACA5A5",
               }}
             ></View>
-            <Text style={{ color: "gray" }}>Medical:</Text>
+            <Text style={{ color: "gray" }}>Medical(Any Prior Disease):</Text>
             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
               {resData.medical}
             </Text>

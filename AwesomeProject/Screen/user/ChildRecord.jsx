@@ -36,14 +36,14 @@ const ChildRecord = ({navigation}) => {
     <>
             <View style={style.container}>
             <ScrollView style={{width:'100%'}}>
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',flexDirection:'column'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',flexDirection:'column'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
                         {Folder_Name}
                     </Text>
                 </View>
                 <Pressable onPress={() => setModalVisible(!modalVisible)}>
                   <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
-                      <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>New Child</Text>
+                      <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>Create new Child</Text>
                   </View>
                 </Pressable>
 

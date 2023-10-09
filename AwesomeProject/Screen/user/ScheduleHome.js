@@ -13,10 +13,14 @@ const ScheduleHome = ({ navigation }) => {
 
   const topRatedClinics = Array.from({ length: 6 }, (_, index) => index + 1);
   const mydata = [
-    {id:'kdfjkld1',my_ID:"1234",my_ROLE:"clinic",name:'Iqra Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld2',my_ID:"123",my_ROLE:"clinic",name:'Faisla Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld3',my_ID:"12",my_ROLE:"clinic",name:'Bulma',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld4',my_ID:"1",my_ROLE:"clinic",name:'GOKU',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld1',my_ID:"11",my_ROLE:"clinic",name:'Iqra Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld2',my_ID:"12",my_ROLE:"clinic",name:'Faisal Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld3',my_ID:"13",my_ROLE:"clinic",name:'Hameed Latif',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld4',my_ID:"14",my_ROLE:"clinic",name:'Chugtai Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld4',my_ID:"15",my_ROLE:"clinic",name:'Clinix Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld4',my_ID:"16",my_ROLE:"clinic",name:'Zeenat Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+    {id:'kdfjkld4',my_ID:"17",my_ROLE:"clinic",name:'Tajamul Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+
   ]
   return (
     <View style={styles.container}>
@@ -85,14 +89,14 @@ const ScheduleHome = ({ navigation }) => {
             style={styles.bottomIcon}
           />
         </TouchableOpacity>
-        <TouchableOpacity  onPress={()=>{
+        {/* <TouchableOpacity  onPress={()=>{
           navigation.navigate('ScheduleHome',{user:user})
         }}>
           <Image
             source={require('../../components/src/images/BookAppointment.jpg')}
             style={styles.bottomIcon}
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
