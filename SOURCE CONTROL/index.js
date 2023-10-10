@@ -54,7 +54,7 @@ app.use("/family", familyRoute);
 app.use("/family/familyInside", familyInsideRoute);
 app.use("/user/scheduleAppointment/", userSchedule);
 
-app.use("/user/scheduleAppointment",userSchedule);
+app.use("/user/scheduleAppointment", userSchedule);
 //clinic
 app.use(
   "/Clinic/UserVaccineTakenDataInset/entryTakenVaccine",
@@ -63,6 +63,7 @@ app.use(
 app.use("/temp", temp);
 app.use("/clinic/appointment", ClinicAppointmentRouter);
 app.use("/routes/Clinic/clinicProfile", ClinicRouter);
+app.use("/routes/Clinic/VaccineRecord", Clinic_vaccineRecord);
 app.use(
   "/clinic/appointment/AcceptedRejected",
   ClinicAppointmentAcceptedRouter

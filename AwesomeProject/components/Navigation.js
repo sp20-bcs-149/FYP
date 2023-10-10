@@ -54,7 +54,7 @@ import NewsSend from "../Screen/admin/NewsSend";
 
 //All clinic screen
 import ClinicProfile from "../Screen/Clinic/CProfile";
-
+import VaccineRecord from "../Screen/Clinic/VaccineRecord";
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -127,6 +127,7 @@ const Navigation = () => {
         {/* all clinic component */}
         <Stack.Screen name="VerificationForm" component={VerificationForm} />
         <Stack.Screen name="ClinicProfile" component={ClinicProfile} />
+        <Stack.Screen name="VaccineRecord" component={VaccineRecord} />
 
         {/* all rider component */}
       </Stack.Navigator>

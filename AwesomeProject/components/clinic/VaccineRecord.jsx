@@ -17,47 +17,23 @@ import * as Location from "expo-location";
 
 import myURL from "../../services/myurls";
 
-const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
+const VaccineRecord = ({
+  navigation,
+  modalVisible,
+  setModalVisible,
+  token,
+}) => {
   // user register _id and Role get Here and pass to the post method
 
   console.log(" TOKEN  " + token._id);
   const my_ID = token._id;
   const my_ROLE = token.role;
   // const [modalVisible, setModalVisible] = useState(false);
-  const [name, SetName] = useState("");
-  const [cnic, SetCNIC] = useState(0);
-  const [country, SetCountry] = useState("");
-  const [phoneno, SetPhoneno] = useState("");
-  const [latitude, SetLatitude] = useState("");
-  const [longitude, SetLongitude] = useState("");
-  const [status, setStatus] = useState("");
-
-  const findMyLocation = async () => {
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-
-      if (status !== "granted") {
-        setStatus("Permission to access location was denied");
-        return;
-      }
-
-      const location = await Location.getCurrentPositionAsync({});
-      const latitude = location.coords.latitude;
-      const longitude = location.coords.longitude;
-      const geoApiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
-
-      const response = await fetch(geoApiUrl);
-      const data = await response.json();
-      SetLatitude(latitude);
-      SetLongitude(longitude);
-      setStatus(`Latitude: ${latitude}, Longitude: ${longitude}`);
-    } catch (error) {
-      setStatus("Error fetching location data");
-    }
-  };
-
-  // const [image,SetImage] = useState('');
-  // const [Picture,setPicture] = useState('');
+  const [vaccine_name, Setvaccine_name] = useState("");
+  const [manufacture, Setmanufacture] = useState(0);
+  const [vaccine_type, Setvaccine_type] = useState("");
+  const [quantity, Setquantity] = useState("");
+  const [price, Setprice] = useState("");
 
   return (
     <>
@@ -91,14 +67,14 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                Name
+                vaccine_name
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(name) => {
-                  SetName(name);
+                onChangeText={(vaccine_name) => {
+                  Setvaccine_name(vaccine_name);
                 }}
-                placeholder="Enter Name"
+                placeholder="Enter Vaccine Name"
               />
 
               {/* {console.log(firstname)} */}
@@ -112,14 +88,14 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                CNIC
+                manufacture
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(cnic) => {
-                  SetCNIC(cnic);
+                onChangeText={(manufacture) => {
+                  Setmanufacture(manufacture);
                 }}
-                placeholder="Enter CNIC [without -]"
+                placeholder="Enter manufacture"
               />
 
               <Text
@@ -131,14 +107,14 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                Phone Number
+                vaccine_type
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(phone) => {
-                  SetPhoneno(phone);
+                onChangeText={(vaccine_type) => {
+                  Setvaccine_type(vaccine_type);
                 }}
-                placeholder="Enter Phone"
+                placeholder="Enter vaccine_type"
               />
 
               <Text
@@ -150,16 +126,16 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                Country
+                quantity
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(country) => {
-                  SetCountry(country);
+                onChangeText={(quantity) => {
+                  Setquantity(quantity);
                 }}
-                placeholder="Enter Country"
+                placeholder="Enter Quantity"
               />
-              {/* <Text
+              <Text
                 style={{
                   alignSelf: "flex-start",
                   color: "black",
@@ -168,37 +144,15 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                Locationn
+                price
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(location) => {
-                  SetLocation(location);
+                onChangeText={(price) => {
+                  Setprice(price);
                 }}
-                placeholder="Enter Location"
-              /> */}
-
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ marginBottom: 20 }}>{status}</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    findMyLocation;
-                  }}
-                  style={{
-                    padding: 10,
-                    backgroundColor: "#329998",
-                    borderRadius: 5,
-                  }}
-                >
-                  <Text style={{ color: "white" }}>Find My Location</Text>
-                </TouchableOpacity>
-              </View>
+                placeholder="Enter price"
+              />
 
               {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>
                         <TextInput style={styles.input} onChangeText={(country)=>{setcountry(country)}}  placeholder="Enter Image"/> */}
@@ -206,21 +160,19 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
               <Pressable
                 onPress={(e) => {
                   axios
-                    .post(`${myURL}/routes/Clinic/clinicProfile/`, {
-                      // my_ID,
-                      // my_ROLE,
-                      name,
-                      cnic,
-                      country,
-                      phoneno,
-                      // latitude,
-                      // longitude,
+                    .post(`${myURL}/routes/Clinic/VaccineRecord/`, {
+                      my_ID,
+                      vaccine_name,
+                      manufacture,
+                      vaccine_type,
+                      quantity,
+                      price,
                     })
                     .then((res) => {
                       console.log("error in post in clinic " + res.data);
-                      console.log("Profile Save!! ");
+                      console.log("Vaccine Record save");
                       setModalVisible(!modalVisible);
-                      Alert.alert("SAVE PROFILE");
+                      Alert.alert("SAVE RECORD");
                       () => {
                         navigation.navigate("Homeclinic");
                       };
@@ -247,7 +199,7 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                     fontWeight: "bold",
                   }}
                 >
-                  Profile
+                  ADD VACCINE
                 </Text>
               </Pressable>
               {/* <MyComponentAlert /> */}
@@ -321,4 +273,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ClinicModel;
+export default VaccineRecord;
