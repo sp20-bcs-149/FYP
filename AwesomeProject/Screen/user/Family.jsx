@@ -19,7 +19,9 @@ const Family = ({navigation}) => {
     const [refresh, setRefresh] = useState(false);
 
 
-    console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
+
+    console.log(" ====> setDATA FAMILY " + JSON.stringify(data));
+
     useEffect(() => {
         fetchData();
     },[]);
@@ -82,7 +84,7 @@ const Family = ({navigation}) => {
                             setModalVisible={setModalVisible}
                             my_ID={Token_id}
                         />
-                
+
             </View>
         </>
         ):(

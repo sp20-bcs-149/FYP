@@ -90,7 +90,6 @@ const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
                       setModalVisible(!modalVisible);
                       Alert.alert("SAVE PROFILE");
 
-                      // {Alert.alert("Hi")}
                     })
                     .catch((err) => {
                       console.log(err);
@@ -115,7 +114,6 @@ const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
                   Create
                 </Text>
               </Pressable>
-              {/* <MyComponentAlert /> */}
             </ScrollView>
           </View>
         </View>
@@ -127,8 +125,6 @@ const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
 
 
 const styles = StyleSheet.create({
-// 
-// 
   centeredView: {
     flex: 1,
     justifyContent: 'center',
@@ -162,7 +158,6 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     marginTop:20,
-    // backgroundColor: 'white',
     borderWidth:2,
     borderColor:"#2196F3",
     padding:15,   
