@@ -24,9 +24,14 @@ const Family = ({ navigation }) => {
   let Token_id = route.params?.token_id;
 
   const [data, setData] = useState([]);
+<<<<<<< Updated upstream
   const [refresh, setRefresh] = useState(false);
 
   console.log(" ====> setDATA FAMILY " + JSON.stringify(data));
+=======
+
+  console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
+>>>>>>> Stashed changes
   // console.log("=========================>HOME USER TOKEN USER SERVICE" + JSON.stringify(userService.getLoggedInUser()));
   useEffect(() => {
     fetchData();
@@ -59,11 +64,15 @@ const Family = ({ navigation }) => {
                 fontSize: 25,
                 fontWeight: "900",
                 flexDirection: "row",
+<<<<<<< Updated upstream
                 textAlign: "center",
+=======
+>>>>>>> Stashed changes
               }}
             >
               Family Profile
             </Text>
+<<<<<<< Updated upstream
             <View></View>
           </View>
 
@@ -92,6 +101,14 @@ const Family = ({ navigation }) => {
             </View>
           </Pressable>
 
+=======
+            <View>
+              <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                <Entypo name="folder" size={24} color="white" />
+              </Pressable>
+            </View>
+          </View>
+>>>>>>> Stashed changes
           <View
             style={{
               flex: 9 / 10,
@@ -106,10 +123,14 @@ const Family = ({ navigation }) => {
               <Pressable
                 key={item._id}
                 onPress={() => {
+<<<<<<< Updated upstream
                   navigation.navigate("ChildRecord", {
                     child_id: item._id,
                     folderName: item.Folder_Name,
                   });
+=======
+                  navigation.navigate("ChildRecord", { child_id: item._id });
+>>>>>>> Stashed changes
                 }}
               >
                 <View

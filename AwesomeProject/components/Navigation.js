@@ -55,6 +55,10 @@ import NewsSend from "../Screen/admin/NewsSend";
 //All clinic screen
 import ClinicProfile from "../Screen/Clinic/CProfile";
 import VaccineRecord from "../Screen/Clinic/VaccineRecord";
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
