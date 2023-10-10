@@ -152,6 +152,7 @@ const ChildRecord = ({ navigation }) => {
                     </View>
                   </View>
                 </View>
+
                 <Pressable
                   style={{ backgroundColor: "", padding: 20 }}
                   onPress={() => {
@@ -170,6 +171,11 @@ const ChildRecord = ({ navigation }) => {
                       color="#3C7DA3"
                       style={{}}
                     />
+=======
+                <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                  <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
+                      <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>Create New</Text>
+
                   </View>
                 </Pressable>
               </View>
