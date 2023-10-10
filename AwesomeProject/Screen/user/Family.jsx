@@ -19,9 +19,7 @@ const Family = ({navigation}) => {
     const [refresh, setRefresh] = useState(false);
 
 
-
     console.log(" ====>setDATA FAMILY " + JSON.stringify(data));
-    // console.log("=========================>HOME USER TOKEN USER SERVICE" + JSON.stringify(userService.getLoggedInUser()));
     useEffect(() => {
         fetchData();
     },[]);
@@ -85,7 +83,8 @@ const Family = ({navigation}) => {
                             my_ID={Token_id}
                         />
                 
-            </View>        </>
+            </View>
+        </>
         ):(
             <Text>LOADINg....</Text>
         )
