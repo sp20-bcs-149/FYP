@@ -10,6 +10,7 @@ router.post("/", async (req, res)=>{
 
     let userSchedule = new UserSchedule();
     userSchedule.my_ID = req.body.my_ID;
+    userSchedule.clinic_ID = req.body.clinic_ID;
     userSchedule.selectedVaccine = req.body.selectedVaccine; 
     userSchedule.selectedDay = req.body.selectedDay; 
     userSchedule.selectedSlot = req.body.selectedSlot; 

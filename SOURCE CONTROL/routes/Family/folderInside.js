@@ -18,8 +18,9 @@ router.post("/", async (req, res)=>{
     familyInside.gender = req.body.gender; 
     familyInside.height = req.body.height; 
     familyInside.weight = req.body.weight; 
-    familyInside.medical_history = req.body.medical_history; 
-    familyInside.age = req.body.age; 
+    familyInside.dob = req.body.dob; 
+    familyInside.cnic = req.body.cnic; 
+    familyInside.SelectedvaccineString = req.body.SelectedvaccineString; 
 
 
     await familyInside.save();

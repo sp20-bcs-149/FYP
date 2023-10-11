@@ -35,9 +35,27 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+  try {
+    const clinic = await ClinicProfile.find();
+
+    if (!clinic) {
+      console.log("here is problem");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+
+    // res.json(parsedData);
+    res.json(clinic);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/id", async (req, res) => {
   const my_ID = req.query.my_ID;
   try {
-    const clinic = await ClinicProfile.findOne({ my_ID: my_ID });
+    const clinic = await ClinicProfile.find({ my_ID: my_ID});
 
     if (!clinic) {
       console.log("here is problem");

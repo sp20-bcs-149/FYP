@@ -41,6 +41,16 @@ const UserProfile = ({ navigation, token_id }) => {
       });
   };
 
+  // Polling setup (fetch data every X seconds)
+  useEffect(() => {
+      const pollingInterval = setInterval(() => {
+      getUserProfile();
+      }, 1000); // Adjust the interval as needed (e.g., fetch data every minute)
+
+      // Cleanup when the component unmounts
+      return () => clearInterval(pollingInterval);
+  }, []); // Run this effect only once, on component mount
+
   const handleProfileUpdate = () => {
     // Your code to update the profile in MongoDB goes here
     // After a successful update, set the refresh flag to trigger a UI refresh

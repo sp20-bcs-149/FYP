@@ -2,30 +2,35 @@ var mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 
 var Clinic_VaccineRecord = mongoose.Schema({
-        vaccine_name: String,
-        manufacture: String,
-        vaccine_type: String,
-        expiry_date: String,
-        quantity: String,
-        dosage_information: String,
-        adverse_reaction: String,
+
+  my_ID: String,
+  vaccine_name: String,
+  manufacture: String,
+  vaccine_type: String,
+  quantity: String,
+  price: Number,
+
 });
 
-var Clinic_VaccineRecord = mongoose.model("Clinic_VaccineRecord", Clinic_VaccineRecord);
+var Clinic_VaccineRecord = mongoose.model(
+  "Clinic_VaccineRecord",
+  Clinic_VaccineRecord
+);
 
-function validateClinic_VaccineRecord(data){
-    const schema = Joi.object({
-        vaccine_name: Joi.string().required(),
-        manufacture: Joi.string().min(1).required(),
-        vaccine_type: Joi.string().min(1).required(),
-        expiry_date: Joi.string().min(1).required(),
-        quantity: Joi.string().min(1).required(),
-        dosage_information: Joi.string().min(1).required(),
-        adverse_reaction: Joi.string().min(1).required(),
-    })
-    return schema.validate(data, {abortEarly: false});
+function validateClinic_VaccineRecord(data) {
+  const schema = Joi.object({
+
+    my_ID: Joi.string(),
+
+
+    vaccine_name: Joi.string().required(),
+    manufacture: Joi.string().min(1).required(),
+    vaccine_type: Joi.string().min(1).required(),
+    quantity: Joi.string().min(1).required(),
+    price: Joi.number().min(1).required(),
+  });
+  return schema.validate(data, { abortEarly: false });
 }
-
 
 module.exports.Clinic_VaccineRecord = Clinic_VaccineRecord;
 module.exports.validate = validateClinic_VaccineRecord;

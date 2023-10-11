@@ -30,6 +30,18 @@ const ChildRecord = ({navigation}) => {
         console.error(error);
       }
     };
+
+    // Polling setup (fetch data every X seconds)
+    useEffect(() => {
+        const pollingInterval = setInterval(() => {
+        //fetchData();
+        }, 1000); // Adjust the interval as needed (e.g., fetch data every minute)
+
+        // Cleanup when the component unmounts
+        return () => clearInterval(pollingInterval);
+    }, []); // Run this effect only once, on component mount
+
+
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -60,12 +72,12 @@ const ChildRecord = ({navigation}) => {
                                 </View>
                                 {/* <View style={style.line}></View> */}
                                 <View style={{width:"85%",justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
-                                    <View><Text style={{fontSize:11,}}>Age : {item.age} Year</Text></View>
+                                    <View><Text style={{fontSize:11,}}>Age : {item.dob} Year</Text></View>
                                     <View><Text style={{fontSize:11,}}>Weight : {item.weight} Kg</Text></View>
                                     <View><Text style={{fontSize:11,}}>Height : {item.height} cm</Text></View>
                                 </View>
                             </View>
-                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{Clicked_child_id:item._id,name:item.name,weight:item.weight,height:item.height})}}>
+                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{Clicked_child_id:item._id,name:item.name,weight:item.weight,height:item.height,dob:item.dob,previousvaccine:item.SelectedvaccineString,cnic:item.cnic})}}>
                                 <View style={{alignSelf:'center',marginLeft:-20}}>
                                   <AntDesign name="caretright" size={24} color="#3C7DA3" style={{}} />
                                 </View>
