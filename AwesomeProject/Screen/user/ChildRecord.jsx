@@ -3,10 +3,10 @@ import { Text, View, StyleSheet, ScrollView, Pressable } from "react-native";
 import myURL from "../../services/myurls";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import axios from "axios";
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import CreateRecordModel from "../../components/user/familyProfile/CreateRecords";
 import { useRoute } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
+
 const ChildRecord = ({ navigation }) => {
   const route = useRoute();
   let child_id = route.params?.child_id;
@@ -31,6 +31,7 @@ const ChildRecord = ({ navigation }) => {
       console.error(error);
     }
   };
+
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -96,19 +97,17 @@ const ChildRecord = ({ navigation }) => {
                 style={{
                   flexDirection: "row",
                   justifyContent: "center",
-                  width: "90%",
+                  width: "90%", // Keep only one width property
                   backgroundColor: "#E6EDED",
-                  width: "90%",
                   height: 80,
                   borderRadius: 10,
                   alignItems: "center",
                   marginTop: 10,
                 }}
               >
-                <View style={{}}>
+                <View>
                   <View
                     style={{
-                      width: "85%",
                       justifyContent: "space-around",
                       alignItems: "center",
                       flexDirection: "row",
@@ -126,28 +125,24 @@ const ChildRecord = ({ navigation }) => {
                       </Text>
                     </View>
                   </View>
-                  {/* <View style={style.line}></View> */}
                   <View
                     style={{
-                      width: "85%",
                       justifyContent: "space-around",
                       alignItems: "center",
                       flexDirection: "row",
                     }}
                   >
                     <View>
+                      <Text style={{ fontSize: 11 }}>Age: {item.age} Year</Text>
+                    </View>
+                    <View>
                       <Text style={{ fontSize: 11 }}>
-                        Age : {item.age} Year
+                        Weight: {item.weight} Kg
                       </Text>
                     </View>
                     <View>
                       <Text style={{ fontSize: 11 }}>
-                        Weight : {item.weight} Kg
-                      </Text>
-                    </View>
-                    <View>
-                      <Text style={{ fontSize: 11 }}>
-                        Height : {item.height} cm
+                        Height: {item.height} cm
                       </Text>
                     </View>
                   </View>
@@ -171,11 +166,6 @@ const ChildRecord = ({ navigation }) => {
                       color="#3C7DA3"
                       style={{}}
                     />
-=======
-                <Pressable onPress={() => setModalVisible(!modalVisible)}>
-                  <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#ffffff'}}>
-                      <Text style={{padding:10,textAlign:'center',width:150,margin:10,backgroundColor:'#ffffff',borderWidth:1,borderRadius:20,color:'black'}}>Create New</Text>
-
                   </View>
                 </Pressable>
               </View>

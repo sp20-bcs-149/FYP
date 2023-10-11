@@ -135,15 +135,10 @@ const Homeclinic = ({ navigation }) => {
           {/* 2 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-<<<<<<< Updated upstream
+
             onPress={() =>
               navigation.navigate("VaccineRecord", { token: Tokendata._id })
             }
-=======
-            onPress={() => {
-              navigation.navigate("VaccineRecord");
-            }}
->>>>>>> Stashed changes
           >
             <View
               style={{

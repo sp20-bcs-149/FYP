@@ -44,7 +44,7 @@ import Completed from "./user/schedule/Complete";
 import Pending from "./user/schedule/Pending";
 import Success from "./user/schedule/Success";
 //findclinic
-import ClinicFinder from "../Screen/user/FindClinicMap";
+//import ClinicFinder from "../Screen/user/FindClinicMap";
 import Search from "../Screen/user/Search";
 import PlaceDetail from "./user/findClinic/search/PlaceDetail";
 // all admin screen
@@ -55,10 +55,7 @@ import NewsSend from "../Screen/admin/NewsSend";
 //All clinic screen
 import ClinicProfile from "../Screen/Clinic/CProfile";
 import VaccineRecord from "../Screen/Clinic/VaccineRecord";
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -116,7 +113,7 @@ const Navigation = () => {
         <Stack.Screen name="Completed" component={Completed} />
         <Stack.Screen name="Pending" component={Pending} />
         <Stack.Screen name="Success" component={Success} />
-        <Stack.Screen name="ClinicFinder" component={ClinicFinder} />
+        {/* <Stack.Screen name="ClinicFinder" component={ClinicFinder} /> */}
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
 
