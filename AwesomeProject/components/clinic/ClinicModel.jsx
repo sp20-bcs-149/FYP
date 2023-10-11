@@ -32,44 +32,6 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
   const [longitude, SetLongitude] = useState("31.2784783");
   const [status, setStatus] = useState("");
 
-  // function fetchpost() {
-  //   fetch(`${myURL}/routes/Clinic/clinicProfile/`, {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       my_ID,
-  //       my_ROLE,
-  //       name,
-  //       cnic,
-  //       country,
-  //       phoneno,
-  //       latitude,
-  //       longitude,
-  //     }),
-  //   })
-  //     .then((response) => {
-  //       if (!response.ok) {
-  //         console.log(response.status);
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       console.log("Profile Save!!");
-  //       setModalVisible(!modalVisible);
-  //       Alert.alert("SAVE PROFILE");
-  //       // () => {
-  //       //   navigation.navigate('Homeclinic');
-  //       // };
-  //       // Uncomment the above lines if you intend to navigate to 'Homeclinic' after the request succeeds.
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error in post in clinic: ", error.message);
-  //     });
-  // }
-
   const findMyLocation = async () => {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();

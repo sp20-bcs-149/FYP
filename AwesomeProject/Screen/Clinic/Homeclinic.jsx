@@ -25,9 +25,11 @@ import clinicProfile from "./CProfile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import jwtDecode from "jsonwebtoken";
 import jwtDecode from "jwt-decode";
+import VaccineRecord from "./VaccineRecord";
 
 import virusimage from "../../assets/viirus.jpg";
 import ClinicModel from "../../components/clinic/ClinicModel";
+// import VaccineRecord from "../../components/clinic/VaccineRecord";
 
 const Homeclinic = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -133,7 +135,10 @@ const Homeclinic = ({ navigation }) => {
           {/* 2 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+
+            onPress={() =>
+              navigation.navigate("VaccineRecord", { token: Tokendata._id })
+            }
           >
             <View
               style={{
@@ -343,6 +348,11 @@ const Homeclinic = ({ navigation }) => {
             setModalVisible={setModalVisible}
             token={Tokendata}
           />
+          {/* <VaccineRecord
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            token={Tokendata}
+          /> */}
         </View>
       </ScrollView>
     </View>
