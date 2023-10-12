@@ -167,7 +167,9 @@ const Homeclinic = ({ navigation }) => {
           {/* 3 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() =>
+              navigation.navigate("AppointmentRecord", { token: Tokendata._id })
+            }
           >
             <View
               style={{
