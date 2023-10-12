@@ -7,8 +7,9 @@ var UserFamilyInsideSchema = mongoose.Schema({
         gender: String,
         height: String,
         weight: String,
-        medical_history: String,
-        age: String,
+        dob: String,
+        cnic: String,
+        SelectedvaccineString: String,
 });
 
 var FamilyInside = mongoose.model("FamilyInside", UserFamilyInsideSchema);
@@ -20,8 +21,9 @@ function validateFamilyInside(data){
         gender: Joi.string().min(1).required(),
         height: Joi.string().min(1).required(),
         weight: Joi.string().min(1).required(),
-        medical_history: Joi.string().min(1).required(),
-        age: Joi.string().min(1).max(2).required(),
+        dob: Joi.string().required(),
+        cnic: Joi.string().required(),
+        SelectedvaccineString: Joi.string().required(),
 
     })
     return schema.validate(data, {abortEarly: false});

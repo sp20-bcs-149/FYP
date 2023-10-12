@@ -2,13 +2,14 @@ var mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 
 var Clinic_VaccineRecord = mongoose.Schema({
-  my_ID: String,
 
+  my_ID: String,
   vaccine_name: String,
   manufacture: String,
   vaccine_type: String,
   quantity: String,
   price: Number,
+
 });
 
 var Clinic_VaccineRecord = mongoose.model(
@@ -18,7 +19,9 @@ var Clinic_VaccineRecord = mongoose.model(
 
 function validateClinic_VaccineRecord(data) {
   const schema = Joi.object({
+
     my_ID: Joi.string(),
+
 
     vaccine_name: Joi.string().required(),
     manufacture: Joi.string().min(1).required(),

@@ -26,19 +26,43 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 // post => clinic id, vaccine name, date , slot, name, cnic 
 const BookAppointment = ({ navigation }) => {
   const route = useRoute();
+
   let clinic = route.params?.clinicName;
+  let clinic_ID = route.params?.clinic_ID;
   let my_ID = route.params?.user;
+  let clinic_my_ID = route.params?.clinic_my_ID;
   let longi = route.params?.longitude;
   let lati = route.params?.latitude;
+  let Schedulesource = route.params?.Schedulesource;
+
+  let cnic,username_from_child,vaccinename;
+
+
+  if(Schedulesource == "childTrackPath"){
+    cnic = route.params?.cnic;
+    username_from_child = route.params?.username_from_child;
+    vaccinename = route.params?.vaccinename;
+    console.log(`Navigation source: CNIN ${Schedulesource} : ${username_from_child}`);
+
+  }else{
+    console.log(`Navigation source: ${Schedulesource}`);
+
+  }
+
+
+
+
+
+
   console.log("location " +typeof parseFloat(longi) + " " +typeof parseFloat(lati) );
-  console.log(" User_id ===>" +my_ID + " ");
-  const mydata = [
-    {id:'kdfjkld',vaccine_name:'Hep B',description:'haha',price:'$10',img:'no',},
-    {id:'kdfjkld',vaccine_name:'DPT',description:'haha',price:'$10',img:'no',},
-    {id:'kdfjkld',vaccine_name:'Rabies',description:'haha',price:'$10',img:'no',},
-    {id:'kdfjkld',vaccine_name:'Polio',description:'haha',price:'$10',img:'no',},
-    {id:'kdfjkld',vaccine_name:'Hep A',description:'haha',price:'$10',img:'no',},
-  ]
+  console.log(" User_id ===>" +my_ID + " "+clinic_ID);
+  // const mydata = [
+  //   {id:'kdfjkld',vaccine_name:'Hep B',description:'haha',price:'$10',img:'no',},
+  //   {id:'kdfjkld',vaccine_name:'DPT',description:'haha',price:'$10',img:'no',},
+  //   {id:'kdfjkld',vaccine_name:'Rabies',description:'haha',price:'$10',img:'no',},
+  //   {id:'kdfjkld',vaccine_name:'Polio',description:'haha',price:'$10',img:'no',},
+  //   {id:'kdfjkld',vaccine_name:'Hep A',description:'haha',price:'$10',img:'no',},
+  // ]
 
   const clinicLocation = {
     latitude: parseFloat(lati), // Dummy latitude for clinic location
@@ -46,11 +70,11 @@ const BookAppointment = ({ navigation }) => {
   };
 
   const [selectedSlot, setSelectedSlot] = useState(-1);
-  const [selectedVaccine, setSelectedVaccine] = useState(null);
+  const [selectedVaccine, setSelectedVaccine] = useState(vaccinename? vaccinename : null);
   const [selectedDay, setSelectedDay] = useState(-1);
   const [modalVisible, setModalVisible] = useState(false);
-  const [patientName, setPatientName] = useState("");
-  const [cnicNumber, setCnicNumber] = useState("");
+  const [patientName, setPatientName] = useState(username_from_child? username_from_child : "");
+  const [cnicNumber, setCnicNumber] = useState(cnic?cnic:'');
   const [status, setStatus] = useState("pending");
 //  const [currentTime, setCurrentTime] = useState("");
 
@@ -58,6 +82,7 @@ const BookAppointment = ({ navigation }) => {
   const [isSlotSelected, setIsSlotSelected] = useState(false);
   const [isNameEntered, setIsNameEntered] = useState(false);
   const [isCnicEntered, setIsCnicEntered] = useState(false);
+  const [mydata,setMydata] = useState([]);
 
   const [mapRegion, setmapRegion] = useState({
     latitude: 31.5204,
@@ -77,12 +102,27 @@ const BookAppointment = ({ navigation }) => {
   ]);
   const [days, setDays] = useState([]);
   useEffect(() => {
+    getVaccineRecord();
     let DaysList = [];
     for (let i = 1; i <= getDays(new Date().getMonth() + 1); i++) {
       DaysList.push({ day: i, selected: false });
     }
     setDays(DaysList);
   }, []);
+
+    const getVaccineRecord = () => {
+    
+      axios
+        .get(`${myURL}/clinic/VaccineRecord/ID?my_ID=${clinic_my_ID}`)
+        .then((res) => {
+          console.log("match User ID" + res.data);
+          setMydata(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      
+  }
 
   const getDays = (month) => {
     let days = 0;
@@ -186,7 +226,7 @@ const BookAppointment = ({ navigation }) => {
       currentTime = formattedTime;
 
     axios
-      .post(myURL+"/user/scheduleAppointment/", {my_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
+      .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
       .then((res) => {
       console.log(res.data);
       Alert.alert("BOOK SCHEDULE");

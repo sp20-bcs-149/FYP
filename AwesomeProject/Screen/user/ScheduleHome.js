@@ -1,27 +1,113 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CommonBtn from "../../components/user/schedule/CommonBtn";
 import Header from "../../components/user/schedule/Header";
+import axios from "axios";
+import myURL from "../../services/myurls";
+
 import { useRoute } from "@react-navigation/native";
 
 const ScheduleHome = ({ navigation }) => {
   
   const route = useRoute();
+  const { source } = route.params;
   let user = route.params?.user;
+  let cnic,username_from_child,vaccinename;
 
+  
+    if(source=='childTrack'){
+      cnic = route.params?.cnic;
+      username_from_child = route.params?.username;
+      vaccinename = route.params?.vaccinename;
+      console.log(`Navigation source: CNIN = ${source} : ${vaccinename}`);
+
+    }else{
+      console.log(`Navigation source: ${source}`);
+
+    }
+    
+  
+
+  const [mydata,setMydata] = useState([]);
+  const [mynewdata,setMynewdata] = useState([]);
+   
+  
   const topRatedClinics = Array.from({ length: 6 }, (_, index) => index + 1);
-  const mydata = [
-    {id:'kdfjkld1',my_ID:"11",my_ROLE:"clinic",name:'Iqra Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld2',my_ID:"12",my_ROLE:"clinic",name:'Faisal Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld3',my_ID:"13",my_ROLE:"clinic",name:'Hameed Latif',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld4',my_ID:"14",my_ROLE:"clinic",name:'Chugtai Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld4',my_ID:"15",my_ROLE:"clinic",name:'Clinix Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld4',my_ID:"16",my_ROLE:"clinic",name:'Zeenat Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
-    {id:'kdfjkld4',my_ID:"17",my_ROLE:"clinic",name:'Tajamul Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  // const mydata = [
+  //   {id:'kdfjkld1',my_ID:"11",my_ROLE:"clinic",name:'Iqra Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  //   {id:'kdfjkld2',my_ID:"12",my_ROLE:"clinic",name:'Faisal Clinic',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  //   {id:'kdfjkld3',my_ID:"13",my_ROLE:"clinic",name:'Hameed Latif',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  //   {id:'kdfjkld4',my_ID:"14",my_ROLE:"clinic",name:'Chugtai Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  //   {id:'kdfjkld4',my_ID:"15",my_ROLE:"clinic",name:'Clinix Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  //   {id:'kdfjkld4',my_ID:"16",my_ROLE:"clinic",name:'Zeenat Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
+  //   {id:'kdfjkld4',my_ID:"17",my_ROLE:"clinic",name:'Tajamul Lab',cnic:'8748574395',country:'pak',phoneno:'9839384',latitude:"31.5204",longitude:'74.3587'},
 
-  ]
+  // ]
+
+useEffect(() => {
+  getVaccineRecord();
+  getClinic();
+}, []);
+
+const [myVaccine, setMyVaccine] = useState([]); // Initialize myVaccine state
+
+  myVaccine.forEach(obj => {
+      console.log("My Vaccine ================>+++++++++++" + obj.price);
+
+  });
+
+const getVaccineRecord = () => {
+  if (source === 'childTrack') {
+    axios
+      // Fetch vaccine records where {vaccinename} matches
+      .get(`${myURL}/clinic/VaccineRecord/name?vaccine_name=${vaccinename}`)
+      .then((res) => {
+        console.log("fetch by vaccine NAME" + JSON.stringify(res.data));
+        setMyVaccine(res.data);
+
+        // Extract my_ID values from myVaccine array
+        const myIDValues = res.data.map(item => item.my_ID);
+
+        // Use myIDValues to fetch clinic data
+        getClinic(myIDValues);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+};
+
+const getClinic = (myIDValues) => {
+  // get only those clinics where myVaccine.my_ID matches
+  if (source === 'childTrack') {
+   axios
+      .get(`${myURL}/routes/Clinic/clinicProfile`)
+      .then((res) => {
+        // Filter clinic data based on matching my_ID values
+        const filteredData = res.data.filter(item => myIDValues.includes(item.my_ID));
+
+        console.log("match User ID" + JSON.stringify(filteredData));
+        setMydata(filteredData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    axios
+      .get(`${myURL}/routes/Clinic/clinicProfile`)
+      .then((res) => {
+        console.log("Match User ID" + res.data);
+        setMydata(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+};
+
+
   return (
     <View style={styles.container}>
       <Header
@@ -38,6 +124,7 @@ const ScheduleHome = ({ navigation }) => {
         data={mydata}
         numColumns={2}
         renderItem={({ item, index }) => {
+          console.log("index-->"+index);
           return (
             <View style={styles.cliItem}>
               <Image
@@ -50,21 +137,25 @@ const ScheduleHome = ({ navigation }) => {
                 style={[
                   styles.cliStatus,
                   {
-                    color: index / 2 == 0 ? "#41B675" : "red",
-                    opacity: index / 2 == 0 ? 1 : 0.5,
+                    color:"#41B675",
+                    opacity: 1 ,
                   },
                 ]}
               >
-                {index / 2 == 0 ? "Available" : "Busy"}
+                {"Available" }
               </Text>
               <CommonBtn
                 w={150}
                 h={40}
-                status={index / 2 == 0 ? true : false}
+                status={ true }
                 txt={"Book Appointment"}
                 onClick={() => {
-                  if (index / 2 == 0) {
-                    navigation.navigate("BookAppointment",{clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude});
+                   {
+                    if(source == 'Homeuser'){
+                      navigation.navigate("BookAppointment",{Schedulesource:'HomeuserPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude});
+                    }else if(source == 'childTrack'){
+                      navigation.navigate("BookAppointment",{Schedulesource:'childTrackPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude,cnic:cnic,username_from_child:username_from_child,vaccinename:vaccinename});
+                    }
                   }
                 }}
               />
