@@ -40,15 +40,16 @@ const VaccineRecord = ({ navigation }) => {
   };
 
   const getVaccineRecord = async () => {
-    axios
-      .get(`${myURL}/routes/Clinic/VaccineRecord/${Tokendata._id}`)
-      .then((res) => {
-        console.log("match User ID" + res.data);
-        setResData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      console.log("token id", Tokendata._id);
+      const response = await axios.get(
+        `${myURL}/routes/Clinic/VaccineRecord/${Tokendata._id}`
+      );
+      console.log("Vaccine record data:", response.data);
+      setResData(response.data);
+    } catch (error) {
+      console.log("Error fetching vaccine record:", error);
+    }
   };
 
   return (
@@ -74,29 +75,31 @@ const VaccineRecord = ({ navigation }) => {
               fontWeight: "900",
             }}
           >
-            Schedule
+            Vaccine Record
           </Text>
           <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("ChoseClinic");
-            }}
+            onPress={() => setModalVisible(!modalVisible)}
             style={{
-              width: 150,
-              color: "white",
-              marginTop: 30,
-              marginBottom: 10,
-              marginRight: 20,
-              fontSize: 25,
-              textAlign: "center",
-              fontWeight: "900",
               flexDirection: "row",
-              backgroundColor: "#0a0a0a",
-              borderRadius: 10,
-              alignItems: "center",
+              backgroundColor: "black",
               justifyContent: "center",
+              alignItems: "center",
+              borderRadius: 10,
+              height: 40,
+              marginTop: 30,
+              marginLeft: 20,
             }}
           >
-            <Text style={{ color: "white" }}>Add new Vaccine</Text>
+            <Text
+              style={{
+                color: "white",
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
+              Add New Vaccine
+            </Text>
+            <MaterialIcons name="library-add" size={30} color="white" />
           </TouchableOpacity>
         </View>
         <View

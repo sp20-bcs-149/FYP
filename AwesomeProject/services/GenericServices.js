@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://10.135.48.111:4000/";
+axios.defaults.baseURL = "http://192.168.100.6:4000/";
 
 // axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
 

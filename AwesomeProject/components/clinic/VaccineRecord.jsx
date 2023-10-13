@@ -530,25 +530,6 @@ const VaccineRecord = ({
                 placeholder="Enter price"
               />
 
-              <Text
-                style={{
-                  alignSelf: "flex-start",
-                  color: "black",
-                  fontSize: 15,
-                  margin: 10,
-                  marginLeft: 20,
-                }}
-              >
-                name
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(name) => {
-                  SetName(name);
-                }}
-                placeholder="Enter name"
-              />
-
               {/* Add more fields as needed here */}
 
               <Pressable
