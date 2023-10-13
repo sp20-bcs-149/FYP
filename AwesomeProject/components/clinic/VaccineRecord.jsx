@@ -167,7 +167,7 @@ const VaccineRecord = ({ navigation, modalVisible, setModalVisible, token }) => 
                 onChangeText={(quantity) => {
                   handleInputChange("quantity", quantity);
                 }}
-                placeholder="Enter Quantity"
+                placeholder="Enter Quantity(digits)"
               />
 
               <Text style={styles.label}>Price($)</Text>
@@ -176,7 +176,7 @@ const VaccineRecord = ({ navigation, modalVisible, setModalVisible, token }) => 
                 onChangeText={(price) => {
                   handleInputChange("price", price);
                 }}
-                placeholder="Enter price"
+                placeholder="Enter price(digits)"
               />
 
               <Pressable
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
   textStyle: {
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 10,
   },
   input: {
     backgroundColor: "white",
