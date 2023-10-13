@@ -57,11 +57,13 @@ const VaccineRecord = ({ navigation }) => {
       <ScrollView style={{ width: "100%" }}>
         <View
           style={{
-            flex: 1 / 10,
-            backgroundColor: "#3C7DA3",
+            flex: 1 /10 ,
+            backgroundColor: "#329998",
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
+            marginBottom:20,
+            marginTop: 5,
           }}
         >
           <Text
@@ -73,6 +75,7 @@ const VaccineRecord = ({ navigation }) => {
               fontSize: 25,
               textAlign: "center",
               fontWeight: "900",
+              // letterSpacing: 0.5
             }}
           >
             Vaccine Record
@@ -86,8 +89,10 @@ const VaccineRecord = ({ navigation }) => {
               alignItems: "center",
               borderRadius: 10,
               height: 40,
+              width: 130,
               marginTop: 30,
               marginLeft: 20,
+              marginRight:10
             }}
           >
             <Text
@@ -95,9 +100,10 @@ const VaccineRecord = ({ navigation }) => {
                 color: "white",
                 textAlign: "center",
                 fontWeight: "bold",
+                letterSpacing: 0.5
               }}
             >
-              Add New Vaccine
+              Add Vaccine
             </Text>
             <MaterialIcons name="library-add" size={30} color="white" />
           </TouchableOpacity>
