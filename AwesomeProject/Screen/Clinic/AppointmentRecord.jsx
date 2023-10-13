@@ -94,7 +94,11 @@ const AppointmentRecord = ({ navigation }) => {
                     Adil Hussain
                   </Text>
                 </View>
-                <Pressable>
+                <Pressable
+                  onPress={() => {
+                    navigation.navigate("AppointmentDetails");
+                  }}
+                >
                   <View style={{ marginTop: 8 }}>
                     <Text
                       style={{ backgroundColor: "#329998", color: "white" }}
