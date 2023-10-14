@@ -202,7 +202,7 @@ const ChildTrack = ({navigation}) => {
             <ScrollView width="100%">
                 <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
                     <Text style={{color:'white',marginTop:30,fontSize:20,padding:20,textAlign:'center',fontWeight:'700'}}>
-                        Track
+                        Vaccination Track
                     </Text>
                 </View>            
 
@@ -236,7 +236,7 @@ const ChildTrack = ({navigation}) => {
                                 <Text style={{fontSize:10,}}></Text>
                                 <Text style={{fontSize:10,}}></Text>
                             </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>feedback</Text></View>
+                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Feedback</Text></View>
                         </View>
                         )
                         }
@@ -259,7 +259,7 @@ const ChildTrack = ({navigation}) => {
                                 <Text style={{fontSize:10,}}>Vaccine name: OPV</Text>
                                 <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
                             </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>feedback</Text></View>
+                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Feedback</Text></View>
                         </View>
                         {/* 1 end */}
 

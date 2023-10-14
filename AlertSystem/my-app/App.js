@@ -105,7 +105,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>Alerts</Text>
+        <Text style={styles.headerText}>Notifications/Alerts</Text>
       </View>
       <FlatList
         data={bookedAppointments}

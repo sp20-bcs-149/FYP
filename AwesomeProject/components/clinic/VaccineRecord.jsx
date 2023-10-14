@@ -158,7 +158,7 @@ const VaccineRecord = ({ navigation, modalVisible, setModalVisible, token }) => 
                 onChangeText={(vaccine_type) => {
                   handleInputChange("vaccine_type", vaccine_type);
                 }}
-                placeholder="Enter vaccine_type"
+                placeholder="Enter Vaccine Type"
               />
 
               <Text style={styles.label}>Quantity</Text>
