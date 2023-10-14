@@ -7,6 +7,7 @@ import {
   ScrollView,
   Pressable,
   Alert,
+  TextInput,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -17,13 +18,14 @@ import myURL from "../../services/myurls";
 import PersonalModelProfile from "../../components/user/PersonalModelProfile";
 import { useRoute } from "@react-navigation/native";
 
-const UserProfile = ({ navigation, token_id }) => {
+const UserProfile = ({ navigation }) => {
   const route = useRoute();
   let Token = route.params?.token;
 
   const [resData, setResData] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshFlag, setRefreshFlag] = useState(false);
+  const [editedProfileData, setEditedProfileData] = useState({});
 
   useEffect(() => {
     getUserProfile();
@@ -41,20 +43,49 @@ const UserProfile = ({ navigation, token_id }) => {
       });
   };
 
-  // Polling setup (fetch data every X seconds)
   useEffect(() => {
-      const pollingInterval = setInterval(() => {
+    const pollingInterval = setInterval(() => {
       getUserProfile();
-      }, 1000); // Adjust the interval as needed (e.g., fetch data every minute)
+    }, 1000);
 
-      // Cleanup when the component unmounts
-      return () => clearInterval(pollingInterval);
-  }, []); // Run this effect only once, on component mount
+    return () => clearInterval(pollingInterval);
+  }, []);
 
   const handleProfileUpdate = () => {
-    // Your code to update the profile in MongoDB goes here
-    // After a successful update, set the refresh flag to trigger a UI refresh
     setRefreshFlag(!refreshFlag);
+  };
+
+  const handleDeleteProfile = () => {
+    Alert.alert(
+      "Delete Profile",
+      "Are you sure you want to delete the profile?",
+      [
+        {
+          text: "No",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            if (resData._id) {
+              axios
+                .delete(`${myURL}/OnlyUserRoutes/profile/${resData._id}`)
+                .then((res) => {
+                  console.log(res.data);
+                  console.log("Profile Save!!");
+                  Alert.alert("Delete Record");
+                  navigation.navigate("Homeuser");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } else {
+              Alert.alert("Sorry, have no Record");
+            }
+          },
+        },
+      ]
+    );
   };
 
   return (
@@ -82,7 +113,7 @@ const UserProfile = ({ navigation, token_id }) => {
                 style={{
                   justifyContent: "flex-start",
                   alignItems: "flex-start",
-                  marginTop: 40,
+                  marginTop: 60,
                   marginLeft: 20,
                 }}
               />
@@ -111,29 +142,11 @@ const UserProfile = ({ navigation, token_id }) => {
               <Text style={{ margin: 0, color: "white", marginBottom: 10 }}>
                 {resData.country}
               </Text>
-              <Pressable onPress={() => setModalVisible(!modalVisible)}>
+              <Pressable onPress={() => setModalVisible(true)}>
                 <Feather name="edit" size={35} color="white" />
               </Pressable>
               <Text style={{ color: "white" }}>EDIT</Text>
-              <Pressable
-                onPress={() => {
-                  resData._id
-                    ? axios
-                        .delete(
-                          `${myURL}/OnlyUserRoutes/profile/${resData._id}`
-                        )
-                        .then((res) => {
-                          console.log(res.data);
-                          console.log("Profile Save!!");
-                          Alert.alert("Delete Record");
-                          navigation.navigate("Homeuser");
-                        })
-                        .catch((err) => {
-                          console.log(err);
-                        })
-                    : Alert.alert("Sorry, have no Record");
-                }}
-              >
+              <Pressable onPress={handleDeleteProfile}>
                 <Text
                   style={{
                     padding: 10,
@@ -149,7 +162,6 @@ const UserProfile = ({ navigation, token_id }) => {
           </View>
 
           <View style={{ flex: 6 / 10, margin: 40 }}>
-            {/* Display user information */}
             <Text style={{ color: "gray" }}>Phone:</Text>
             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
               {resData.phoneno}
@@ -222,17 +234,17 @@ const UserProfile = ({ navigation, token_id }) => {
                 borderBottomColor: "#ACA5A5",
               }}
             ></View>
-            {/* Update the PersonalModelProfile component with the handleProfileUpdate function */}
-            <PersonalModelProfile
-              modalVisible={modalVisible}
-              setModalVisible={setModalVisible}
-              User_Token={Token}
-              profiledata={resData}
-              onUpdate={handleProfileUpdate}
-            />
           </View>
         </View>
       </ScrollView>
+
+      <PersonalModelProfile
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        User_Token={Token}
+        profiledata={resData}
+        onUpdate={handleProfileUpdate}
+      />
     </>
   );
 };

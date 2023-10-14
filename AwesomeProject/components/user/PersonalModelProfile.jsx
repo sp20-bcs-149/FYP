@@ -1,156 +1,227 @@
-import React, { useState } from 'react';
-import {View ,Text, StyleSheet, ScrollView, SafeAreaView,Image,Pressable,Modal,TextInput,Alert} from 'react-native';
-import axios from 'axios';
-import MyComponentAlert from './AlertCall';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  TextInput,
+  Pressable,
+  Alert,
+} from "react-native";
+import axios from "axios";
+import myURL from "../../services/myurls";
 
-import myURL from '../../services/myurls';
+const PersonalModelProfile = ({
+  modalVisible,
+  setModalVisible,
+  User_Token,
+  profiledata,
+  onUpdate,
+}) => {
+  const [my_ID] = useState(User_Token._id);
+  const [my_ROLE] = useState(User_Token.my_ROLE);
 
-const PersonalModelProfile = ({navigation,modalVisible,setModalVisible,User_Token,profiledata}) => {
-    const  [my_ID,setmy_ID] = useState(User_Token._id);
-    const  [my_ROLE,setmy_ROLE] = useState(User_Token.my_ROLE);
+  const [name, SetName] = useState(profiledata?.name || "");
+  const [gender, SetGender] = useState(profiledata?.gender || "");
+  const [age, SetAge] = useState((profiledata?.age || "").toString());
+  const [cnic, SetCNIC] = useState((profiledata?.cnic || "").toString());
+  const [country, SetCountry] = useState(profiledata?.country || "");
+  const [phoneno, SetPhoneno] = useState(profiledata?.phoneno || "");
+  const [allergies, SetAllergies] = useState(profiledata?.allergies || "");
+  const [medical, SetMedical] = useState(profiledata?.medical || "");
+  const [errormsg, setErrormsg] = useState(null);
 
-    console.log("Profile data at Model" + profiledata.name); // everyhting in profile is here
-    //console.log("PersonalModelProfile data" + JSON.stringify(Tokendata));
-    // const [modalVisible, setModalVisible] = useState(false);
-
-    // ID OF THE USER -- THERE ARE MANY USER LOGIN AT RUN TIME
-    // const [_my_ID,SetmyID] = useState('');
-    // const [_my_ROLE,SetROLE] = useState('');
-    const [name,SetName] = useState('Adeel');
-    const [gender,SetGender] = useState('');
-    const [age,SetAge] = useState(0);
-    const [cnic, SetCNIC] = useState(0);
-    const [country,SetCountry] = useState('');
-    const [phoneno,SetPhoneno] = useState('');
-    const [allergies,SetAllergies] = useState('');
-    const [medical,SetMedical] = useState('');
-    // const [image,SetImage] = useState('');
-    // const [Picture,setPicture] = useState('');
-
-    const [errormsg ,setErrormsg] = useState(null);
-    
-    async function senddata(){
-      if(!name || !gender || !age || !cnic || !country || !phoneno|| !allergies|| !medical){
-              setErrormsg("Please fillout all the filled !!! ");
-      }
-      else if(cnic.length != 13){
-          setErrormsg("CNIC should be 13 character long ,No space or Dash  !!! ");
-      }
-      else if(age.length > 2)
-      {
-          setErrormsg("Please Insert the correct Age which should not greater than 100 !!! ");
-      }
-      else{
-          axios
-          .put(myURL+"/OnlyUserRoutes/profile/"+profiledata._id, {my_ID,my_ROLE,name,gender,age,cnic,country,phoneno,medical,allergies})
-          .then((res) => {
+  async function senddata() {
+    // Validate the input fields (add your own validation logic)
+    if (
+      !name ||
+      !gender ||
+      !age ||
+      !cnic ||
+      !country ||
+      !phoneno ||
+      !allergies ||
+      !medical
+    ) {
+      setErrormsg("Please fill out all the fields.");
+    } else if (cnic.length !== 13) {
+      setErrormsg("CNIC should be 13 characters long without spaces or dashes.");
+    } else if (parseInt(age) > 100) {
+      setErrormsg("Please enter a valid age (0-100).");
+    } else {
+      axios
+        .put(`${myURL}/OnlyUserRoutes/profile/${profiledata._id}`, {
+          my_ID,
+          my_ROLE,
+          name,
+          gender,
+          age: parseInt(age),
+          cnic,
+          country,
+          phoneno,
+          medical,
+          allergies,
+        })
+        .then((res) => {
           console.log(res.data);
-          console.log("Profile Save!! ")
-          setModalVisible(!modalVisible);
+          console.log("Profile Save!!");
+          setModalVisible(false);
           Alert.alert("SAVE PROFILE");
-          navigation.navigate("Homeuser");
-          
-          // {Alert.alert("Hi")}
-          })
-          .catch((err)=> {
+          onUpdate(); // Notify parent component to refresh data
+        })
+        .catch((err) => {
           console.log(err);
-          })   
-      }
-
+        });
     }
+  }
 
+  return (
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        Alert.alert("Modal has been closed.");
+        setModalVisible(!modalVisible);
+      }}
+    >
+      <View style={styles.centeredView}>
+        <Pressable
+          style={[styles.button, styles.buttonClose]}
+          onPress={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <Text style={styles.textStyle}> X </Text>
+        </Pressable>
 
-    return (  
-        <>
-            <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={
-                () => {Alert.alert('Modal has been closed.');
-                setModalVisible(!modalVisible);
-            }}>
+        <View style={styles.modalView}>
+          <ScrollView style={{ width: "100%" }}>
+            {/* Display Error Message */}
+            {errormsg && (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{errormsg}</Text>
+              </View>
+            )}
 
-                    <View style={styles.centeredView}>
-                    <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => {setModalVisible(!modalVisible);}}>
-                        <Text style={styles.textStyle}> X </Text>
-                    </Pressable>
+            <Text style={styles.inputLabel}>Name</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(name) => {
+                SetName(name);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={name}
+              placeholder="Enter Name"
+            />
 
-                    <View style={styles.modalView}>
-                        <ScrollView style={{width:"100%"}}>
+            <Text style={styles.inputLabel}>Gender</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(gender) => {
+                SetGender(gender);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={gender}
+              placeholder="Enter Gender"
+            />
 
-                          <Text style={{alignSelf:'center',fontSize:10,marginTop:20}}>      
-                          {
-                              errormsg ? (<View style={{backgroundColor:"#C2185B",margin:10}}><Text style={{alignSelf:'center',borderRadius:10,padding:5,color:'white',fontSize:10}}>{errormsg}</Text></View>) : null 
-                          }
-                         </Text>
+            <Text style={styles.inputLabel}>CNIC</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              onChangeText={(cnic) => {
+                SetCNIC(cnic);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={cnic}
+              placeholder="Enter CNIC (without -)"
+            />
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Name</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(name)=>{SetName(name)}} placeholder='Enter Name'/>
-                        
-                        {/* {console.log(firstname)} */}
+            <Text style={styles.inputLabel}>Age</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              onChangeText={(age) => {
+                SetAge(age);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={age}
+              placeholder="Enter Age"
+            />
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Gender</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(gender)=>{SetGender(gender)}}  placeholder="Enter Gender"/>
+            <Text style={styles.inputLabel}>Phone Number</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              onChangeText={(phone) => {
+                SetPhoneno(phone);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={phoneno}
+              placeholder="Enter Phone"
+            />
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>CNIC</Text>
-                        <TextInput style={styles.input} keyboardType="numeric" onPressIn={()=>{setErrormsg(null)}} onChangeText={(cnic)=>{SetCNIC(cnic)}}  placeholder="Enter CNIC [without -]"/>
+            <Text style={styles.inputLabel}>Country</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(country) => {
+                SetCountry(country);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={country}
+              placeholder="Enter Country"
+            />
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Age</Text>
-                        <TextInput style={styles.input} keyboardType="numeric" onPressIn={()=>{setErrormsg(null)}} onChangeText={(age)=>{SetAge(age)}}  placeholder="Enter Age  "/>
+            <Text style={styles.inputLabel}>Medical</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(med) => {
+                SetMedical(med);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={medical}
+              placeholder="Enter Medical"
+            />
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Phone Number</Text>
-                        <TextInput style={styles.input} keyboardType="numeric" onPressIn={()=>{setErrormsg(null)}} onChangeText={(phone)=>{SetPhoneno(phone)}}  placeholder="Enter Phone"/>
+            <Text style={styles.inputLabel}>Allergies</Text>
+            <TextInput
+              style={styles.input}
+              onChangeText={(allergies) => {
+                SetAllergies(allergies);
+                setErrormsg(null); // Clear error message on change
+              }}
+              value={allergies}
+              placeholder="Enter Allergies"
+            />
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Country</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(country)=>{SetCountry(country)}}  placeholder="Enter Country"/>
-
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Medical</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(medical)=>{SetMedical(medical)}}  placeholder="Enter Medical"/>
-
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Allergies</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(allergies)=>{SetAllergies(allergies)}}  placeholder="Enter Allergies"/>
-
-                        {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>
-                        <TextInput style={styles.input} onChangeText={(country)=>{setcountry(country)}}  placeholder="Enter Image"/> */}
-
-
-                        <Pressable onPress={ 
-                            (e)=>{
-                                senddata();
-                            }
-                         }> 
-                            <Text style={{borderRadius:10,alignSelf:'center',color:'white',fontSize:15,marginTop:20,backgroundColor:'#E92424',height:40,width:"60%",textAlign:'center',padding:10,fontWeight:'bold'}}>Profile</Text>
-                        </Pressable>
-                        {/* <MyComponentAlert /> */}
-
-                        </ScrollView>
-                    </View>
-                    </View>
-                </Modal>
-
-        </>
-    );
-}
- 
-
+            <Pressable onPress={senddata}>
+              <Text style={styles.saveButton}>Save Profile</Text>
+            </Pressable>
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
-// 
-// 
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
   modalView: {
-    flex:9/10,
-    width:'90%',
+    flex: 9 / 10,
+    width: "90%",
     margin: 5,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 20,
-    alignItems: 'center',
-    shadowColor: 'white',
+    alignItems: "center",
+    shadowColor: "white",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -164,41 +235,59 @@ const styles = StyleSheet.create({
     padding: 10,
     elevation: 2,
   },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
   buttonClose: {
-    marginTop:20,
-    // backgroundColor: 'white',
-    borderWidth:2,
-    borderColor:"#2196F3",
-    padding:15,   
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: "#2196F3",
+    padding: 15,
   },
   textStyle: {
-    color: 'white',
-    backgroundColor:"black",
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    backgroundColor: "black",
+    fontWeight: "bold",
+    textAlign: "center",
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+  inputLabel: {
+    alignSelf: "flex-start",
+    color: "black",
+    fontSize: 15,
+    margin: 10,
+    marginLeft: 20,
   },
-    input:{
-        backgroundColor:"white",
-        width:"90%",
-        height:40,
-        alignSelf:'center',
-        borderRadius:5,
-        paddingLeft:10,
-        borderWidth:2,
-        borderColor:'gray'
-    },
+  input: {
+    backgroundColor: "white",
+    width: "90%",
+    height: 40,
+    alignSelf: "center",
+    borderRadius: 5,
+    paddingLeft: 10,
+    borderWidth: 2,
+    borderColor: "gray",
+  },
+  saveButton: {
+    borderRadius: 10,
+    alignSelf: "center",
+    color: "white",
+    fontSize: 15,
+    marginTop: 20,
+    backgroundColor: "#E92424",
+    height: 40,
+    width: "60%",
+    textAlign: "center",
+    padding: 10,
+    fontWeight: "bold",
+  },
+  errorContainer: {
+    backgroundColor: "#C2185B",
+    margin: 10,
+  },
+  errorText: {
+    alignSelf: "center",
+    borderRadius: 10,
+    padding: 5,
+    color: "white",
+    fontSize: 10,
+  },
+});
 
-
-})
-
-
-
-
-export default PersonalModelProfile ;
+export default PersonalModelProfile;
