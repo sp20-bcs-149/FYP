@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
   Text,
   View,
@@ -6,13 +6,44 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
+  FlatList
 } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useRoute } from "@react-navigation/native";
+import myURL from "../../services/myurls";
+import axios from "axios";
 
 const AppointmentRecord = ({ navigation }) => {
+
+  const route = useRoute();
+  let Token = route.params?.token;
+
+
+    const [data,setResData] = useState([]);
+
+    
+  const getpendingAppointment = () => {
+
+    axios
+      .get(`${myURL}/user/scheduleAppointment/clinic_my_ID/?clinic_my_ID=${Token}`)
+      .then((res) => {
+        console.log("match User ID" + res.data);
+        setResData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(()=>{
+    getpendingAppointment();
+  },[])
+
+
+
   return (
     <>
       <View style={style.container}>
@@ -32,7 +63,7 @@ const AppointmentRecord = ({ navigation }) => {
                 marginTop: 30,
                 marginBottom: 10,
                 marginLeft: 20,
-                fontSize: 25,
+                fontSize: 20,
                 textAlign: "center",
                 fontWeight: "900",
               }}
@@ -59,6 +90,7 @@ const AppointmentRecord = ({ navigation }) => {
               </TouchableOpacity>
             </Text> */}
           </View>
+
           <View
             style={{
               flex: 9 / 10,
@@ -68,7 +100,11 @@ const AppointmentRecord = ({ navigation }) => {
             }}
           >
             {/* 1 - start */}
+          {
+            data.map((item,index) => (
+
             <View
+              key={index}
               style={{
                 backgroundColor: "#329998",
                 width: "90%",
@@ -91,10 +127,10 @@ const AppointmentRecord = ({ navigation }) => {
                   <Text
                     style={{ fontSize: 25, fontWeight: "bold", color: "white" }}
                   >
-                    Adil Hussain
+                    {item.patientName}
                   </Text>
                 </View>
-                <Pressable>
+                <Pressable onPress={()=>{navigation.navigate("AppointmentDetails",{put_id:item._id,patientName:item.patientName,cnic:item.cnicNumber,vaccinename:item.selectedVaccine,date:item.created_at,slot:item.selectedSlot,day:item.selectedDay,status:item.status})}}>
                   <View style={{ marginTop: 8 }}>
                     <Text
                       style={{ backgroundColor: "#329998", color: "white" }}
@@ -121,7 +157,7 @@ const AppointmentRecord = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ fontSize: 11 }}>15/10/2023</Text>
+                  <Text style={{ fontSize: 11 }}>{item.created_at.length > 10 ?item.created_at.slice(0,10): '' } AM</Text>
                 </View>
                 <View>
                   <Text style={{ fontSize: 11 }}> </Text>
@@ -135,10 +171,17 @@ const AppointmentRecord = ({ navigation }) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ fontSize: 11 }}>10 : 00 AM</Text>
+                  <Text style={{ fontSize: 11 }}>{item.currentTime}AM</Text>
                 </View>
               </View>
             </View>
+
+            ))
+          }
+
+
+
+
             {/* 1 - end */}
           </View>
         </ScrollView>

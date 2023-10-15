@@ -43,6 +43,7 @@ import BookAppointment from "./user/schedule/BookAppointment";
 import Completed from "./user/schedule/Complete";
 import Pending from "./user/schedule/Pending";
 import Success from "./user/schedule/Success";
+import Notification from "../Screen/user/Notification";
 //findclinic
 //import ClinicFinder from "../Screen/user/FindClinicMap";
 import Search from "../Screen/user/Search";
@@ -56,6 +57,7 @@ import NewsSend from "../Screen/admin/NewsSend";
 import ClinicProfile from "../Screen/Clinic/CProfile";
 import VaccineRecord from "../Screen/Clinic/VaccineRecord";
 import AppointmentRecord from "../Screen/Clinic/AppointmentRecord";
+import AppointmentDetails from "../Screen/Clinic/AppointmentDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,7 +67,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Homeuser"}
+        initialRouteName={"Login"}
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />
@@ -117,6 +119,7 @@ const Navigation = () => {
         {/* <Stack.Screen name="ClinicFinder" component={ClinicFinder} /> */}
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
+        <Stack.Screen name="Notification" component={Notification} />
 
         {/* all admin componets */}
         <Stack.Screen name="AlertSend" component={AlertSend} />
@@ -131,6 +134,7 @@ const Navigation = () => {
         <Stack.Screen name="ClinicProfile" component={ClinicProfile} />
         <Stack.Screen name="VaccineRecord" component={VaccineRecord} />
         <Stack.Screen name="AppointmentRecord" component={AppointmentRecord} />
+        <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} />
 
         {/* all rider component */}
       </Stack.Navigator>

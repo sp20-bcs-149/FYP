@@ -331,7 +331,7 @@ const Homeuser = ({ navigation }) => {
           {/* 9 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() => {navigation.navigate("Notification",{ token_id: Tokendata._id })}}
           >
             <View
               style={{

@@ -22,7 +22,7 @@ const ChildTrack = ({navigation}) => {
   const [user_Age_In_Day,setuser_Age_In_Day ] = useState('1');
 
 
-    console.log("Vaccine array ++==" + vaccine_namesArray); 
+  console.log("Vaccine array ++==" + vaccine_namesArray); 
 
   function calculateAgeInDays(birthdate) {
     const birthDate = new Date(birthdate);  // Convert the birthdate string to a Date object.
@@ -47,6 +47,7 @@ const ChildTrack = ({navigation}) => {
    let UserAge = 1;
    console.log("UserAge",user_Age_In_Day);
 
+   
   let Clicked_child_id = route.params?.Clicked_child_id;
     const vaccines = [
       {

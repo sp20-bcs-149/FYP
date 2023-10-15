@@ -10,7 +10,7 @@ router.post("/", async (req, res)=>{
 
     let userSchedule = new UserSchedule();
     userSchedule.my_ID = req.body.my_ID;
-    userSchedule.clinic_ID = req.body.clinic_ID;
+    userSchedule.clinic_my_ID = req.body.clinic_my_ID;
     userSchedule.selectedVaccine = req.body.selectedVaccine; 
     userSchedule.selectedDay = req.body.selectedDay; 
     userSchedule.selectedSlot = req.body.selectedSlot; 
@@ -24,6 +24,16 @@ router.post("/", async (req, res)=>{
     return res.send(userSchedule);
 });
 
+
+// update record
+router.put("/:id", async (req, res) => {
+  let userSchedule = await UserSchedule.findById(req.params.id);
+
+    userSchedule.status = req.body.status; 
+
+  await userSchedule.save();
+  return res.send(userSchedule);
+});
 
 // only for pending (getmethod)
 router.get("/pending", async (req, res) => {
@@ -46,6 +56,7 @@ router.get("/pending", async (req, res) => {
   }
 });
 
+
 // only for completed (getmethod)
 router.get("/completed", async (req, res) => {
   const my_ID = req.query.my_ID;
@@ -66,6 +77,53 @@ router.get("/completed", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+
+// only for completed (getmethod)
+router.get("/clinic_my_ID", async (req, res) => {
+  const clinic_my_ID = req.query.clinic_my_ID;
+  try {
+    const user = await UserSchedule.find({ clinic_my_ID: clinic_my_ID, status: 'pending' });
+    
+
+    if (!user) {
+      console.log("here is problem");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+
+    // res.json(parsedData);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
+router.get("/notification", async (req, res) => {
+  
+  const currentDate = new Date();
+  const currentDay = currentDate.getDate();
+  const daysToSubtract = 1; // Change this to the number of days you want to subtract
+
+  try {
+    const user = await UserSchedule.find({
+      status: 'pending',
+      selectedDay: currentDay,
+    });
+
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 
 module.exports = router;

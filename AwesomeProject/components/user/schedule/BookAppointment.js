@@ -55,7 +55,7 @@ const BookAppointment = ({ navigation }) => {
 
 
   console.log("location " +typeof parseFloat(longi) + " " +typeof parseFloat(lati) );
-  console.log(" User_id ===>" +my_ID + " "+clinic_ID);
+  console.log(" User_id ===>" +my_ID + " my_clinic_ID"+clinic_my_ID);
   // const mydata = [
   //   {id:'kdfjkld',vaccine_name:'Hep B',description:'haha',price:'$10',img:'no',},
   //   {id:'kdfjkld',vaccine_name:'DPT',description:'haha',price:'$10',img:'no',},
@@ -226,7 +226,7 @@ const BookAppointment = ({ navigation }) => {
       currentTime = formattedTime;
 
     axios
-      .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
+      .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_my_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
       .then((res) => {
       console.log(res.data);
       Alert.alert("BOOK SCHEDULE");
@@ -358,6 +358,7 @@ const BookAppointment = ({ navigation }) => {
                       style={{
                         color: selectedDay == index ? "#fff" : "#329998",
                         fontWeight: "bold",
+                        flexWrap:'wrap'
                       }}
                     >
                       {item.day}
@@ -367,16 +368,14 @@ const BookAppointment = ({ navigation }) => {
               }}
             />
           </View>
-          <Text style={styles.heading}> Error in FlatList Available Slots</Text>
-          <View>
-            <FlatList
-              numColumns={2}
-              data={slots}
-              renderItem={({ item, index }) => {
-                return (
-                  <>
-                  {/* {if(selectedDay)} */}
+          <Text style={styles.heading}>Available Slots</Text>
+          <View style={{flexDirection:'row',flexWrap:'wrap'}}>
+              {/* {if(selectedDay)} */}
+
+          {
+            slots.map((item,index)=>(
                   <TouchableOpacity
+                    key={index}
                     style={[
                       styles.timeSlot,
                       {
@@ -395,10 +394,8 @@ const BookAppointment = ({ navigation }) => {
                       {item.sloT}
                     </Text>
                   </TouchableOpacity>
-                  </>
-                );
-              }}
-            />
+            ))
+          }
           </View>
           <Text style={styles.heading}>Patient Name</Text>
           <TextInput
@@ -510,6 +507,7 @@ const styles = StyleSheet.create({
     margin: 6,
     justifyContent: "center",
     alignItems: "center",
+    
   },
   nameInput: {
     borderRadius: 10,
