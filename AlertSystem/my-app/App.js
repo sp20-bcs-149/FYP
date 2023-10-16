@@ -1,114 +1,98 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Modal, TouchableOpacity } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-
-const Tab = createBottomTabNavigator();
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Home Screen</Text>
-    </View>
-  );
-}
-
-function NotificationsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Notifications</Text>
-    </View>
-  );
-}
-
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Profile Screen</Text>
-    </View>
-  );
-}
+import React, { useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [isContextMenuVisible, setContextMenuVisible] = useState(false);
+  const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    // Show Home Screen for 2 seconds
+  const handleLongPress = (event) => {
+    const { pageX, pageY } = event.nativeEvent;
+    setContextMenuPosition({ x: pageX, y: pageY });
+
     setTimeout(() => {
-      setModalVisible(true);
-      // Hide modal after 10 seconds
-      setTimeout(() => {
-        setModalVisible(false);
-      }, 10000);
-    }, 2000);
-  }, []);
+      setContextMenuVisible(true);
+    }, 2000); // Show options after 2 seconds
+  };
 
-  const handleViewNotifications = () => {
-    console.log("You have some Unseen Notifications. Tab on View Notification to see them");
+  const handleEdit = () => {
+    setContextMenuVisible(false);
+    alert("Edit Option Pressed");
+  };
+
+  const handleDelete = () => {
+    setContextMenuVisible(false);
+    alert("Delete Option Pressed");
   };
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = 'home';
-            } else if (route.name === 'Notifications') {
-              iconName = 'notifications';
-            } else if (route.name === 'Profile') {
-              iconName = 'person';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-        })}
-        tabBarActiveTintColor="tomato"
-        tabBarInactiveTintColor="gray"
-        tabBarStyle={{
-          display: 'flex',
-          // Additional styling if needed
-        }}
+    <View style={styles.container}>
+      <TouchableOpacity
+        onLongPress={handleLongPress}
+        style={styles.button}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Notifications" component={NotificationsScreen} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-      </Tab.Navigator>
+        <Text style={styles.buttonText}>Click Me</Text>
+      </TouchableOpacity>
+
       <Modal
-        animationType="slide"
         transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
+        visible={isContextMenuVisible}
+        animationType="slide"
+        onRequestClose={() => setContextMenuVisible(false)}
       >
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ backgroundColor: '#329998', padding: 20, borderRadius: 10 }}>
-            <Text style={{ color: 'white', fontSize: 18, marginBottom: 10 }}>
-              You have some Unseen Notifications. Click on View Notification to see them
-            </Text>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-              <TouchableOpacity onPress={handleViewNotifications}>
-                <View style={{ backgroundColor: '#fff', padding: 10, borderRadius: 5 }}>
-                  <Text style={{ color: '#329998', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
-                    View Notifications
-                  </Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setModalVisible(false)}>
-                <View style={{ backgroundColor: '#fff', padding: 10, borderRadius: 5 }}>
-                  <Text style={{ color: '#329998', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
-                    Close
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View
+          style={[
+            styles.contextMenu,
+            {
+              top: contextMenuPosition.y - 40, // Adjusted position
+              left: contextMenuPosition.x - 10, // Adjusted position
+            },
+          ]}
+        >
+          <TouchableOpacity onPress={handleEdit} style={styles.contextMenuItem}>
+            <Text>Edit</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleDelete} style={styles.contextMenuItem}>
+            <Text>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setContextMenuVisible(false)} style={styles.contextMenuItem}>
+            <Text>Cancel</Text>
+          </TouchableOpacity>
         </View>
       </Modal>
-    </NavigationContainer>
-  ); 
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 8,
+    width: 150,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  contextMenu: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  contextMenuItem: {
+    padding: 10,
+  },
+});
