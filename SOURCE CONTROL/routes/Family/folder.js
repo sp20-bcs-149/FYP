@@ -49,4 +49,15 @@ router.delete("/:id",  async (req, res)=>{
 });
 
 
+// update record
+router.put("/:id", async (req, res) => {
+  let family = await Family.findById(req.params.id);
+
+  family.Folder_Name = req.body.Folder_Name; 
+
+  await family.save();
+  return res.send(family);
+});
+
+
 module.exports = router;

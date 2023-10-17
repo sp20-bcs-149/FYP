@@ -44,6 +44,7 @@ import Completed from "./user/schedule/Complete";
 import Pending from "./user/schedule/Pending";
 import Success from "./user/schedule/Success";
 import Notification from "../Screen/user/Notification";
+import AllPending from "./user/schedule/AllBookVaccineGet";
 //findclinic
 //import ClinicFinder from "../Screen/user/FindClinicMap";
 import Search from "../Screen/user/Search";
@@ -67,7 +68,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Login"}
+        initialRouteName={"Homeuser"}
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />
@@ -116,6 +117,7 @@ const Navigation = () => {
         <Stack.Screen name="Completed" component={Completed} />
         <Stack.Screen name="Pending" component={Pending} />
         <Stack.Screen name="Success" component={Success} />
+        <Stack.Screen name="AllPending" component={AllPending} />
         {/* <Stack.Screen name="ClinicFinder" component={ClinicFinder} /> */}
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="PlaceDetail" component={PlaceDetail} />

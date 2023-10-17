@@ -10,6 +10,7 @@ import {
   Modal,
   TextInput,
   Alert,
+  TouchableOpacity
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -40,7 +41,16 @@ const Homeuser = ({ navigation }) => {
 
   useEffect(() => {
     getLoggedInUser();
+    
+    setTimeout(() => {
+      setModalVisibleNotification(true);
+      // Hide modal after 10 seconds
+      setTimeout(() => {
+        setModalVisibleNotification(false);
+      }, 10000);
+    }, 2000);
   }, []);
+
 
   getLoggedInUser = async () => {
     try {
@@ -57,7 +67,7 @@ const Homeuser = ({ navigation }) => {
   };
 
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [modalVisibleNotification, setModalVisibleNotification] = useState(false);
   return (
     // <SafeAreaView>
     <View style={{ flex: 1, backgroundColor: "#329998" }}>
@@ -305,7 +315,7 @@ const Homeuser = ({ navigation }) => {
           {/* 8 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() => {navigation.navigate("AllPending",{ token_id: Tokendata._id })}}
           >
             <View
               style={{
@@ -322,9 +332,9 @@ const Homeuser = ({ navigation }) => {
               <Text
                 style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
               >
-                Reminder
+                Book
               </Text>
-              <Text style={{ color: "white" }}>Vaccine</Text>
+              <Text style={{ color: "white" }}>Appointment</Text>
             </View>
           </Pressable>
 
@@ -348,9 +358,9 @@ const Homeuser = ({ navigation }) => {
               <Text
                 style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
               >
-                Book
+                Notification
               </Text>
-              <Text style={{ color: "white" }}>Appointment</Text>
+              <Text style={{ color: "white" }}>Alert</Text>
             </View>
           </Pressable>
         </View>
@@ -362,6 +372,39 @@ const Homeuser = ({ navigation }) => {
         setModalVisible={setModalVisible}
         token={Tokendata}
       />
+      <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisibleNotification}
+            onRequestClose={() => {
+              setModalVisibleNotification(false);
+            }}
+          >
+            <View style={{ flex: 1, justifyContent:'flex-start', alignItems: 'center' }}>
+              <View style={{ backgroundColor: '#ffffff', padding: 20, borderRadius: 10 }}>
+                <Text style={{ color: 'black', fontSize: 18, marginBottom: 10 }}>
+                  You have some Unseen Notifications. Click on View Notification to see them
+                </Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <TouchableOpacity onPress={()=>{ navigation.navigate("Notification",{ token_id: Tokendata._id }) }}>
+                    <View style={{ backgroundColor: '#329998', padding: 10, borderRadius: 5 }}>
+                      <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
+                        View Notifications
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => setModalVisibleNotification(false)}>
+                    <View style={{ backgroundColor: '#329998', padding: 10, borderRadius: 5 }}>
+                      <Text style={{ color: '#fff', fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>
+                        Close
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+
       {/* token={token} */}
       {/* Profile Model End */}
     </View>

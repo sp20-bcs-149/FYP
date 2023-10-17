@@ -5,7 +5,7 @@ import myURL from "../../services/myurls";
 import axios from "axios";
 import { useRoute } from "@react-navigation/native";
 
-const Notification = () => {
+const Notification = ({navigation}) => {
   const route = useRoute();
   let Token_id = route.params?.token_id;
 

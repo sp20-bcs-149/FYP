@@ -35,6 +35,28 @@ router.put("/:id", async (req, res) => {
   return res.send(userSchedule);
 });
 
+// only for All pending (getmethod)
+router.get("/All/pending", async (req, res) => {
+  const my_ID = req.query.my_ID;
+  try {
+    const user = await UserSchedule.find({ my_ID: my_ID});
+    
+
+    if (!user) {
+      console.log("here is problem");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+
+    // res.json(parsedData);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 // only for pending (getmethod)
 router.get("/pending", async (req, res) => {
   const my_ID = req.query.my_ID;

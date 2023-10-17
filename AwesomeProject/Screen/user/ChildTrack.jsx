@@ -1,13 +1,14 @@
 import React,{useEffect,useState} from 'react';
-import { Text,View,StyleSheet,ScrollView, TouchableOpacity } from 'react-native';
+import { Text,View,StyleSheet,ScrollView, TouchableOpacity,Button,Pressable } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { Feather } from '@expo/vector-icons'; 
-
+import axios from 'axios';
 import { useRoute } from "@react-navigation/native";
-
+import myURL from '../../services/myurls';
+import CreateRecordModelUpdate from '../../components/user/familyProfile/CreateRecordssUpdate';
 
 const ChildTrack = ({navigation}) => {
   const route = useRoute();
@@ -18,12 +19,20 @@ const ChildTrack = ({navigation}) => {
   let previousvaccine = route.params?.previousvaccine;
   const vaccine_namesArray = previousvaccine.split(', ');
   let dob = route.params?.dob;
+  let my_ID = route.params?.my_ID;
 
   const [user_Age_In_Day,setuser_Age_In_Day ] = useState('1');
+  const [myvaccineArray, setMyVaccineArray] = useState([]);
 
+  console.log("Vaccine array ++==" + previousvaccine); 
+  const separateVaccinePrevious = () => {
+    const separatedVaccines = previousvaccine.split(',');
+    setMyVaccineArray(separatedVaccines);
+  };
 
-  console.log("Vaccine array ++==" + vaccine_namesArray); 
+  console.log("Vaccine array ++==" + myvaccineArray); 
 
+  
   function calculateAgeInDays(birthdate) {
     const birthDate = new Date(birthdate);  // Convert the birthdate string to a Date object.
     const currentDate = new Date();          // Get the current date.
@@ -47,8 +56,53 @@ const ChildTrack = ({navigation}) => {
    let UserAge = 1;
    console.log("UserAge",user_Age_In_Day);
 
+
+
+    const [data,setResData] = useState([]);
+    const [completedata,setCompleteData] = useState([]);
+      
    
   let Clicked_child_id = route.params?.Clicked_child_id;
+
+  console.log("Clicked_child_id==========",Clicked_child_id);
+
+  const getpendingAppointment = () => {
+      axios
+        .get(`${myURL}/user/scheduleAppointment/pending/?my_ID=${Clicked_child_id}`)
+        .then((res) => {
+          console.log("match User ID" + res.data);
+          setResData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    useEffect(()=>{
+      getpendingAppointment();
+      getCompletedAppointment();
+      separateVaccinePrevious();
+    },[])
+
+    useEffect(() => {
+      console.log("Vaccine array ++==", myvaccineArray);
+    }, [myvaccineArray]);
+
+    
+  const getCompletedAppointment = () => {
+    axios
+      .get(`${myURL}/user/scheduleAppointment/completed/?my_ID=${Clicked_child_id}`)
+      .then((res) => {
+        console.log("match User ID" + res.data);
+        setCompleteData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+ 
+    console.log("DATA ==== ???? " + JSON.stringify(completedata));
     const vaccines = [
       {
         "disease": "Childhood TB",
@@ -197,6 +251,9 @@ const ChildTrack = ({navigation}) => {
         ]
       }
     ]
+    const [modalVisible, setModalVisible] = useState(false);
+
+
     return (
     <>
             <View style={style.container}>
@@ -218,8 +275,19 @@ const ChildTrack = ({navigation}) => {
                         </View>
                         <View style={style.line}></View>
                         <View style={{width:"90%",flexDirection:'row',justifyContent:'space-between',alignContent:'center'}}>
-                            <View ><Text><Feather name="edit" size={24} color="#329998" /></Text></View>
-                            <View ><AntDesign name="delete" size={24} color="#FF0000" /></View>
+                            <Pressable onPress={() => setModalVisible(!modalVisible)}><View ><Text><Feather name="edit" size={24} color="#329998" /></Text></View></Pressable>
+                            <Pressable onPress={() =>{
+                                            axios
+                                              .delete(myURL + "/family/familyInside/" + Clicked_child_id)
+                                              .then((res) => {
+                                                console.log(res.data);
+                                                alert("Delete Record");
+                                                navigation.navigate("ChildRecord");
+                                              })
+                                              .catch((err) => {
+                                                console.log(err);
+                                              });
+                            } }><View ><AntDesign name="delete" size={24} color="#FF0000" /></View></Pressable>
                         </View>
                     </View>
                     
@@ -227,17 +295,18 @@ const ChildTrack = ({navigation}) => {
                         <View style={{backgroundColor:'#fff'}}><Text>PREVIOUS VACCINES</Text></View>
                         {/* 1 */}
                         {
-                          vaccine_namesArray.map((name,index) => 
+                          myvaccineArray.map((name,index) => 
                           <View key={index} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
                             <AntDesign name="star" size={35} color="#329998" />
 
 
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>{name}</Text>
-                                <Text style={{fontSize:10,}}></Text>
-                                <Text style={{fontSize:10,}}></Text>
+                            <View style={{flexDirection:'column',alignItems:"flex-start"}}>
+                              {
+                                
+                                 <Text key={index} style={{fontSize:11,padding:10,fontWeight:'bold',marginRight:180}}>{name.replace(/"/g,'')}</Text>
+                              }
                             </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Feedback</Text></View>
+                            {/* <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}></Text></View> */}
                         </View>
                         )
                         }
@@ -251,17 +320,20 @@ const ChildTrack = ({navigation}) => {
                     <View style={{justifyContent:'flex-start',width:'80%'}}>
                         <View style={{backgroundColor:'#fff'}}><Text>INJECTED VACCINES</Text></View>
                         {/* 1 */}
-                        <View style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="star" size={35} color="#329998" />
+                        {
+                          completedata.map((injected_item,injected_index)=>
 
-
-                            <View style={{flexDirection:'column',}}>
-                                <Text style={{fontSize:11,fontWeight:'bold'}}>Polio</Text>
-                                <Text style={{fontSize:10,}}>Vaccine name: OPV</Text>
-                                <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
+                            <View key={injected_index} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
+                                <AntDesign name="star" size={35} color="#329998" />
+                                <View style={{flexDirection:'column',}}>
+                                    <Text style={{fontSize:11,fontWeight:'bold'}}>{injected_item.selectedVaccine}</Text>
+                                    <Text style={{fontSize:10,}}>Vaccine name: OPV</Text>
+                                    <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
+                                </View>
+                                <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Feedback</Text></View>
                             </View>
-                            <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Feedback</Text></View>
-                        </View>
+                         )
+                        }
                         {/* 1 end */}
 
                     </View>
@@ -286,9 +358,17 @@ const ChildTrack = ({navigation}) => {
                                       ageItem = item.age.find(age => age.age_in_days === 450);
                                     }
 
-                                    
                                     if (ageItem) {
                                       let vaccinename = ageItem.dose;
+
+                                    let disableButton1 = data.filter((inside_item) => inside_item.selectedVaccine === ageItem.dose).length > 0;
+                                    let disableButton2 = completedata.filter((inside_item) => inside_item.selectedVaccine === ageItem.dose).length > 0;
+                                    let disableButton3 = myvaccineArray.filter((name) =>  name.replace(/"/g,'') == ageItem.dose ).length > 0;
+                                    
+                                    const Disable_condition = disableButton1 || disableButton2 || disableButton3;
+                                    console.log("disable " + disableButton3);
+                                    console.log("disable " + ageItem.dose);
+
                                       return (
                                         
                                         <View key={index} style={{ marginTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -302,9 +382,15 @@ const ChildTrack = ({navigation}) => {
                                             <Text style={{ fontSize: 10 }}>Given on 05/06/2022 At ...</Text>
                                           </View>
 
-                                          <TouchableOpacity onPress={() => { navigation.navigate('ScheduleHome', { user: Clicked_child_id,source: 'childTrack',cnic:cnic,username:name,vaccinename:vaccinename }) }}>
-                                            <View><Text style={{ backgroundColor: "#C2185B", borderRadius: 5, padding: 2, color: 'white' }}>Schedule</Text></View>
-                                          </TouchableOpacity>
+                                            <View>
+                                            <Button disabled={Disable_condition}
+                                             title={
+                                               Disable_condition ? 'RECIEVED' : 'Schedule' 
+                                              
+                                              } style={{ backgroundColor: "#C2185B", borderRadius: 5, padding: 2, color: 'white' }}
+                                              onPress={() => { navigation.navigate('ScheduleHome', { user: Clicked_child_id,source: 'childTrack',cnic:cnic,username:name,vaccinename:vaccinename }) }}
+                                            ></Button>
+                                            </View>
                                         </View>
                                         
                                       );
@@ -324,6 +410,12 @@ const ChildTrack = ({navigation}) => {
 
                 </View>
                 </ScrollView>
+              <CreateRecordModelUpdate
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                _ID={Clicked_child_id}
+                my_ID={my_ID}
+              />
             </View>
     </>
   )
