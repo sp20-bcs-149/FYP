@@ -136,7 +136,10 @@ const Navigation = () => {
         <Stack.Screen name="ClinicProfile" component={ClinicProfile} />
         <Stack.Screen name="VaccineRecord" component={VaccineRecord} />
         <Stack.Screen name="AppointmentRecord" component={AppointmentRecord} />
-        <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} />
+        <Stack.Screen
+          name="AppointmentDetails"
+          component={AppointmentDetails}
+        />
 
         {/* all rider component */}
       </Stack.Navigator>
