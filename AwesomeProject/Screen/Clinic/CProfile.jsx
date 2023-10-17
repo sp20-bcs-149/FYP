@@ -49,8 +49,42 @@ const CProfile = ({ navigation }) => {
 
     return () => clearInterval(pollingInterval);
   }, []);
+
   const handleProfileUpdate = () => {
     setRefreshFlag(!refreshFlag);
+  };
+
+  const handleDelete = () => {
+    if (resData._id) {
+      Alert.alert(
+        "Confirm Delete",
+        "Are you sure you want to delete the data from Profile?",
+        [
+          {
+            text: "No",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {
+            text: "Yes",
+            onPress: () => {
+              axios
+                .delete(`${myURL}/routes/Clinic/clinicProfile/${resData._id}`)
+                .then((res) => {
+                  Alert.alert("Profile Deleted Successfully");
+                  navigation.navigate("Homeclinic");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      Alert.alert("Sorry, no record found");
+    }
   };
 
   return (
@@ -103,9 +137,6 @@ const CProfile = ({ navigation }) => {
             >
               {resData.name}
             </Text>
-            {/* <Text style={{ margin: 0, color: "white", marginBottom: 10 }}>
-              {resData.country}
-            </Text> */}
             <Pressable onPress={() => setModalVisible(!modalVisible)}>
               <Feather name="edit" size={35} color="white" />
             </Pressable>
@@ -175,21 +206,7 @@ const CProfile = ({ navigation }) => {
           ></View>
           <Pressable
             style={{ alignItems: "center", justifyContent: "center" }}
-            onPress={() => {
-              if (resData._id) {
-                axios
-                  .delete(`${myURL}/routes/Clinic/clinicProfile/${resData._id}`)
-                  .then((res) => {
-                    Alert.alert("Profile Deleted");
-                    navigation.navigate("Homeclinic");
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
-              } else {
-                Alert.alert("Sorry, no record found");
-              }
-            }}
+            onPress={handleDelete}
           >
             <Text
               style={{
@@ -202,12 +219,6 @@ const CProfile = ({ navigation }) => {
               Delete
             </Text>
           </Pressable>
-          {/* <PersonalModelProfile
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            User_Token={Token}
-            profiledata={resData}
-          /> */}
           <ClinicModelProfile
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
