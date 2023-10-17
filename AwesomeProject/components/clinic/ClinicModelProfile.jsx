@@ -10,9 +10,11 @@ import {
   Modal,
   TextInput,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-import MyComponentAlert from "./AlertCall";
+import * as Location from "expo-location";
+//import MyComponentAlert from "./AlertCall";
 
 import myURL from "../../services/myurls";
 
@@ -20,7 +22,7 @@ const ClinicModelProfile = ({
   navigation,
   modalVisible,
   setModalVisible,
-  User_Token,
+  clinic_Token,
   profiledata,
 }) => {
   const [my_ID, setmy_ID] = useState(clinic_Token._id);
@@ -34,15 +36,39 @@ const ClinicModelProfile = ({
   // const [_my_ID,SetmyID] = useState('');
   // const [_my_ROLE,SetROLE] = useState('');
   const [name, SetName] = useState("Adeel");
-  const [gender, SetGender] = useState("");
-  const [age, SetAge] = useState(0);
   const [cnic, SetCNIC] = useState(0);
   const [country, SetCountry] = useState("");
   const [phoneno, SetPhoneno] = useState("");
-  const [allergies, SetAllergies] = useState("");
-  const [medical, SetMedical] = useState("");
+  const [latitude, SetLatitude] = useState("");
+  const [longitude, SetLongitude] = useState("");
+  const [status, setStatus] = useState("");
   // const [image,SetImage] = useState('');
   // const [Picture,setPicture] = useState('');
+
+  const findMyLocation = async () => {
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status !== "granted") {
+        setStatus("Permission to access location was denied");
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+      console.log("loc:" + location.coords.latitude);
+
+      SetLatitude(location.coords.latitude);
+      SetLongitude(location.coords.longitude);
+
+      //      const geoApiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+
+      //      const response = await fetch(geoApiUrl);
+      //      const data = await response.json();
+      setStatus(`Latitude: ${latitude}, Longitude: ${longitude}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -97,25 +123,6 @@ const ClinicModelProfile = ({
                   marginLeft: 20,
                 }}
               >
-                Gender
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(gender) => {
-                  SetGender(gender);
-                }}
-                placeholder="Enter Gender"
-              />
-
-              <Text
-                style={{
-                  alignSelf: "flex-start",
-                  color: "black",
-                  fontSize: 15,
-                  margin: 10,
-                  marginLeft: 20,
-                }}
-              >
                 CNIC
               </Text>
               <TextInput
@@ -124,25 +131,6 @@ const ClinicModelProfile = ({
                   SetCNIC(cnic);
                 }}
                 placeholder="Enter CNIC [without -]"
-              />
-
-              <Text
-                style={{
-                  alignSelf: "flex-start",
-                  color: "black",
-                  fontSize: 15,
-                  margin: 10,
-                  marginLeft: 20,
-                }}
-              >
-                Age
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(age) => {
-                  SetAge(age);
-                }}
-                placeholder="Enter Age  "
               />
 
               <Text
@@ -182,44 +170,25 @@ const ClinicModelProfile = ({
                 }}
                 placeholder="Enter Country"
               />
-
-              <Text
+              <View
                 style={{
-                  alignSelf: "flex-start",
-                  color: "black",
-                  fontSize: 15,
-                  margin: 10,
-                  marginLeft: 20,
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Medical
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(medical) => {
-                  SetMedical(medical);
-                }}
-                placeholder="Enter Medical"
-              />
-
-              <Text
-                style={{
-                  alignSelf: "flex-start",
-                  color: "black",
-                  fontSize: 15,
-                  margin: 10,
-                  marginLeft: 20,
-                }}
-              >
-                Allergies
-              </Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={(allergies) => {
-                  SetAllergies(allergies);
-                }}
-                placeholder="Enter Allergies"
-              />
+                <Text style={{ marginBottom: 20 }}>{status}</Text>
+                <TouchableOpacity
+                  onPress={findMyLocation}
+                  style={{
+                    padding: 10,
+                    backgroundColor: "#329998",
+                    borderRadius: 5,
+                  }}
+                >
+                  <Text style={{ color: "white" }}>Find My Location</Text>
+                </TouchableOpacity>
+              </View>
 
               {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>
                         <TextInput style={styles.input} onChangeText={(country)=>{setcountry(country)}}  placeholder="Enter Image"/> */}
@@ -227,18 +196,19 @@ const ClinicModelProfile = ({
               <Pressable
                 onPress={(e) => {
                   axios
-                    .put(myURL + "/Clinic/clinicProfile/" + profiledata._id, {
-                      my_ID,
-                      my_ROLE,
-                      name,
-                      gender,
-                      age,
-                      cnic,
-                      country,
-                      phoneno,
-                      medical,
-                      allergies,
-                    })
+                    .put(
+                      `${myURL}/routes/Clinic/clinicProfile/${profiledata._id}`,
+                      {
+                        my_ID,
+                        my_ROLE,
+                        name,
+                        cnic,
+                        country,
+                        phoneno,
+                        latitude,
+                        longitude,
+                      }
+                    )
                     .then((res) => {
                       console.log(res.data);
                       console.log("Profile Save!! ");
@@ -249,6 +219,7 @@ const ClinicModelProfile = ({
                       // {Alert.alert("Hi")}
                     })
                     .catch((err) => {
+                      console.log("error in post request");
                       console.log(err);
                     });
                 }}

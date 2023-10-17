@@ -67,7 +67,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Login"}
+        initialRouteName={"ClinicDrawer"}
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />
@@ -134,7 +134,10 @@ const Navigation = () => {
         <Stack.Screen name="ClinicProfile" component={ClinicProfile} />
         <Stack.Screen name="VaccineRecord" component={VaccineRecord} />
         <Stack.Screen name="AppointmentRecord" component={AppointmentRecord} />
-        <Stack.Screen name="AppointmentDetails" component={AppointmentDetails} />
+        <Stack.Screen
+          name="AppointmentDetails"
+          component={AppointmentDetails}
+        />
 
         {/* all rider component */}
       </Stack.Navigator>
