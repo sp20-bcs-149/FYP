@@ -49,6 +49,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/AllClinic", async (req, res) => {
+  try {
+    console.log("request recived");
+    const clinic = await ClinicProfile.find();
+
+    if (!clinic) {
+      console.log("here is problem");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+
+    // res.json(parsedData);
+    res.json(clinic);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 router.put("/:id", async (req, res) => {
   let profile = await ClinicProfile.findById(req.params.id);
 
