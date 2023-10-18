@@ -83,7 +83,7 @@ const getClinic = (myIDValues) => {
   // get only those clinics where myVaccine.my_ID matches
   if (source === 'childTrack') {
    axios
-      .get(`${myURL}/routes/Clinic/clinicProfile`)
+      .get(`${myURL}/routes/Clinic/clinicProfile/AllClinic`)
       .then((res) => {
         // Filter clinic data based on matching my_ID values
         const filteredData = res.data.filter(item => myIDValues.includes(item.my_ID));
@@ -96,7 +96,7 @@ const getClinic = (myIDValues) => {
       });
   } else {
     axios
-      .get(`${myURL}/routes/Clinic/clinicProfile`)
+      .get(`${myURL}/routes/Clinic/clinicProfile/AllClinic`)
       .then((res) => {
         console.log("Match User ID" + res.data);
         setMydata(res.data);

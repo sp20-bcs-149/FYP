@@ -108,29 +108,29 @@ router.put("/:id", async (req, res) => {
   return res.send(clinic_VaccineRecord);
 });
 
-router.get("/:id", async (req, res) => {
-  const my_ID = req.query.my_ID;
-  const vaccine_name = req.query.vaccine_name;
-
-  let query = {};
-
-  if (my_ID) {
-    query.my_ID = my_ID;
-  }
-
-  if (vaccine_name) {
-    query.vaccine_name = vaccine_name;
-  }
-
-  const records = await Clinic_VaccineRecord.find(query);
-  return res.send(records);
+router.get("/", async (req, res) => {
+  let row = await Clinic_VaccineRecord.find();
+  return res.send(row);
 });
 
+router.get("/ID",  async (req,res)=>{
+  const my_ID = req.query.my_ID;
+
+    let row = await Clinic_VaccineRecord.find({ my_ID: my_ID});
+    return res.send(row);
+});
+router.get("/name",  async (req,res)=>{
+  const vaccine_name = req.query.vaccine_name;
+
+    let row = await Clinic_VaccineRecord.find({ vaccine_name: vaccine_name});
+    return res.send(row);
+});
 router.delete("/:id", async (req, res) => {
   let clinic_VaccineRecord = await Clinic_VaccineRecord.findByIdAndDelete(
     req.params.id
   );
   return res.send(clinic_VaccineRecord);
 });
+
 
 module.exports = router;
