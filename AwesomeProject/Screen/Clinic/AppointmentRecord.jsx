@@ -130,7 +130,7 @@ const AppointmentRecord = ({ navigation }) => {
                     {item.patientName}
                   </Text>
                 </View>
-                <Pressable onPress={()=>{navigation.navigate("AppointmentDetails",{patientName:item.patientName,cnic:item.cnicNumber,vaccinename:item.selectedVaccine,date:item.created_at,slot:item.selectedSlot,day:item.selectedDay,status:item.status})}}>
+                <Pressable onPress={()=>{navigation.navigate("AppointmentDetails",{put_id:item._id,patientName:item.patientName,cnic:item.cnicNumber,vaccinename:item.selectedVaccine,date:item.created_at,slot:item.selectedSlot,day:item.selectedDay,status:item.status})}}>
                   <View style={{ marginTop: 8 }}>
                     <Text
                       style={{ backgroundColor: "#329998", color: "white" }}

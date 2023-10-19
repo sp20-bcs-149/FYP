@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import { View, Text, StyleSheet, FlatList, Image, } from "react-native";
 import Header from "./Header";
 import { useNavigation } from "@react-navigation/native"; // Import the useNavigation hook
 import axios from "axios";
 import myURL from "../../../services/myurls";
 import { useRoute } from "@react-navigation/native";
-
+import { ScrollView } from "react-native-gesture-handler";
 const AllPending = () => {
   const route = useRoute();
   let token_id = route.params?.token_id;
@@ -15,7 +15,7 @@ const AllPending = () => {
     
   const getpendingAppointment = () => {
     axios
-      .get(`${myURL}/user/scheduleAppointment/All/pending/?my_ID=${token_id}`)
+      .get(`${myURL}/user/scheduleAppointment/All/pending/?User_Token_id=${token_id}`)
       .then((res) => {
         console.log("match User ID" + res.data);
         setResData(res.data);
@@ -34,18 +34,16 @@ const AllPending = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Header
         icon={require("../../src/images/backbutton.png")}
-        title={"Pending Appointments"}
+        title={"All Appointments"}
         navigation={navigation} // Pass the navigation prop
       />
       <View>
-        <FlatList
-          data={data}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.itemView}>
+      {
+          data.map((item,index)=>(
+              <View key={index} style={styles.itemView}>
                 <Image
                   source={require("../../src/images/vac.png")}
                   style={styles.docImage}
@@ -54,15 +52,16 @@ const AllPending = () => {
                   <Text style={styles.name}>{item.selectedVaccine}</Text>
                   <Text style={styles.timing}>{item.currentTime} AM</Text>
                   <Text style={styles.timing}>{item.patientName}</Text>
-                  <Text style={styles.timing}>{item.cnicNumber}</Text>
+                  <Text style={styles.timing}>TYPE : {item.my_ID == item.User_Token_id ? <><Text style={{fontWeight:'bold'}}>User</Text> <Text style={{color:'gray'}}>/Family</Text></> : <><Text style={{color:'gray'}}>User/</Text> <Text style={{fontWeight:'bold'}}>Family</Text></>}</Text>
                 </View>
-                <Text style={styles.status}>{item.status}</Text>
+                <Text style={{    marginLeft:0,    borderRadius: 10,backgroundColor: "#f2f2f2", padding: 5,color: item.status == 'pending'? "orange": 'green',}}>{item.status}</Text>
               </View>
-            );
-          }}
-        />
+              ))
+      }
+
+      
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

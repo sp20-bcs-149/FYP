@@ -11,6 +11,7 @@ router.post("/", async (req, res)=>{
     let userSchedule = new UserSchedule();
     userSchedule.my_ID = req.body.my_ID;
     userSchedule.clinic_my_ID = req.body.clinic_my_ID;
+    userSchedule.User_Token_id = req.body.User_Token_id;
     userSchedule.selectedVaccine = req.body.selectedVaccine; 
     userSchedule.selectedDay = req.body.selectedDay; 
     userSchedule.selectedSlot = req.body.selectedSlot; 
@@ -25,21 +26,23 @@ router.post("/", async (req, res)=>{
 });
 
 
+
+
 // update record
 router.put("/:id", async (req, res) => {
   let userSchedule = await UserSchedule.findById(req.params.id);
 
     userSchedule.status = req.body.status; 
 
+
   await userSchedule.save();
   return res.send(userSchedule);
 });
-
 // only for All pending (getmethod)
 router.get("/All/pending", async (req, res) => {
-  const my_ID = req.query.my_ID;
+  const User_Token_id = req.query.User_Token_id;
   try {
-    const user = await UserSchedule.find({ my_ID: my_ID});
+    const user = await UserSchedule.find({ User_Token_id: User_Token_id});
     
 
     if (!user) {
@@ -132,7 +135,7 @@ router.get("/notification", async (req, res) => {
   try {
     const user = await UserSchedule.find({
       status: 'pending',
-      selectedDay: currentDay,
+      selectedDay: currentDay+1,
     });
 
     if (!user) {

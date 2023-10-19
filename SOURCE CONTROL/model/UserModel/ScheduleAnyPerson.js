@@ -5,6 +5,7 @@ var UserScheduleSchema = mongoose.Schema({
        created_at: { type: Date, default: Date.now },
         my_ID: String,
         clinic_my_ID: String,
+        User_Token_id: String,
         selectedVaccine: String,
         selectedDay: Number,
         selectedSlot: Number,
@@ -21,6 +22,7 @@ function validateUserSchedule(data){
     const schema = Joi.object({
         my_ID : Joi.string().required(),
         clinic_my_ID : Joi.string().required(),
+        User_Token_id : Joi.string(),
         selectedVaccine: Joi.string().required(),
         selectedDay: Joi.number().required(),
         selectedSlot: Joi.number().required(),

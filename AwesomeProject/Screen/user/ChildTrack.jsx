@@ -16,6 +16,8 @@ const ChildTrack = ({navigation}) => {
   let weight = route.params?.weight;
   let height = route.params?.height;
   let cnic = route.params?.cnic;
+  let Token_id = route.params?.Token_id;
+  
   let previousvaccine = route.params?.previousvaccine;
   const vaccine_namesArray = previousvaccine.split(', ');
   let dob = route.params?.dob;
@@ -388,7 +390,7 @@ const ChildTrack = ({navigation}) => {
                                                Disable_condition ? 'RECIEVED' : 'Schedule' 
                                               
                                               } style={{ backgroundColor: "#C2185B", borderRadius: 5, padding: 2, color: 'white' }}
-                                              onPress={() => { navigation.navigate('ScheduleHome', { user: Clicked_child_id,source: 'childTrack',cnic:cnic,username:name,vaccinename:vaccinename }) }}
+                                              onPress={() => { navigation.navigate('ScheduleHome', { user: Clicked_child_id,source: 'childTrack',cnic:cnic,username:name,vaccinename:vaccinename, Token_id:Token_id }) }}
                                             ></Button>
                                             </View>
                                         </View>

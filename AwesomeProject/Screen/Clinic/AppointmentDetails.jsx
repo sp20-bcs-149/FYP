@@ -19,7 +19,7 @@ const AppointmentDetails = ({ navigation }) => {
   const route = useRoute();
   let {put_id,patientName,cnic,vaccinename,date,slot,day} = route.params;
   const [status,setstatus] = useState('completed');
-
+  
   console.log("PUT_ID  " + put_id);
   return (
     <>
