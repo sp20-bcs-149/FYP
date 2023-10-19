@@ -43,7 +43,7 @@ const VaccineRecord = ({ navigation }) => {
     try {
       console.log("token id", Tokendata._id);
       const response = await axios.get(
-        `${myURL}/routes/Clinic/VaccineRecord/${Tokendata._id}`
+        `${myURL}/routes/Clinic/VaccineRecord/vaccines/${Tokendata._id}`
       );
       console.log("Vaccine record data:", response.data);
       setResData(response.data);
@@ -57,12 +57,12 @@ const VaccineRecord = ({ navigation }) => {
       <ScrollView style={{ width: "100%" }}>
         <View
           style={{
-            flex: 1 /10 ,
+            flex: 1 / 10,
             backgroundColor: "#329998",
             width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            marginBottom:20,
+            marginBottom: 20,
             marginTop: 5,
           }}
         >
@@ -92,7 +92,7 @@ const VaccineRecord = ({ navigation }) => {
               width: 130,
               marginTop: 30,
               marginLeft: 20,
-              marginRight:10
+              marginRight: 10,
             }}
           >
             <Text
@@ -100,7 +100,7 @@ const VaccineRecord = ({ navigation }) => {
                 color: "white",
                 textAlign: "center",
                 fontWeight: "bold",
-                letterSpacing: 0.5
+                letterSpacing: 0.5,
               }}
             >
               Add Vaccine
