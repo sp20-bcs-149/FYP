@@ -60,6 +60,8 @@ import VaccineRecord from "../Screen/Clinic/VaccineRecord";
 import AppointmentRecord from "../Screen/Clinic/AppointmentRecord";
 import AppointmentDetails from "../Screen/Clinic/AppointmentDetails";
 
+
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -68,7 +70,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Homeuser"}
+        initialRouteName={"Login"}
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />
@@ -140,6 +142,8 @@ const Navigation = () => {
           name="AppointmentDetails"
           component={AppointmentDetails}
         />
+
+
 
         {/* all rider component */}
       </Stack.Navigator>

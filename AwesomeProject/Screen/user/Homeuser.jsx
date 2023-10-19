@@ -42,14 +42,10 @@ const Homeuser = ({ navigation }) => {
   useEffect(() => {
     getLoggedInUser();
     
-    setTimeout(() => {
-      setModalVisibleNotification(true);
-      // Hide modal after 10 seconds
-      setTimeout(() => {
-        setModalVisibleNotification(false);
-      }, 10000);
-    }, 2000);
+
+
   }, []);
+
 
 
   getLoggedInUser = async () => {
@@ -65,6 +61,36 @@ const Homeuser = ({ navigation }) => {
       return null;
     }
   };
+
+
+
+    
+    const CheckNotificationlength = () => {
+
+    axios
+      .get(`${myURL}/user/scheduleAppointment/notification/`)
+      .then((res) => {
+            res.data.length > 0 ?
+      setTimeout(() => {
+        setModalVisibleNotification(true);
+        // Hide modal after 5 seconds
+        setTimeout(() => {
+          setModalVisibleNotification(false);
+        }, 5000)
+      }, 2000)    
+    :
+     null
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    };
+
+  useEffect(()=>{
+    CheckNotificationlength();
+  },[])
+
+
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleNotification, setModalVisibleNotification] = useState(false);

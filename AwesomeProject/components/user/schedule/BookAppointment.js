@@ -35,16 +35,19 @@ const BookAppointment = ({ navigation }) => {
   let lati = route.params?.latitude;
   let Schedulesource = route.params?.Schedulesource;
 
-  let cnic,username_from_child,vaccinename;
+  
+  let cnic,username_from_child,vaccinename,User_Token_id;
 
 
   if(Schedulesource == "childTrackPath"){
     cnic = route.params?.cnic;
     username_from_child = route.params?.username_from_child;
     vaccinename = route.params?.vaccinename;
+    User_Token_id = route.params?.User_Token_id;
     console.log(`Navigation source: CNIN ${Schedulesource} : ${username_from_child}`);
 
   }else{
+    User_Token_id = my_ID;
     console.log(`Navigation source: ${Schedulesource}`);
 
   }
@@ -226,7 +229,7 @@ const BookAppointment = ({ navigation }) => {
       currentTime = formattedTime;
 
     axios
-      .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_my_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
+      .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_my_ID,User_Token_id,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
       .then((res) => {
       console.log(res.data);
       Alert.alert("BOOK SCHEDULE");

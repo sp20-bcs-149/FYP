@@ -73,7 +73,7 @@ const handleLongPress = (event) => {
     // Polling setup (fetch data every X seconds)
     useEffect(() => {
         const pollingInterval = setInterval(() => {
-        // fetchData();
+        fetchData();
         }, 1000); // Adjust the interval as needed (e.g., fetch data every minute)
 
         // Cleanup when the component unmounts
@@ -110,7 +110,7 @@ const handleLongPress = (event) => {
  
                     {
                     data.map((item) => (
-                        <TouchableOpacity key={item._id}  onLongPress={handleLongPress} onPress={()=>{setcurrent_ID(item._id),navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name})}}>
+                        <TouchableOpacity key={item._id}  onLongPress={handleLongPress} onPress={()=>{setcurrent_ID(item._id),navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name,Token_id:Token_id})}}>
                         <View  style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                             <Ionicons name='person' size={45} color='white' />
                             <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>{item.Folder_Name}</Text>

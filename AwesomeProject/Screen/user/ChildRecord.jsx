@@ -11,7 +11,7 @@ const ChildRecord = ({navigation}) => {
   const route = useRoute();
   let child_id = route.params?.child_id;
   let Folder_Name = route.params?.folderName;
-
+  let Token_id = route.params?.Token_id;
 
     const [ChildData, setChildData] = useState([]);
 
@@ -34,7 +34,7 @@ const ChildRecord = ({navigation}) => {
     // Polling setup (fetch data every X seconds)
     useEffect(() => {
         const pollingInterval = setInterval(() => {
-        // fetchData();
+        fetchData();
         }, 1000); // Adjust the interval as needed (e.g., fetch data every minute)
 
         // Cleanup when the component unmounts
@@ -77,7 +77,7 @@ const ChildRecord = ({navigation}) => {
                                     <View><Text style={{fontSize:11,}}>Height : {item.height} cm</Text></View>
                                 </View>
                             </View>
-                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{my_ID:child_id,Clicked_child_id:item._id,name:item.name,weight:item.weight,height:item.height,dob:item.dob,previousvaccine:item.SelectedvaccineString,cnic:item.cnic})}}>
+                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{my_ID:child_id,Clicked_child_id:item._id,name:item.name,weight:item.weight,height:item.height,dob:item.dob,previousvaccine:item.SelectedvaccineString,cnic:item.cnic,Token_id:Token_id})}}>
                                 <View style={{alignSelf:'center',marginLeft:-20}}>
                                   <AntDesign name="caretright" size={24} color="#3C7DA3" style={{}} />
                                 </View>

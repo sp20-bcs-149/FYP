@@ -14,13 +14,14 @@ const ScheduleHome = ({ navigation }) => {
   const route = useRoute();
   const { source } = route.params;
   let user = route.params?.user;
-  let cnic,username_from_child,vaccinename;
+  let cnic,username_from_child,vaccinename,Token_id;
 
   
     if(source=='childTrack'){
       cnic = route.params?.cnic;
       username_from_child = route.params?.username;
       vaccinename = route.params?.vaccinename;
+      Token_id = route.params?.Token_id;
       console.log(`Navigation source: CNIN = ${source} : ${vaccinename}`);
 
     }else{
@@ -154,7 +155,7 @@ const getClinic = (myIDValues) => {
                     if(source == 'Homeuser'){
                       navigation.navigate("BookAppointment",{Schedulesource:'HomeuserPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude});
                     }else if(source == 'childTrack'){
-                      navigation.navigate("BookAppointment",{Schedulesource:'childTrackPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude,cnic:cnic,username_from_child:username_from_child,vaccinename:vaccinename});
+                      navigation.navigate("BookAppointment",{Schedulesource:'childTrackPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude,cnic:cnic,username_from_child:username_from_child,vaccinename:vaccinename,User_Token_id:Token_id});
                     }
                   }
                 }}
