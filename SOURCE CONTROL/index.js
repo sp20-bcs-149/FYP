@@ -18,11 +18,13 @@ var ClinicRouter = require("./routes/Clinic/clinicProfile");
 var ClinicAppointmentRouter = require("./routes/Clinic/Appointment");
 var ClinicAppointmentAcceptedRouter = require("./routes/Clinic/Accepted_Rejected_User");
 var Clinic_vaccineRecord = require("./routes/Clinic/VaccineRecord");
-//user
 
 //Admin
 var adminnewsRouter = require("./routes/Admin/News");
 var adminalertRouter = require("./routes/Admin/Alert");
+
+//Rider
+var Rider_VaccineOrder = require("./routes/rider/orderVaccine");
 
 var config = require("config");
 var cors = require("cors");
@@ -83,6 +85,9 @@ app.get("/", authorizationtoken, (req, res) => {
 //     console.log(req.body);
 //     res.send("This is signUp page");
 // })
+
+//Rider
+app.use("/routes/rider/orderVaccine", Rider_VaccineOrder);
 
 mongoose
   .connect(config.get("db"), {

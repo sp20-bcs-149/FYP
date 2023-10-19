@@ -24,8 +24,11 @@ router.post("/", async (req, res) => {
   profile.my_ID = req.body.my_ID;
   profile.my_ROLE = req.body.my_ROLE;
   profile.name = req.body.name;
-  profile.cnic = req.body.cnic;
+  profile.registrationId = req.body.registrationId;
   profile.country = req.body.country;
+  profile.city = req.body.city;
+  profile.address = req.body.address;
+  profile.postalCode = req.body.postalCode;
   profile.phoneno = req.body.phoneno;
   profile.latitude = req.body.latitude.toString();
   profile.longitude = req.body.longitude.toString();
@@ -74,11 +77,14 @@ router.put("/:id", async (req, res) => {
   profile.my_ID = req.body.my_ID;
   profile.my_ROLE = req.body.my_ROLE;
   profile.name = req.body.name;
-  profile.cnic = req.body.cnic;
+  profile.registrationId = req.body.registrationId;
   profile.country = req.body.country;
   profile.phoneno = req.body.phoneno;
   profile.latitude = req.body.latitude;
   profile.longitude = req.body.longitude;
+  profile.city = req.body.city;
+  profile.address = req.body.address;
+  profile.postalCode = req.body.postalCode;
 
   await profile.save();
   return res.send(profile);

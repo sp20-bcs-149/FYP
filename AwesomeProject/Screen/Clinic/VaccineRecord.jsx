@@ -21,29 +21,31 @@ const VaccineRecord = ({ navigation }) => {
   const [resData, setResData] = useState([]);
   const [Tokendata, setTokenData] = useState([]);
   const route = useRoute();
+  let token = route.params?.token;
 
   useEffect(() => {
-    getLoggedInClinic();
+    // getLoggedInClinic();
+    getVaccineRecord();
   }, []);
 
-  const getLoggedInClinic = async () => {
-    try {
-      const storedToken = await AsyncStorage.getItem("token");
-      console.log("Retrieved token:", storedToken);
-      setTokenData(jwtDecode(storedToken));
-      console.log(Tokendata);
-      getVaccineRecord();
-      // Call getVaccineRecord here after setting the token data.
-    } catch (error) {
-      console.error("Error retrieving token:", error);
-    }
-  };
+  // const getLoggedInClinic = async () => {
+  //   try {
+  //     const storedToken = await AsyncStorage.getItem("token");
+  //     console.log("Retrieved token:", storedToken);
+  //     setTokenData(jwtDecode(storedToken));
+  //     console.log(Tokendata);
+
+  //     // Call getVaccineRecord here after setting the token data.
+  //   } catch (error) {
+  //     console.error("Error retrieving token:", error);
+  //   }
+  // };
 
   const getVaccineRecord = async () => {
     try {
-      console.log("token id", Tokendata._id);
+      console.log("token id", token);
       const response = await axios.get(
-        `${myURL}/routes/Clinic/VaccineRecord/vaccines/${Tokendata._id}`
+        `${myURL}/routes/Clinic/VaccineRecord/vaccines/${token}`
       );
       console.log("Vaccine record data:", response.data);
       setResData(response.data);
@@ -200,7 +202,7 @@ const VaccineRecord = ({ navigation }) => {
       <VaccineRecordComponent
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
-        token={Tokendata}
+        token={token}
       />
     </View>
   );
