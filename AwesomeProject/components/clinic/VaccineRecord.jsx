@@ -14,8 +14,13 @@ import * as Location from "expo-location";
 
 import myURL from "../../services/myurls";
 
-const VaccineRecord = ({ navigation, modalVisible, setModalVisible, token }) => {
-  const my_ID = token._id;
+const VaccineRecord = ({
+  navigation,
+  modalVisible,
+  setModalVisible,
+  token,
+}) => {
+  const my_ID = token;
   const my_ROLE = token.role;
 
   const [vaccine_name, Setvaccine_name] = useState("");
@@ -44,7 +49,13 @@ const VaccineRecord = ({ navigation, modalVisible, setModalVisible, token }) => 
         priceValid
       )
     );
-  }, [vaccineNameValid, manufacturerValid, vaccineTypeValid, quantityValid, priceValid]);
+  }, [
+    vaccineNameValid,
+    manufacturerValid,
+    vaccineTypeValid,
+    quantityValid,
+    priceValid,
+  ]);
 
   const handleInputChange = (field, value) => {
     switch (field) {
@@ -181,7 +192,10 @@ const VaccineRecord = ({ navigation, modalVisible, setModalVisible, token }) => 
 
               <Pressable
                 onPress={handleAddVaccine}
-                style={[styles.addButton, isButtonDisabled && styles.disabledButton]}
+                style={[
+                  styles.addButton,
+                  isButtonDisabled && styles.disabledButton,
+                ]}
                 disabled={isButtonDisabled}
               >
                 <Text style={styles.buttonText}>ADD VACCINE</Text>
