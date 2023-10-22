@@ -59,6 +59,27 @@ router.get("/All/pending", async (req, res) => {
   }
 });
 
+// only for All pending (getmethod)
+router.get("/All", async (req, res) => {
+  const User_Token_id = req.query.User_Token_id;
+  try {
+    const user = await UserSchedule.find();
+    
+
+    if (!user) {
+      console.log("here is problem");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+
+    // res.json(parsedData);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 // only for pending (getmethod)
 router.get("/pending", async (req, res) => {
@@ -135,7 +156,7 @@ router.get("/notification", async (req, res) => {
   try {
     const user = await UserSchedule.find({
       status: 'pending',
-      selectedDay: currentDay+1,
+      selectedDay: currentDay+1 || currentDay+3 
     });
 
     if (!user) {

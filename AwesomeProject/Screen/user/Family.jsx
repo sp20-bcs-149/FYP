@@ -73,7 +73,7 @@ const handleLongPress = (event) => {
     // Polling setup (fetch data every X seconds)
     useEffect(() => {
         const pollingInterval = setInterval(() => {
-        fetchData();
+        // fetchData();
         }, 1000); // Adjust the interval as needed (e.g., fetch data every minute)
 
         // Cleanup when the component unmounts

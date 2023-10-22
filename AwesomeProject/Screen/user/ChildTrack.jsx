@@ -12,16 +12,26 @@ import CreateRecordModelUpdate from '../../components/user/familyProfile/CreateR
 
 const ChildTrack = ({navigation}) => {
   const route = useRoute();
+  let sourcePath = route.params?.sourcePath;
   let name = route.params?.name;
-  let weight = route.params?.weight;
-  let height = route.params?.height;
+  let gender = route.params?.gender;
   let cnic = route.params?.cnic;
   let Token_id = route.params?.Token_id;
-  
   let previousvaccine = route.params?.previousvaccine;
-  const vaccine_namesArray = previousvaccine.split(', ');
+  // const vaccine_namesArray = previousvaccine.split(', ');
   let dob = route.params?.dob;
   let my_ID = route.params?.my_ID;
+  let Clicked_child_id = route.params?.Clicked_child_id;
+
+  console.log("Clicked_child_id==========",Clicked_child_id);
+
+  let weight;
+  let height;
+  if(sourcePath=="ChildFamily"){
+
+    weight = route.params?.weight;
+    height = route.params?.height;
+  }
 
   const [user_Age_In_Day,setuser_Age_In_Day ] = useState('1');
   const [myvaccineArray, setMyVaccineArray] = useState([]);
@@ -64,9 +74,6 @@ const ChildTrack = ({navigation}) => {
     const [completedata,setCompleteData] = useState([]);
       
    
-  let Clicked_child_id = route.params?.Clicked_child_id;
-
-  console.log("Clicked_child_id==========",Clicked_child_id);
 
   const getpendingAppointment = () => {
       axios
@@ -276,21 +283,25 @@ const ChildTrack = ({navigation}) => {
                             <View ><Text>Weight: {weight} Kg</Text></View>
                         </View>
                         <View style={style.line}></View>
-                        <View style={{width:"90%",flexDirection:'row',justifyContent:'space-between',alignContent:'center'}}>
-                            <Pressable onPress={() => setModalVisible(!modalVisible)}><View ><Text><Feather name="edit" size={24} color="#329998" /></Text></View></Pressable>
-                            <Pressable onPress={() =>{
-                                            axios
-                                              .delete(myURL + "/family/familyInside/" + Clicked_child_id)
-                                              .then((res) => {
-                                                console.log(res.data);
-                                                alert("Delete Record");
-                                                navigation.navigate("ChildRecord");
-                                              })
-                                              .catch((err) => {
-                                                console.log(err);
-                                              });
-                            } }><View ><AntDesign name="delete" size={24} color="#FF0000" /></View></Pressable>
-                        </View>
+                        { sourcePath=="ChildFamily" ?
+                          <View style={{width:"90%",flexDirection:'row',justifyContent:'space-between',alignContent:'center'}}>
+                              <Pressable onPress={() => setModalVisible(!modalVisible)}><View ><Text><Feather name="edit" size={24} color="#329998" /></Text></View></Pressable>
+                              <Pressable onPress={() =>{
+                                              axios
+                                                .delete(myURL + "/family/familyInside/" + Clicked_child_id)
+                                                .then((res) => {
+                                                  console.log(res.data);
+                                                  alert("Delete Record");
+                                                  navigation.navigate("ChildRecord");
+                                                })
+                                                .catch((err) => {
+                                                  console.log(err);
+                                                });
+                              } }><View ><AntDesign name="delete" size={24} color="#FF0000" /></View></Pressable>
+                          </View>
+                          : 
+                          ''
+                       }    
                     </View>
                     
                     <View style={{justifyContent:'flex-start',width:'80%'}}>
@@ -417,10 +428,21 @@ const ChildTrack = ({navigation}) => {
                 setModalVisible={setModalVisible}
                 _ID={Clicked_child_id}
                 my_ID={my_ID}
+                
+                P_name={name}
+                P_gender={gender}
+                P_height={height}
+                P_weight={weight}
+                P_dob={dob}
+                P_cnic={cnic}
+                P_SelectedvaccineString={previousvaccine}
               />
             </View>
     </>
   )
+
+
+
 }
 
 const style = StyleSheet.create({

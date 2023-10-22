@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, Pressable, Modal, Alert } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
 import myURL from '../../../services/myurls';
 
-const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _ID,my_ID }) => {
-  const [name, Setname] = useState("");
-  const [gender, Setgender] = useState("");
-  const [height, Setheight] = useState("");
-  const [weight, Setweight] = useState("");
-  const [medical_history, Setmedical_history] = useState("");
-  const [age, Setage] = useState("");
-  const [dob, setDob] = useState(""); 
-  const [cnic, setCnic] = useState("");
+const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _ID,my_ID,P_name,P_gender,P_weight,P_height,P_dob,P_cnic,SelectedvaccineString }) => {
+
+  const [name, Setname] = useState( P_name||"");
+  const [gender, Setgender] = useState(P_gender||"");
+  const [height, Setheight] = useState(P_height||"");
+  const [weight, Setweight] = useState(P_weight||"");
+  const [dob, setDob] = useState(P_dob||""); 
+  const [cnic, setCnic] = useState(P_cnic ||"");
   const [vaccines, setVaccines] = useState([
     { name: 'Polio', checked: false },
     { name: 'Hep A', checked: false },
@@ -36,6 +35,31 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
     {name: 'PCV13', checked: false},
     {name: 'Yellow Fever', checked: false},
   ]);
+
+  useEffect(() => {
+    if (P_name) {
+      Setname(P_name);
+    }
+    if (P_gender) {
+      Setgender(P_gender);
+    }
+    if (P_height) {
+      Setheight(P_height);
+    }
+    if (P_weight) {
+      Setweight(P_weight);
+    }
+    if (P_dob) {
+      setDob(P_dob);
+    }
+    if(P_cnic){
+      setCnic(P_cnic);
+    }
+    // if (profiledata.vaccines) {
+    //   setVaccines(profiledata.setVaccines);
+    // }
+
+  }, []); // Update name state when profiledata.name changes
 
   const [selectvaccine,SetselectVaccine] = useState("sorry");
 
@@ -113,6 +137,7 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 Name
               </Text>
               <TextInput
+                value={name}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
@@ -135,6 +160,7 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 Gender
               </Text>
               <TextInput
+              value={gender}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
@@ -157,6 +183,7 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 Height
               </Text>
               <TextInput
+              value={height}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
@@ -179,6 +206,7 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 Weight
               </Text>
               <TextInput
+              value={weight}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
@@ -201,6 +229,7 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 Date of Birth
               </Text>
               <TextInput
+              value={dob}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
@@ -228,13 +257,13 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 CNIC
               </Text>
               <TextInput
+              value={cnic}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
                   setIsCnicEntered(false);
                 }}
                 onChangeText={handleCnicChange}
-                value={cnic}
                 placeholder="XXXXX-XXXXXXX-X"
                 keyboardType="numeric"
                 maxLength={15}
@@ -257,10 +286,12 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                 Previous Vaccination
               </Text>
               <View style={{ marginLeft: 20 }}>
-                {vaccines.map((vaccine, index) => (
+                {vaccines.map((vaccine, index) => {
+                  const isSelected = SelectedvaccineString  && SelectedvaccineString.includes(vaccine.name);
+                  return(
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }} key={index}>
                     <CheckBox
-                      checked={vaccine.checked}
+                      checked={vaccine.checked || isSelected}
                       onPress={() => {
                         const updatedVaccines = [...vaccines];
                         updatedVaccines[index].checked = !vaccines[index].checked;
@@ -269,7 +300,7 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                     />
                     <Text style={{ marginLeft: 10 }}>{vaccine.name}</Text>
                   </View>
-                ))}
+                )})}
               </View>
 
               <Pressable

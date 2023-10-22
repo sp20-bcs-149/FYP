@@ -126,8 +126,9 @@ router.get("/ID", async (req, res) => {
 });
 router.get("/name", async (req, res) => {
   const vaccine_name = req.query.vaccine_name;
+  const regex = new RegExp(vaccine_name, "i");
 
-  let row = await Clinic_VaccineRecord.find({ vaccine_name: vaccine_name });
+  let row = await Clinic_VaccineRecord.find({ vaccine_name: regex });
   return res.send(row);
 });
 router.delete("/:id", async (req, res) => {
