@@ -25,9 +25,12 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
   const my_ROLE = token.role;
   // const [modalVisible, setModalVisible] = useState(false);
   const [name, SetName] = useState("");
-  const [cnic, SetCNIC] = useState(0);
+  const [registrationId, SetRegistrationId] = useState(0);
   const [country, SetCountry] = useState("");
   const [phoneno, SetPhoneno] = useState("");
+  const [city, SetCity] = useState("");
+  const [address, SetAddress] = useState("");
+  const [postalCode, SetPostalCode] = useState("");
   const [latitude, SetLatitude] = useState("74.676346823");
   const [longitude, SetLongitude] = useState("31.2784783");
   const [status, setStatus] = useState("");
@@ -113,14 +116,14 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                CNIC
+                registrationId
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(cnic) => {
-                  SetCNIC(cnic);
+                onChangeText={(registrationId) => {
+                  SetRegistrationId(registrationId);
                 }}
-                placeholder="Enter CNIC [without -]"
+                placeholder="Enter Registration Id"
               />
 
               <Text
@@ -160,7 +163,7 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                 }}
                 placeholder="Enter Country"
               />
-              {/* <Text
+              <Text
                 style={{
                   alignSelf: "flex-start",
                   color: "black",
@@ -169,15 +172,51 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                   marginLeft: 20,
                 }}
               >
-                Locationn
+                city
               </Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(location) => {
-                  SetLocation(location);
+                onChangeText={(city) => {
+                  SetCity(city);
                 }}
-                placeholder="Enter Location"
-              /> */}
+                placeholder="Enter city"
+              />
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                address
+              </Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(address) => {
+                  SetAddress(address);
+                }}
+                placeholder="Enter address"
+              />
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Postal code
+              </Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={(postalCode) => {
+                  SetPostalCode(postalCode);
+                }}
+                placeholder="Enter Postal code"
+              />
 
               <View
                 style={{
@@ -209,9 +248,12 @@ const ClinicModel = ({ navigation, modalVisible, setModalVisible, token }) => {
                       my_ID,
                       my_ROLE,
                       name,
-                      cnic,
+                      registrationId,
                       country,
                       phoneno,
+                      city,
+                      address,
+                      postalCode,
                       latitude,
                       longitude,
                     })

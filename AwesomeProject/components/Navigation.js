@@ -45,6 +45,9 @@ import Pending from "./user/schedule/Pending";
 import Success from "./user/schedule/Success";
 import Notification from "../Screen/user/Notification";
 import AllPending from "./user/schedule/AllBookVaccineGet";
+import Feedback from "../Screen/user/Feedback";
+import Charts from "../Screen/user/Report";
+import ReportMenu from "../Screen/user/ReportPre";
 //findclinic
 //import ClinicFinder from "../Screen/user/FindClinicMap";
 import Search from "../Screen/user/Search";
@@ -60,6 +63,12 @@ import VaccineRecord from "../Screen/Clinic/VaccineRecord";
 import AppointmentRecord from "../Screen/Clinic/AppointmentRecord";
 import AppointmentDetails from "../Screen/Clinic/AppointmentDetails";
 
+import OrderClinicScreen from "../Screen/Clinic/HomeScreen";
+import ClinicScreen from "./clinic/OrderPlacement/screens/ClinicScreen";
+import CartScreen from "./clinic/OrderPlacement/screens/CartScreen";
+import OrderPreparingScreen from "./clinic/OrderPlacement/screens/OrderPreparingScreen";
+import DeliveryScreen from "./clinic/OrderPlacement/screens/DeliveryScreen";
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -68,7 +77,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Login"}
+        initialRouteName={"ReportMenu"}
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />
@@ -122,6 +131,9 @@ const Navigation = () => {
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="PlaceDetail" component={PlaceDetail} />
         <Stack.Screen name="Notification" component={Notification} />
+        <Stack.Screen name="Feedback" component={Feedback} />
+        <Stack.Screen name="Charts" component={Charts} />
+        <Stack.Screen name="ReportMenu" component={ReportMenu} />
 
         {/* all admin componets */}
         <Stack.Screen name="AlertSend" component={AlertSend} />
@@ -140,6 +152,13 @@ const Navigation = () => {
           name="AppointmentDetails"
           component={AppointmentDetails}
         />
+
+        <Stack.Screen name="OrderClinicScreen" component={OrderClinicScreen} />
+        <Stack.Screen name="Clinic" component={ClinicScreen} />
+        <Stack.Screen name="Cart"  component={CartScreen} />
+        <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} />
+        <Stack.Screen name="Delivery" component={DeliveryScreen} />
+
 
         {/* all rider component */}
       </Stack.Navigator>

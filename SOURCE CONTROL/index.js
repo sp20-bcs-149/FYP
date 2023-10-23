@@ -10,6 +10,7 @@ var profileRouter = require("./routes/OnlyUserRoutes/profile");
 var familyRoute = require("./routes/Family/folder");
 var familyInsideRoute = require("./routes/Family/folderInside");
 var userSchedule = require("./routes/users/ScheduleAnyPerson");
+var Feedback = require("./routes/users/Feedback");
 
 // clinic
 var EntryVaccineTakenRecord = require("./routes/Clinic/UserVaccineTakenDataInset/entryTakenVaccine");
@@ -18,11 +19,13 @@ var ClinicRouter = require("./routes/Clinic/clinicProfile");
 var ClinicAppointmentRouter = require("./routes/Clinic/Appointment");
 var ClinicAppointmentAcceptedRouter = require("./routes/Clinic/Accepted_Rejected_User");
 var Clinic_vaccineRecord = require("./routes/Clinic/VaccineRecord");
-//user
 
 //Admin
 var adminnewsRouter = require("./routes/Admin/News");
 var adminalertRouter = require("./routes/Admin/Alert");
+
+//Rider
+var Rider_VaccineOrder = require("./routes/rider/orderVaccine");
 
 var config = require("config");
 var cors = require("cors");
@@ -55,6 +58,8 @@ app.use("/family/familyInside", familyInsideRoute);
 app.use("/user/scheduleAppointment/", userSchedule);
 
 app.use("/user/scheduleAppointment", userSchedule);
+app.use("/user/feedback", Feedback);
+
 //clinic
 app.use(
   "/Clinic/UserVaccineTakenDataInset/entryTakenVaccine",
@@ -83,6 +88,9 @@ app.get("/", authorizationtoken, (req, res) => {
 //     console.log(req.body);
 //     res.send("This is signUp page");
 // })
+
+//Rider
+app.use("/routes/rider/orderVaccine", Rider_VaccineOrder);
 
 mongoose
   .connect(config.get("db"), {

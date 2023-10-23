@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
-import { View, Text, StyleSheet, Image, FlatList } from "react-native";
+import { View, Text, StyleSheet, Image, FlatList,TextInput,Icon } from "react-native";
+import { EvilIcons } from '@expo/vector-icons'; 
 import { TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CommonBtn from "../../components/user/schedule/CommonBtn";
@@ -14,13 +15,14 @@ const ScheduleHome = ({ navigation }) => {
   const route = useRoute();
   const { source } = route.params;
   let user = route.params?.user;
-  let cnic,username_from_child,vaccinename;
+  let cnic,username_from_child,vaccinename,Token_id;
 
   
     if(source=='childTrack'){
       cnic = route.params?.cnic;
       username_from_child = route.params?.username;
       vaccinename = route.params?.vaccinename;
+      Token_id = route.params?.Token_id;
       console.log(`Navigation source: CNIN = ${source} : ${vaccinename}`);
 
     }else{
@@ -32,6 +34,7 @@ const ScheduleHome = ({ navigation }) => {
 
   const [mydata,setMydata] = useState([]);
   const [mynewdata,setMynewdata] = useState([]);
+  const [search,setSearch] = useState('');
    
   
   const topRatedClinics = Array.from({ length: 6 }, (_, index) => index + 1);
@@ -53,10 +56,10 @@ useEffect(() => {
 
 const [myVaccine, setMyVaccine] = useState([]); // Initialize myVaccine state
 
-  myVaccine.forEach(obj => {
-      console.log("My Vaccine ================>+++++++++++" + obj.price);
+  // myVaccine.forEach(obj => {
+  //     console.log("My Vaccine ================>+++++++++++" + obj.price);
 
-  });
+  // });
 
 const getVaccineRecord = () => {
   if (source === 'childTrack') {
@@ -78,6 +81,38 @@ const getVaccineRecord = () => {
       });
   }
 };
+  function BAR(){
+        axios
+      // Fetch vaccine records where {vaccinename} matches
+      .get(`${myURL}/clinic/VaccineRecord/name?vaccine_name=${search}`)
+      .then((res) => {
+        console.log("fetch by vaccine NAME" + JSON.stringify(res.data));
+        
+        setMyVaccine(res.data);
+
+        // Extract my_ID values from myVaccine array
+        const myIDValues = res.data.map(item => item.my_ID);
+
+        // Use myIDValues to fetch clinic data
+      axios
+      .get(`${myURL}/routes/Clinic/clinicProfile/AllClinic`)
+      .then((res) => {
+        // Filter clinic data based on matching my_ID values
+        const filteredData = res.data.filter(item => myIDValues.includes(item.my_ID));
+        setMydata(null);
+        
+        console.log("match User ID" + JSON.stringify(filteredData));
+        setMydata(filteredData);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
 
 const getClinic = (myIDValues) => {
   // get only those clinics where myVaccine.my_ID matches
@@ -87,7 +122,8 @@ const getClinic = (myIDValues) => {
       .then((res) => {
         // Filter clinic data based on matching my_ID values
         const filteredData = res.data.filter(item => myIDValues.includes(item.my_ID));
-
+        setMydata(null);
+        
         console.log("match User ID" + JSON.stringify(filteredData));
         setMydata(filteredData);
       })
@@ -110,6 +146,16 @@ const getClinic = (myIDValues) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.searchcontainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Search"
+          placeholderTextColor="#888"
+          onChangeText={(text)=>{setSearch(text)}}
+        />
+      <TouchableOpacity style={styles.searchButton} onPress={()=>{BAR()}}><EvilIcons name="search" size={24} color="white" /></TouchableOpacity>
+      </View>
+
       <Header
         title={"Schedule Appointment"}
         icon={require("../../components/src/images/clinic.png")}
@@ -154,7 +200,7 @@ const getClinic = (myIDValues) => {
                     if(source == 'Homeuser'){
                       navigation.navigate("BookAppointment",{Schedulesource:'HomeuserPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude});
                     }else if(source == 'childTrack'){
-                      navigation.navigate("BookAppointment",{Schedulesource:'childTrackPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude,cnic:cnic,username_from_child:username_from_child,vaccinename:vaccinename});
+                      navigation.navigate("BookAppointment",{Schedulesource:'childTrackPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude,cnic:cnic,username_from_child:username_from_child,vaccinename:vaccinename,User_Token_id:Token_id});
                     }
                   }
                 }}
@@ -283,7 +329,24 @@ const styles = StyleSheet.create({
   bottomIcon:{
     width: 40,
     height: 40,
-  }
+  },
+  searchcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#333',
+    padding: 10,
+    borderRadius: 5,
+  },
+  input: {
+    flex: 1,
+    color: 'white',
+    fontSize: 16,
+  },
+  searchButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+  },
 });
 
 export default ScheduleHome;

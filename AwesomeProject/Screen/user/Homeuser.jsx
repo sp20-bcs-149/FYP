@@ -39,17 +39,11 @@ const Homeuser = ({ navigation }) => {
   const [Tokendata, setTokenData] = useState([]);
   const [CheckProfile, setCheckProfile] = useState([]);
 
+  console.log( "CheckProfile  " + JSON.stringify(CheckProfile));
   useEffect(() => {
-    getLoggedInUser();
-    
-    setTimeout(() => {
-      setModalVisibleNotification(true);
-      // Hide modal after 10 seconds
-      setTimeout(() => {
-        setModalVisibleNotification(false);
-      }, 10000);
-    }, 2000);
+    getLoggedInUser();  
   }, []);
+
 
 
   getLoggedInUser = async () => {
@@ -58,13 +52,71 @@ const Homeuser = ({ navigation }) => {
       console.log("Retrieved token:", storedToken);
       setTokenData(jwtDecode(storedToken));
       //setTokenData(storedToken);  //older
-
       return storedToken;
     } catch (error) {
       console.error("Error retrieving token:", error);
       return null;
     }
   };
+
+
+
+    
+    const CheckNotificationlength = () => {
+
+    axios
+      .get(`${myURL}/user/scheduleAppointment/notification/`)
+      .then((res) => {
+            res.data.length > 0 ?
+      setTimeout(() => {
+        setModalVisibleNotification(true);
+        // Hide modal after 5 seconds
+        setTimeout(() => {
+          setModalVisibleNotification(false);
+        }, 5000)
+      }, 2000)    
+    :
+     null
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    };
+
+  useEffect(()=>{
+    CheckNotificationlength();
+    checkProfileTrackpresent()
+
+  },[])
+
+ const checkProfileTrackpresent = ()=>{
+              axios
+              
+                .get(`${myURL}/OnlyUserRoutes/profile?my_ID=${Tokendata._id}`)
+                .then((res) => {
+                  console.log("TOKEN DATA" + Tokendata);
+                  console.log("match User ID" + res.data);
+                  setCheckProfile(res.data);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+
+ }
+
+  const navigateToFeedback = () => {
+    // Replace 'Feedback' with the name of your Feedback screen
+    navigation.navigate('Feedback');
+  };
+
+  useEffect(() => {
+    // Set up a monthly interval (in milliseconds)
+    const interval = 1 * 24 * 60 * 60 * 1000; // 30 days 1 replace with 30
+    const feedbackTimer = setInterval(navigateToFeedback, interval);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(feedbackTimer);
+  }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleNotification, setModalVisibleNotification] = useState(false);
@@ -155,6 +207,35 @@ const Homeuser = ({ navigation }) => {
               <Text style={{ color: "white" }}>Profile</Text>
             </View>
           </Pressable>
+          
+          
+          {/* 6 */}
+          <Pressable
+            // style={[styles.button, styles.buttonClose]}
+            onPress={() => {navigation.navigate("ChildTrack",{sourcePath:"User",my_ID:CheckProfile._id,Clicked_child_id:CheckProfile._id,name:CheckProfile.name,dob:CheckProfile.dob,previousvaccine:CheckProfile.SelectedvaccineString,cnic:CheckProfile.cnic,Token_id:CheckProfile.my_ID})}}
+          >
+            <View
+              style={{
+                backgroundColor: "#94D8D7",
+                width: 150,
+                height: 150,
+                borderRadius: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 20,
+              }}
+            >
+              <FontAwesome5 name="print" size={45} color="white" />
+              <Text
+                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
+              >
+                Self
+              </Text>
+              <Text style={{ color: "white" }}>Track</Text>
+            </View>
+          </Pressable>
+
+
           {/* 2 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}

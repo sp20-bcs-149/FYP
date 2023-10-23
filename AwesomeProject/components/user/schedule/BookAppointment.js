@@ -35,16 +35,19 @@ const BookAppointment = ({ navigation }) => {
   let lati = route.params?.latitude;
   let Schedulesource = route.params?.Schedulesource;
 
-  let cnic,username_from_child,vaccinename;
+  
+  let cnic,username_from_child,vaccinename,User_Token_id;
 
 
   if(Schedulesource == "childTrackPath"){
     cnic = route.params?.cnic;
     username_from_child = route.params?.username_from_child;
     vaccinename = route.params?.vaccinename;
+    User_Token_id = route.params?.User_Token_id;
     console.log(`Navigation source: CNIN ${Schedulesource} : ${username_from_child}`);
 
   }else{
+    User_Token_id = my_ID;
     console.log(`Navigation source: ${Schedulesource}`);
 
   }
@@ -90,6 +93,19 @@ const BookAppointment = ({ navigation }) => {
     latitudeDelta: 0.0122,
     longitudeDelta: 0.0121,
   });
+    const [Alldata,setAllData] = useState([]);
+
+    const getAllAppointment = () => {
+    axios
+      .get(`${myURL}/user/scheduleAppointment/All/?User_Token_id=${User_Token_id}`)
+      .then((res) => {
+        console.log("match User ID" + res.data);
+        setAllData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const [slots, setSlots] = useState([
     { sloT: "10:00-12:00PM", selected: false },
@@ -108,6 +124,7 @@ const BookAppointment = ({ navigation }) => {
       DaysList.push({ day: i, selected: false });
     }
     setDays(DaysList);
+    getAllAppointment();
   }, []);
 
     const getVaccineRecord = () => {
@@ -225,26 +242,29 @@ const BookAppointment = ({ navigation }) => {
       // Update the state with the current time
       currentTime = formattedTime;
 
-    axios
-      .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_my_ID,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
-      .then((res) => {
-      console.log(res.data);
-      Alert.alert("BOOK SCHEDULE");
-      navigation.navigate("Success", {
-          selectedVaccine,
-          selectedDay: days[selectedDay].day,
-          selectedSlot: slots[selectedSlot].sloT,
-          patientName,
-          cnicNumber,
-      })
-      
-      // {Alert.alert("Hi")}
-      })
-      .catch((err)=> {
-      console.log(err);
-      })
+        let RunButton = Alldata.filter((item) => item.selectedVaccine == selectedVaccine && item.patientName == patientName && item.cnicNumber == cnicNumber).length > 0;
 
-      
+        RunButton ? 
+            Alert.alert("Already Schedule With Name & CNCI & Vaccine ")
+          :
+            axios
+              .post(myURL+"/user/scheduleAppointment/", {my_ID,clinic_my_ID,User_Token_id,selectedVaccine,selectedDay,selectedSlot,patientName,cnicNumber,currentTime,status})
+              .then((res) => {
+              console.log(res.data);
+              Alert.alert("BOOK SCHEDULE");
+              navigation.navigate("Success", {
+                  selectedVaccine,
+                  selectedDay: days[selectedDay].day,
+                  selectedSlot: slots[selectedSlot].sloT,
+                  patientName,
+                  cnicNumber,
+              })
+              
+              // {Alert.alert("Hi")}
+              })
+              .catch((err)=> {
+              console.log(err);
+              })
   
 
   };

@@ -71,8 +71,16 @@ const Homeclinic = ({ navigation }) => {
             marginRight: 30,
           }}
         >
+          <Pressable
+            onPress={() => {
+              navigation.navigate("Login");
+            }}
+          >
+            <Text> logout </Text>
+          </Pressable>
+
           <Text style={{ fontWeight: "bold", color: "white" }}>
-            Welcome Clinic!{" "}
+            Welcome, <Text>{Tokendata.name} </Text>!{" "}
           </Text>
         </View>
         <View style={{ marginTop: 0, alignSelf: "center" }}>
@@ -268,93 +276,11 @@ const Homeclinic = ({ navigation }) => {
             </View>
           </Pressable>
 
-          {/* 7 */}
-          {/* <Pressable
-            // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <View
-              style={{
-                backgroundColor: "#94D8D7",
-                width: 150,
-                height: 150,
-                borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <Foundation name="alert" size={45} color="white" />
-              <Text
-                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-              >
-                ADD
-              </Text>
-              <Text style={{ color: "white" }}>Vaccine</Text>
-            </View>
-          </Pressable> */}
-
-          {/* 8 */}
-          {/* <Pressable
-            // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <View
-              style={{
-                backgroundColor: "#94D8D7",
-                width: 150,
-                height: 150,
-                borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <MaterialCommunityIcons name="reminder" size={45} color="white" />
-              <Text
-                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-              >
-                Reminder
-              </Text>
-              <Text style={{ color: "white" }}>Vaccine</Text>
-            </View>
-          </Pressable> */}
-
-          {/* 9 */}
-          {/* <Pressable
-            // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
-          >
-            <View
-              style={{
-                backgroundColor: "#94D8D7",
-                width: 150,
-                height: 150,
-                borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <Ionicons name="md-book" size={45} color="white" />
-              <Text
-                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-              >
-                Book
-              </Text>
-              <Text style={{ color: "white" }}>Appointment</Text>
-            </View>
-          </Pressable> */}
           <ClinicModel
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
             token={Tokendata}
           />
-          {/* <VaccineRecord
-            modalVisible={modalVisible}
-            setModalVisible={setModalVisible}
-            token={Tokendata}
-          /> */}
         </View>
       </ScrollView>
     </View>

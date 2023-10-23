@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {View ,Text, StyleSheet, ScrollView, SafeAreaView,Image,Pressable,Modal,TextInput,Alert} from 'react-native';
 import axios from 'axios';
 import MyComponentAlert from './AlertCall';
+import { CheckBox } from 'react-native-elements';
 
 import myURL from '../../services/myurls';
 
@@ -16,31 +17,74 @@ const PersonalModel = ({navigation,modalVisible,setModalVisible,token}) => {
     // const [modalVisible, setModalVisible] = useState(false);
     const [name,SetName] = useState('');
     const [gender,SetGender] = useState('');
-    const [age,SetAge] = useState(0);
-    const [cnic, SetCNIC] = useState(0);
     const [country,SetCountry] = useState('');
     const [phoneno,SetPhoneno] = useState('');
-    const [allergies,SetAllergies] = useState('');
-    const [medical,SetMedical] = useState('');
-    // const [image,SetImage] = useState('');
-    // const [Picture,setPicture] = useState('');
+    const [dob, setDob] = useState(""); 
+    const [cnic, setCnic] = useState("");
+    const [vaccines, setVaccines] = useState([
+    { name: 'Polio', checked: false },
+    { name: 'Hep A', checked: false },
+    { name: 'Hep B', checked: false },
+    { name: 'BCG', checked: false },
+    { name: 'OPV', checked: false },
+    { name: 'IPV', checked: false },
+    { name: 'Hib', checked: false },
+    { name: 'DTP', checked: false },
+    { name: 'Rotavirus', checked: false },
+    { name: 'Measles', checked: false },
+    {name: 'Yellow Fever', checked: false},
+    {name: 'Tdap/Td', checked: false},
+    {name: 'Shingles (Herpes Zoster)', checked: false},
+    {name: 'PPSV23', checked: false},
+    {name: 'Meningococcal B (MenB)', checked: false},
+    {name: 'Human Papillomavirus (HPV)', checked: false},
+    {name: 'Varicella (Chickenpox)', checked: false},
+    {name: 'Measles, Mumps, and Rubella', checked: false},
+    {name: 'Influenza (Flu)', checked: false},
+    {name: 'PCV13', checked: false},
+    {name: 'Yellow Fever', checked: false},
+  ]);
+
+  const [selectvaccine,SetselectVaccine] = useState("sorry");
+
+
+  const [isCnicEntered, setIsCnicEntered] = useState(false);
+
+  const handleCnicChange = (text) => {
+    let formattedCnic = text.replace(/\D/g, ''); // Remove non-numeric characters
+
+    if (formattedCnic.length > 13) {
+      formattedCnic = formattedCnic.slice(0, 13);
+    }
+
+    if (formattedCnic.length >= 5 && formattedCnic.length < 13) {
+      formattedCnic = formattedCnic.slice(0, 5) + '-' + formattedCnic.slice(5);
+    } else if (formattedCnic.length >= 13) {
+      formattedCnic =
+        formattedCnic.slice(0, 5) + '-' +
+        formattedCnic.slice(5, 12) + '-' +
+        formattedCnic.slice(12);
+    }
+
+    setCnic(formattedCnic);
+
+    if (!/^\d{5}-\d{7}-\d{1}$/.test(formattedCnic)) {
+      setIsCnicEntered(true);
+    } else {
+      setIsCnicEntered(false);
+    }
+  };
+
 
     const [errormsg ,setErrormsg] = useState(null);
     
     async function senddata(){
-      if(!name || !gender || !age || !cnic || !country || !phoneno|| !allergies|| !medical){
-              setErrormsg("Please fillout all the filled !!! ");
-      }
-      else if(cnic.length != 13){
-          setErrormsg("CNIC should be 13 character long ,No space or Dash  !!! ");
-      }
-      else if(age.length > 2)
-      {
-          setErrormsg("Please Insert the correct Age which should not greater than 100 !!! ");
-      }
-      else{
+        const selectedVaccines = vaccines.filter(vaccine => vaccine.checked).map(vaccine => vaccine.name);
+        const SelectedvaccineString = JSON.stringify(selectedVaccines.join(','));
+        console.log("SELECTED VACCINE  : " + SelectedvaccineString);
+
         axios
-          .post(myURL+"/OnlyUserRoutes/profile", {my_ID,my_ROLE,name,gender,age,cnic,country,phoneno,medical,allergies})
+          .post(myURL+"/OnlyUserRoutes/profile", {my_ID,my_ROLE,name,gender,country,phoneno,dob, cnic,SelectedvaccineString})
           .then((res) => {
           console.log(res.data);
           console.log("Profile Save!! ")
@@ -54,7 +98,6 @@ const PersonalModel = ({navigation,modalVisible,setModalVisible,token}) => {
           console.log(err);
           })
 
-      }
 
     }
 
@@ -89,23 +132,96 @@ const PersonalModel = ({navigation,modalVisible,setModalVisible,token}) => {
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Gender</Text>
                         <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(gender)=>{SetGender(gender)}}  placeholder="Enter Gender"/>
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>CNIC</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} keyboardType="numeric" onChangeText={(cnic)=>{SetCNIC(cnic)}}  placeholder="Enter CNIC [without -]"/>
-
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Age</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} keyboardType="numeric" onChangeText={(age)=>{SetAge(age)}}  placeholder="Enter Age  "/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Phone Number</Text>
                         <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} keyboardType="numeric" onChangeText={(phone)=>{SetPhoneno(phone)}}  placeholder="Enter Phone"/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Country</Text>
                         <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(country)=>{SetCountry(country)}}  placeholder="Enter Country"/>
+              
+                          <Text
+                            style={{
+                              alignSelf: "flex-start",
+                              color: "black",
+                              fontSize: 15,
+                              margin: 10,
+                              marginLeft: 20,
+                            }}
+                          >
+                            Date of Birth
+                          </Text>
+                          <TextInput
+                            style={styles.input}
+                            onPressIn={() => {
+                              setErrormsg(null);
+                            }}
+                            onChangeText={(text) => {
+                              setDob(text);
+                            }}
+                            placeholder="YYYY-MM-DD"
+                          />
+                          {dob && !/^\d{4}-\d{2}-\d{2}$/.test(dob) && (
+                            <Text style={{ color: "red", marginLeft: 20, fontSize: 12 }}>
+                              Please enter a valid date in YYYY-MM-DD format.
+                            </Text>
+                          )}
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Medical</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(medical)=>{SetMedical(medical)}}  placeholder="Enter Medical(Any Prior Disease)"/>
+                          <Text
+                            style={{
+                              alignSelf: "flex-start",
+                              color: "black",
+                              fontSize: 15,
+                              margin: 10,
+                              marginLeft: 20,
+                            }}
+                          >
+                            CNIC
+                          </Text>
+                          <TextInput
+                            style={styles.input}
+                            onPressIn={() => {
+                              setErrormsg(null);
+                              setIsCnicEntered(false);
+                            }}
+                            onChangeText={handleCnicChange}
+                            value={cnic}
+                            placeholder="XXXXX-XXXXXXX-X"
+                            keyboardType="numeric"
+                            maxLength={15}
+                          />
+                          {isCnicEntered && (
+                            <Text style={{ color: "red", marginLeft: 20, fontSize: 12 }}>
+                              Please enter a valid CNIC (e.g., XXXXX-XXXXXXX-X).
+                            </Text>
+                          )}
 
-                        <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Allergies</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(allergies)=>{SetAllergies(allergies)}}  placeholder="Enter Allergies"/>
+              <Text
+                style={{
+                  alignSelf: "flex-start",
+                  color: "black",
+                  fontSize: 15,
+                  margin: 10,
+                  marginLeft: 20,
+                }}
+              >
+                Previous Vaccination
+              </Text>
+              <View style={{ marginLeft: 20 }}>
+                {vaccines.map((vaccine, index) => (
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }} key={index}>
+                    <CheckBox
+                      checked={vaccine.checked}
+                      onPress={() => {
+                        const updatedVaccines = [...vaccines];
+                        updatedVaccines[index].checked = !vaccines[index].checked;
+                        setVaccines(updatedVaccines);
+                      }}
+                    />
+                    <Text style={{ marginLeft: 10 }}>{vaccine.name}</Text>
+                  </View>
+                ))}
+              </View>
+
 
                         {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>  
                         <TextInput style={styles.input} onChangeText={(country)=>{setcountry(country)}}  placeholder="Enter Image"/> */}

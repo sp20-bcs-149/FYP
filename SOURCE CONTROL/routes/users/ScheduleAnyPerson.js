@@ -11,6 +11,7 @@ router.post("/", async (req, res)=>{
     let userSchedule = new UserSchedule();
     userSchedule.my_ID = req.body.my_ID;
     userSchedule.clinic_my_ID = req.body.clinic_my_ID;
+    userSchedule.User_Token_id = req.body.User_Token_id;
     userSchedule.selectedVaccine = req.body.selectedVaccine; 
     userSchedule.selectedDay = req.body.selectedDay; 
     userSchedule.selectedSlot = req.body.selectedSlot; 
@@ -25,21 +26,44 @@ router.post("/", async (req, res)=>{
 });
 
 
+
+
 // update record
 router.put("/:id", async (req, res) => {
   let userSchedule = await UserSchedule.findById(req.params.id);
 
     userSchedule.status = req.body.status; 
 
+
   await userSchedule.save();
   return res.send(userSchedule);
 });
-
 // only for All pending (getmethod)
 router.get("/All/pending", async (req, res) => {
-  const my_ID = req.query.my_ID;
+  const User_Token_id = req.query.User_Token_id;
   try {
-    const user = await UserSchedule.find({ my_ID: my_ID});
+    const user = await UserSchedule.find({ User_Token_id: User_Token_id});
+    
+
+    if (!user) {
+      console.log("here is problem");
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+
+    // res.json(parsedData);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// only for All pending (getmethod)
+router.get("/All", async (req, res) => {
+  const User_Token_id = req.query.User_Token_id;
+  try {
+    const user = await UserSchedule.find();
     
 
     if (!user) {
@@ -132,7 +156,7 @@ router.get("/notification", async (req, res) => {
   try {
     const user = await UserSchedule.find({
       status: 'pending',
-      selectedDay: currentDay,
+      selectedDay: currentDay+1 || currentDay+3 
     });
 
     if (!user) {

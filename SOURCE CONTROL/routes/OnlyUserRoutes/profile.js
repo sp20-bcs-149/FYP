@@ -13,13 +13,11 @@ router.post("/", async (req, res) => {
   profile.my_ROLE = req.body.my_ROLE;
   profile.name = req.body.name;
   profile.gender = req.body.gender;
-  profile.age = req.body.age;
-  profile.cnic = req.body.cnic;
   profile.country = req.body.country;
   profile.phoneno = req.body.phoneno;
-  profile.medical = req.body.medical;
-  profile.allergies = req.body.allergies;
-
+  profile.dob = req.body.dob; 
+  profile.cnic = req.body.cnic; 
+  profile.SelectedvaccineString = req.body.SelectedvaccineString; 
   await profile.save();
   return res.send(profile);
 });
@@ -52,13 +50,11 @@ router.put("/:id", async (req, res) => {
   profile.my_ROLE = req.body.my_ROLE;
   profile.name = req.body.name;
   profile.gender = req.body.gender;
-  profile.age = req.body.age;
-  profile.cnic = req.body.cnic;
   profile.country = req.body.country;
   profile.phoneno = req.body.phoneno;
-  profile.medical = req.body.medical;
-  profile.allergies = req.body.allergies;
-
+  profile.dob = req.body.dob; 
+  profile.cnic = req.body.cnic; 
+  profile.SelectedvaccineString = req.body.SelectedvaccineString; 
   await profile.save();
   return res.send(profile);
 });

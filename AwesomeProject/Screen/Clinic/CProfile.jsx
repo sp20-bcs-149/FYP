@@ -156,10 +156,62 @@ const CProfile = ({ navigation }) => {
               borderBottomColor: "#ACA5A5",
             }}
           ></View>
-          <Text style={{ color: "gray" }}>CNIC:</Text>
+          <Text style={{ color: "gray" }}>Registration Id:</Text>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-            {resData.cnic}
+            {resData.registrationId}
           </Text>
+          <View
+            style={{
+              borderBottomWidth: 1,
+              marginTop: 10,
+              marginBottom: 10,
+              borderBottomColor: "#ACA5A5",
+            }}
+          ></View>
+
+          <Text style={{ color: "gray" }}>Address:</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            {resData.address}
+          </Text>
+          <View
+            style={{
+              borderBottomWidth: 1,
+              marginTop: 10,
+              marginBottom: 10,
+              borderBottomColor: "#ACA5A5",
+            }}
+          ></View>
+          <Text style={{ color: "gray" }}>Country:</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            {resData.country}
+          </Text>
+          <View
+            style={{
+              borderBottomWidth: 1,
+              marginTop: 10,
+              marginBottom: 10,
+              borderBottomColor: "#ACA5A5",
+            }}
+          ></View>
+
+          <Text style={{ color: "gray" }}>City:</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            {resData.city}
+          </Text>
+          <View
+            style={{
+              borderBottomWidth: 1,
+              marginTop: 10,
+              marginBottom: 10,
+              borderBottomColor: "#ACA5A5",
+            }}
+          ></View>
+
+          <Text style={{ color: "gray" }}>Postal code:</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+            {resData.postalCode}
+          </Text>
+
           <View
             style={{
               borderBottomWidth: 1,
@@ -192,18 +244,7 @@ const CProfile = ({ navigation }) => {
               borderBottomColor: "#ACA5A5",
             }}
           ></View>
-          <Text style={{ color: "gray" }}>Countery:</Text>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-            {resData.country}
-          </Text>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              marginTop: 10,
-              marginBottom: 10,
-              borderBottomColor: "#ACA5A5",
-            }}
-          ></View>
+
           <Pressable
             style={{ alignItems: "center", justifyContent: "center" }}
             onPress={handleDelete}

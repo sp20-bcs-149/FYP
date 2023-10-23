@@ -6,12 +6,11 @@ var UserProfileSchema = mongoose.Schema({
         my_ROLE: String,
         name: String,
         gender: String,
-        age:Number,
-        cnic:Number,
         country:String,
         phoneno:String,        
-        medical:String,        
-        allergies:String,        
+        dob: String,
+        cnic: String,
+        SelectedvaccineString: String,
 });
 
 var Profile = mongoose.model("Profile", UserProfileSchema);
@@ -22,12 +21,11 @@ function validateProfile(data){
         my_ROLE : Joi.string(),
         name : Joi.string().min(3).required(),
         gender :Joi.string().min(3).max(100).required(),
-        age : Joi.number().min(1).required(),
-        cnic : Joi.number().min(2).required(),
         country : Joi.string().min(2).required(),
         phoneno : Joi.string().min(2).required(),
-        medical : Joi.string().min(2).required(),
-        allergies : Joi.string().min(2).required()
+        dob : Joi.string().required(),
+        cnic : Joi.string().required(),
+        SelectedvaccineString : Joi.string().required(),
     })
     return schema.validate(data, {abortEarly: false});
 }

@@ -29,7 +29,7 @@ const UserProfile = ({ navigation }) => {
 
   useEffect(() => {
     getUserProfile();
-  }, [refreshFlag]);
+  }, []);
 
   const getUserProfile = () => {
     axios
@@ -45,14 +45,14 @@ const UserProfile = ({ navigation }) => {
 
   useEffect(() => {
     const pollingInterval = setInterval(() => {
-      getUserProfile();
+      // getUserProfile();
     }, 1000);
 
     return () => clearInterval(pollingInterval);
   }, []);
 
   const handleProfileUpdate = () => {
-    setRefreshFlag(!refreshFlag);
+    // setRefreshFlag(!refreshFlag);
   };
 
   const handleDeleteProfile = () => {
@@ -186,9 +186,9 @@ const UserProfile = ({ navigation }) => {
                 borderBottomColor: "#ACA5A5",
               }}
             ></View>
-            <Text style={{ color: "gray" }}>Age:</Text>
+            <Text style={{ color: "gray" }}>Date of Birth:</Text>
             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {resData.age}
+              {resData.dob}
             </Text>
             <View
               style={{
@@ -210,30 +210,10 @@ const UserProfile = ({ navigation }) => {
                 borderBottomColor: "#ACA5A5",
               }}
             ></View>
-            <Text style={{ color: "gray" }}>Allergies:</Text>
+            <Text style={{ color: "gray" }}>Previous Vaccination:</Text>
             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {resData.allergies}
+              {resData.SelectedvaccineString}
             </Text>
-            <View
-              style={{
-                borderBottomWidth: 1,
-                marginTop: 10,
-                marginBottom: 10,
-                borderBottomColor: "#ACA5A5",
-              }}
-            ></View>
-            <Text style={{ color: "gray" }}>Medical(Any Prior Disease):</Text>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {resData.medical}
-            </Text>
-            <View
-              style={{
-                borderBottomWidth: 1,
-                marginTop: 10,
-                marginBottom: 10,
-                borderBottomColor: "#ACA5A5",
-              }}
-            ></View>
           </View>
         </View>
       </ScrollView>
@@ -243,7 +223,7 @@ const UserProfile = ({ navigation }) => {
         setModalVisible={setModalVisible}
         User_Token={Token}
         profiledata={resData}
-        onUpdate={handleProfileUpdate}
+        // onUpdate={handleProfileUpdate}
       />
     </>
   );
