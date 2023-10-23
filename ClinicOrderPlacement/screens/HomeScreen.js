@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView ,TouchableOpacity} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
@@ -7,6 +7,12 @@ import { themeColors } from "../themes";
 import Categories from "../components/categories";
 import FeaturedRow from "../components/featuredRow";
 import { featured } from "../Constants";
+import CartIcon from "../components/CartIcon";
+
+const handleGoBack = () => {
+  dispatch(emptyCart()); 
+  navigation.goBack();
+};
 
 export default function ClinicScreen() {
   return (
@@ -14,8 +20,14 @@ export default function ClinicScreen() {
       <StatusBar barStyle="dark-content" />
 
       {/* search-bar */}
-      <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
+      <View style={styles.header}>
+      <TouchableOpacity
+            onPress={handleGoBack}
+            style={styles.backButton}
+          >
+            <Icon.ArrowLeft strokeWidth={3} stroke={themeColors.bgColor(1)} />
+          </TouchableOpacity>
+         {/* <View style={styles.searchInputContainer}>
           <Icon.Search height={45} width={35} stroke="gray" />
           <TextInput style={styles.searchInput} placeholder="Search Vaccine" />
           <View style={styles.separator} />
@@ -26,7 +38,8 @@ export default function ClinicScreen() {
         </View>
         <View style={styles.filtersIcon}>
           <Icon.Sliders height={20} width={20} strokeWidth={3} stroke="white" />
-        </View>
+        </View>  */}
+      <Text style={styles.headerText}>Order Vaccine</Text>
       </View>
 
       {/* main-content */}
@@ -41,7 +54,7 @@ export default function ClinicScreen() {
 
         {/* featured */}
         <View style={{ marginTop: 25 }}>
-          {[featured, featured, featured].map((item, index) => {
+          {[featured, featured].map((item, index) => {
             return (
               <FeaturedRow
                 key={index}
@@ -62,6 +75,30 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  backButton: {
+    position: "absolute",
+    top: 14,
+    left: 16,
+    backgroundColor: "#F9FAFB",
+    borderRadius: 999,
+    padding: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    elevation: 2,
+  },
+  header: {
+    backgroundColor: '#329998',
+    padding: 20,
+    alignItems: 'center',
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontStyle: 'normal',
+  },
+
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
