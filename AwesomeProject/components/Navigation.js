@@ -77,7 +77,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"ReportMenu"}
+        initialRouteName={"Homeuser"}
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />

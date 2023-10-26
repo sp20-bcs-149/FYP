@@ -317,7 +317,7 @@ const Homeuser = ({ navigation }) => {
           {/* 5 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("ClinicFinder")}
+            onPress={() => navigation.navigate("ScheduleHome",{user:Tokendata._id,source: 'clinicfinder'})}
           >
             <View
               style={{
@@ -336,6 +336,8 @@ const Homeuser = ({ navigation }) => {
               >
                 Clinic
               </Text>
+              <Text style={{ color: "white" }}>Finder</Text>
+
             </View>
           </Pressable>
 

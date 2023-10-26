@@ -146,6 +146,15 @@ const getClinic = (myIDValues) => {
 
   return (
     <View style={styles.container}>
+
+      <Header
+        title={source == "clinicfinder" ? "Clinic Finder" : "Schedule Appointment" }
+        icon={require("../../components/src/images/clinic.png")}
+        navigation={navigation}
+      />
+
+    {
+      source == "clinicfinder" ?
       <View style={styles.searchcontainer}>
         <TextInput
           style={styles.input}
@@ -155,15 +164,18 @@ const getClinic = (myIDValues) => {
         />
       <TouchableOpacity style={styles.searchButton} onPress={()=>{BAR()}}><EvilIcons name="search" size={24} color="white" /></TouchableOpacity>
       </View>
+      :
+      ''
+    }
+    {
+      source == "Homeuser" ?
+          <View>
+            <Image source={require("../../components/src/images/main.png")} style={styles.banner} />
+          </View>
+        :
+        ''
+    }
 
-      <Header
-        title={"Schedule Appointment"}
-        icon={require("../../components/src/images/clinic.png")}
-        navigation={navigation}
-      />
-      <View>
-        <Image source={require("../../components/src/images/main.png")} style={styles.banner} />
-      </View>
       <Text style={styles.heading}>All Clinics</Text>
       {/* get => all clinic register in my app and get location,name,etc */}
       <FlatList
@@ -197,7 +209,7 @@ const getClinic = (myIDValues) => {
                 txt={"Book Appointment"}
                 onClick={() => {
                    {
-                    if(source == 'Homeuser'){
+                    if(source == 'Homeuser' || source == 'clinicfinder'){
                       navigation.navigate("BookAppointment",{Schedulesource:'HomeuserPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude});
                     }else if(source == 'childTrack'){
                       navigation.navigate("BookAppointment",{Schedulesource:'childTrackPath',clinic_my_ID:item.my_ID,clinic_ID:item._id,clinicName:item.name,user:user,longitude:item.longitude,latitude:item.latitude,cnic:cnic,username_from_child:username_from_child,vaccinename:vaccinename,User_Token_id:Token_id});
@@ -333,14 +345,19 @@ const styles = StyleSheet.create({
   searchcontainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#333',
-    padding: 10,
+    backgroundColor: '#fff',
+    
     borderRadius: 5,
+    margin:5
   },
   input: {
     flex: 1,
-    color: 'white',
+    color: 'black',
     fontSize: 16,
+    padding: 5,
+    borderColor:'gray',
+    borderWidth:0.5,
+    borderRadius:5
   },
   searchButton: {
     backgroundColor: '#007bff',
