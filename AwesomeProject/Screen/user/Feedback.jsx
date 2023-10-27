@@ -36,7 +36,7 @@ const Feedback = () => {
     <View style={{ flex: 1, padding: 20, margin : 10 }}>
       {/* Header View */}
       <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => goBack()}>
           <Text style={{ color: '#329998', fontSize: 20, paddingRight: 10, marginTop: 10, marginRight: 10 }}>&#x2190;</Text>
         </TouchableOpacity>
         <Text style={{ color: '#329998', fontSize: 20, fontWeight: 'bold', marginTop: 10 }}>Feedback</Text>

@@ -3,20 +3,17 @@ import { View, Text, TextInput, StyleSheet, ScrollView ,TouchableOpacity} from "
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
-import { themeColors } from "../themes";
-import Categories from "../components/categories";
-import FeaturedRow from "../components/featuredRow";
-import { featured } from "../Constants";
-import CartIcon from "../components/CartIcon";
+// import CartIcon from "../components/CartIcon";
+
+import { themeColors } from "../../components/clinic/OrderPlacement/themes";
+import Categories from "../../components/clinic/OrderPlacement/components/categories";
+import FeaturedRow from "../../components/clinic/OrderPlacement/components/featuredRow";
+import { featured } from "../../components/clinic/OrderPlacement/Constants";
 
 const handleGoBack = () => {
   dispatch(emptyCart()); 
   navigation.goBack();
 };
-import { themeColors } from "../../components/clinic/OrderPlacement/themes";
-import Categories from "../../components/clinic/OrderPlacement/components/categories";
-import FeaturedRow from "../../components/clinic/OrderPlacement/components/featuredRow";
-import { featured } from "../../components/clinic/OrderPlacement/Constants";
 
 export default function OrderClinicScreen() {
   return (
