@@ -64,10 +64,12 @@ import AppointmentRecord from "../Screen/Clinic/AppointmentRecord";
 import AppointmentDetails from "../Screen/Clinic/AppointmentDetails";
 
 import OrderClinicScreen from "../Screen/Clinic/HomeScreen";
+import Restaurent from "../Screen/Clinic/restaurent";
 import ClinicScreen from "./clinic/OrderPlacement/screens/ClinicScreen";
 import CartScreen from "./clinic/OrderPlacement/screens/CartScreen";
 import OrderPreparingScreen from "./clinic/OrderPlacement/screens/OrderPreparingScreen";
 import DeliveryScreen from "./clinic/OrderPlacement/screens/DeliveryScreen";
+import RestaurentScreen from "../Screen/Clinic/restaurent";
 
 const Stack = createNativeStackNavigator();
 
@@ -154,11 +156,11 @@ const Navigation = () => {
         />
 
         <Stack.Screen name="OrderClinicScreen" component={OrderClinicScreen} />
+        <Stack.Screen name="Restaurent" component={RestaurentScreen} />
         <Stack.Screen name="Clinic" component={ClinicScreen} />
-        <Stack.Screen name="Cart"  component={CartScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} />
         <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} />
         <Stack.Screen name="Delivery" component={DeliveryScreen} />
-
 
         {/* all rider component */}
       </Stack.Navigator>

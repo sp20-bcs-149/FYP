@@ -33,10 +33,7 @@ export default function Categories() {
                 },
               ]}
             >
-              <Image
-                style={styles.categoryImage}
-                source={category.image}
-              />
+              <Image style={styles.categoryImage} source={category.image} />
               <Text
                 style={[
                   styles.categoryText,
@@ -74,7 +71,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: 5,  // Added margin for spacing between categories
+    marginHorizontal: 5, // Added margin for spacing between categories
   },
   categoryImage: {
     width: 100, // Set a fixed width
@@ -84,17 +81,15 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 12,
     marginTop: 4,
-    marginTop:10,
-
+    marginTop: 10,
   },
   activeText: {
     fontWeight: "bold",
     color: "#FFF",
-    marginTop:10,
+    marginTop: 10,
   },
   inactiveText: {
     color: "#555",
-    marginTop:10,
-
+    marginTop: 10,
   },
 });

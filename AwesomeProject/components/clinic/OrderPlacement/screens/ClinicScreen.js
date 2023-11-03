@@ -53,9 +53,7 @@ export default function ClinicScreen() {
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{item.name}</Text>
-          <View style={styles.detailsRow}>
-            {/* (existing code) */}
-          </View>
+          <View style={styles.detailsRow}>{/* (existing code) */}</View>
           <Text style={styles.description}>{item.description}</Text>
         </View>
         <View style={styles.dishesContainer}>

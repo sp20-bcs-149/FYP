@@ -1,8 +1,23 @@
 import React from "react";
-import { View, Text, TextInput, StyleSheet, ScrollView ,TouchableOpacity} from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
+import Categories from "../../components/clinic/OrderPlacement/components/categories";
+
+// import CartIcon from "../components/CartIcon";
+//import { themeColor } from "../../components/clinic/OrderPlacement/themes";
+//import Categories from "../../components/clinic/OrderPlacement/components/categories";
+import FeaturedRow from "../../components/clinic/OrderPlacement/components/featuredRow";
+import { featured } from "../../components/clinic/OrderPlacement/Constants";
+
 // import CartIcon from "../components/CartIcon";
 
 import { themeColors } from "../../components/clinic/OrderPlacement/themes";
@@ -11,7 +26,7 @@ import FeaturedRow from "../../components/clinic/OrderPlacement/components/featu
 import { featured } from "../../components/clinic/OrderPlacement/Constants";
 
 const handleGoBack = () => {
-  dispatch(emptyCart()); 
+  dispatch(emptyCart());
   navigation.goBack();
 };
 
@@ -22,13 +37,10 @@ export default function OrderClinicScreen() {
 
       {/* search-bar */}
       <View style={styles.header}>
-      <TouchableOpacity
-            onPress={handleGoBack}
-            style={styles.backButton}
-          >
-            <Icon.ArrowLeft strokeWidth={3} stroke={themeColors.bgColor(1)} />
-          </TouchableOpacity>
-         {/* <View style={styles.searchInputContainer}>
+        <TouchableOpacity onPress={handleGoBack} style={styles.backButton}>
+          <Icon.ArrowLeft strokeWidth={3} stroke={"red"} />
+        </TouchableOpacity>
+        {/* <View style={styles.searchInputContainer}>
           <Icon.Search height={45} width={35} stroke="gray" />
           <TextInput style={styles.searchInput} placeholder="Search Vaccine" />
           <View style={styles.separator} />
@@ -40,7 +52,7 @@ export default function OrderClinicScreen() {
         <View style={styles.filtersIcon}>
           <Icon.Sliders height={20} width={20} strokeWidth={3} stroke="white" />
         </View>  */}
-      <Text style={styles.headerText}>Order Vaccine</Text>
+        <Text style={styles.headerText}>Order Vaccine</Text>
       </View>
 
       {/* main-content */}
@@ -89,15 +101,15 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   header: {
-    backgroundColor: '#329998',
+    backgroundColor: "#329998",
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   headerText: {
-    color: 'white',
+    color: "white",
     fontSize: 24,
-    fontWeight: 'bold',
-    fontStyle: 'normal',
+    fontWeight: "bold",
+    fontStyle: "normal",
   },
 
   searchContainer: {
@@ -143,9 +155,116 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   filtersIcon: {
-    backgroundColor: themeColors.bgColor(1),
+    backgroundColor: "red",
     borderRadius: 999,
     padding: 7,
     // marginLeft: 10,
   },
 });
+
+// import {
+//   View,
+//   Text,
+//   StatusBar,
+//   StyleSheet,
+//   TextInput,
+//   ScrollView,
+// } from "react-native";
+// import React from "react";
+// import { SafeAreaView } from "react-native-safe-area-context";
+// import * as Icon from "react-native-feather";
+// import { themeColors } from "../../theme";
+// import Categories from "../../components/clinic/OrderPlacement/components/categories";
+
+// export default function OrderClinicScreen() {
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <StatusBar barStyle="dark-content" />
+//       <View style={styles.outerView}>
+//         <View style={styles.innerView}>
+//           <Icon.Search height={25} width={25} stroke="gray" />
+//           <TextInput
+//             placeholder="vaccines"
+//             style={{
+//               marginLeft: 2,
+//               flex: 1,
+//             }}
+//           />
+//           <View style={styles.locationnContainer}>
+//             <Icon.MapPin height="20" width="20" stroke="gray" />
+//             <Text style={{ color: "gray" }}>New York, NYC</Text>
+//           </View>
+//         </View>
+//         <View style={styles.ThemeContainer}>
+//           <Icon.Sliders
+//             height={20}
+//             width={20}
+//             strokeWidth="2.5"
+//             stroke="white"
+//           />
+//         </View>
+//       </View>
+//       <ScrollView
+//         showsVerticalScrollIndicator={false}
+//         contentContainerStyle={styles.scrollViewContent}
+//       >
+//         {/* categories */}
+//         <Categories />
+
+//         {/* featured */}
+//         <View style={{ marginTop: 25 }}>
+//           {[featured, featured].map((item, index) => {
+//             return (
+//               <FeaturedRow
+//                 key={index}
+//                 title={item.title}
+//                 categories={item.categories}
+//                 description={item.description}
+//               />
+//             );
+//           })}
+//         </View>
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "white", // Change to your desired background color
+//   },
+//   outerView: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     marginRight: 8, // 2 * 4
+//     paddingLeft: 16, // 4 * 4
+//     paddingRight: 16, // 4 * 4
+//     paddingBottom: 8, // 2 * 4
+//   },
+//   innerView: {
+//     flex: 1,
+//     flexDirection: "row",
+//     alignItems: "center",
+//     padding: 12, // 1rem = 12px
+//     borderRadius: 999, // A large value to create a circular shape
+//     borderWidth: 1,
+//     borderColor: "#e5e5e5",
+//   },
+//   locationnContainer: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     marginHorizontal: 1, // space-x-1 equivalent
+//     borderLeftWidth: 2,
+//     paddingLeft: 2,
+//     borderLeftColor: "gray", // border-l-gray-300 equivalent
+//   },
+//   ThemeContainer: {
+//     backgroundColor: themeColors.bgColor(1), // You can define themeColors.bgColor(1)
+//     padding: 3,
+//     borderRadius: 999, // A large value to create a rounded-full effect
+//   },
+//   scrollViewContent: {
+//     paddingBottom: 50,
+//   },
+// });

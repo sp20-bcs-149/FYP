@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { featured } from "../Constants";
 import { useNavigation } from "@react-navigation/native";
@@ -10,29 +17,25 @@ import { selectRestaurant } from "../slices/RestaurantSlice";
 import { emptyCart } from "../slices/cartSlice";
 
 export default function DeliveryScreen() {
-  const restaurant = useSelector(selectRestaurant)
+  const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const cancelOrder = () => {
-    Alert.alert(
-      "Cancel Order",
-      "Are you sure to cancel the order?",
-      [
-        {
-          text: "No",
-          style: "cancel"
+    Alert.alert("Cancel Order", "Are you sure to cancel the order?", [
+      {
+        text: "No",
+        style: "cancel",
+      },
+      {
+        text: "Yes",
+        onPress: () => {
+          navigation.navigate("Home");
+          dispatch(emptyCart());
         },
-        {
-          text: "Yes",
-          onPress: () => {
-            navigation.navigate('Home');
-            dispatch(emptyCart());
-          }
-        }
-      ]
-    );
-  }
+      },
+    ]);
+  };
 
   return (
     <View style={styles.container}>
@@ -67,7 +70,12 @@ export default function DeliveryScreen() {
             source={require("../../../../assets/Images/bikeGuy2.gif")}
           />
         </View>
-        <View style={[styles.buttonsContainer, { backgroundColor: themeColors.bgColor(0.8) }]}>
+        <View
+          style={[
+            styles.buttonsContainer,
+            { backgroundColor: themeColors.bgColor(0.8) },
+          ]}
+        >
           <View style={styles.deliveryPersonContainer}>
             <View style={styles.profileImageContainer}>
               <Image
@@ -76,18 +84,22 @@ export default function DeliveryScreen() {
               />
             </View>
             <View style={styles.deliveryPersonDetails}>
-              <Text style={styles.deliveryPersonName}>Subhan Khan</Text>
+              <Text style={styles.deliveryPersonName}>Adil Hussain</Text>
               <Text style={styles.deliveryPersonRole}>Your Rider</Text>
             </View>
             <View style={styles.actionButtonsContainer}>
               <TouchableOpacity style={styles.actionButton}>
-                <Icon.Phone fill={themeColors.bgColor(1)} stroke={themeColors.bgColor(1)} strokeWidth={1} />
+                <Icon.Phone
+                  fill={themeColors.bgColor(1)}
+                  stroke={themeColors.bgColor(1)}
+                  strokeWidth={1}
+                />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={cancelOrder}
                 style={styles.actionButton}
               >
-                <Icon.X stroke={'red'} strokeWidth={5} />
+                <Icon.X stroke={"red"} strokeWidth={5} />
               </TouchableOpacity>
             </View>
           </View>
@@ -132,16 +144,16 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: 'black',
+    color: "black",
   },
   infoText: {
     fontSize: 30,
-    color: 'black',
-    fontWeight:'900'
+    color: "black",
+    fontWeight: "900",
   },
   infoT: {
     fontSize: 16,
-    color: 'black',
+    color: "black",
   },
   bikeImage: {
     width: 100,
@@ -159,11 +171,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileImageContainer: {
-    marginLeft:5,
+    marginLeft: 5,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
     borderRadius: 999,
     padding: 1,
-    height:50
+    height: 50,
   },
   profileImage: {
     width: 44,
@@ -180,15 +192,15 @@ const styles = StyleSheet.create({
   },
   deliveryPersonRole: {
     fontSize: 16,
-    fontWeight:'bold',
+    fontWeight: "bold",
     color: "white",
-    alignSelf:'center'
+    alignSelf: "center",
   },
   actionButtonsContainer: {
     flexDirection: "row",
     alignItems: "center",
     marginLeft: "auto",
-    borderRadius: 999
+    borderRadius: 999,
   },
   actionButton: {
     backgroundColor: "white",

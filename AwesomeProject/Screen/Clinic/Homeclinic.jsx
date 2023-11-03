@@ -252,8 +252,9 @@ const Homeclinic = ({ navigation }) => {
 
           {/* 6 */}
           <Pressable
-            // style={[styles.button, styles.buttonClose]}
-            onPress={() => setModalVisible(!modalVisible)}
+            onPress={() =>
+              navigation.navigate("OrderClinicScreen", { token: Tokendata._id })
+            }
           >
             <View
               style={{
