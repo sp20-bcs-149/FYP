@@ -168,7 +168,7 @@ const getClinic = (myIDValues) => {
       ''
     }
     {
-      source == "Homeuser" ?
+      source == "Homeuser" || source == "childTrack" ?
           <View>
             <Image source={require("../../components/src/images/main.png")} style={styles.banner} />
           </View>

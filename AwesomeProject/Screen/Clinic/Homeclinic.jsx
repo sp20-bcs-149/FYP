@@ -277,6 +277,33 @@ const Homeclinic = ({ navigation }) => {
             </View>
           </Pressable>
 
+
+          {/* 6 */}
+          <Pressable
+            // style={[styles.button, styles.buttonClose]}
+            onPress={() => navigation.navigate('Charts')}
+          >
+            <View
+              style={{
+                backgroundColor: "#94D8D7",
+                width: 150,
+                height: 150,
+                borderRadius: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 20,
+              }}
+            >
+              <FontAwesome5 name="shopping-cart" size={45} color="white" />
+              <Text
+                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
+              >
+                Report
+              </Text>
+              <Text style={{ color: "white" }}>Vaccination</Text>
+            </View>
+          </Pressable>
+
           <ClinicModel
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}

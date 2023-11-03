@@ -109,14 +109,14 @@ const Homeuser = ({ navigation }) => {
     navigation.navigate('Feedback');
   };
 
-  useEffect(() => {
-    // Set up a monthly interval (in milliseconds)
-    const interval = 1 * 24 * 60 * 60 * 1000; // 30 days 1 replace with 30
-    const feedbackTimer = setInterval(navigateToFeedback, interval);
+  // useEffect(() => {
+  //   // Set up a monthly interval (in milliseconds)
+  //   const interval = 1 * 24 * 60 * 60 * 1000; // 30 days 1 replace with 30
+  //   const feedbackTimer = setInterval(navigateToFeedback, 1 * 24 * 60 * 60);
 
-    // Clear the interval when the component unmounts
-    return () => clearInterval(feedbackTimer);
-  }, []);
+  //   // Clear the interval when the component unmounts
+  //   return () => clearInterval(feedbackTimer);
+  // }, []);
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalVisibleNotification, setModalVisibleNotification] = useState(false);
@@ -446,6 +446,35 @@ const Homeuser = ({ navigation }) => {
               <Text style={{ color: "white" }}>Alert</Text>
             </View>
           </Pressable>
+
+
+
+                    {/* 9 */}
+          <Pressable
+            // style={[styles.button, styles.buttonClose]}
+            onPress={() => {navigation.navigate("Feedback")}}
+          >
+            <View
+              style={{
+                backgroundColor: "#94D8D7",
+                width: 150,
+                height: 150,
+                borderRadius: 10,
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: 20,
+              }}
+            >
+              <Ionicons name="md-book" size={45} color="white" />
+              <Text
+                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
+              >
+                Feedback
+              </Text>
+              <Text style={{ color: "white" }}></Text>
+            </View>
+          </Pressable>
+
         </View>
       </ScrollView>
       {/* Profile MODEL start */}
