@@ -71,6 +71,12 @@ import OrderPreparingScreen from "./clinic/OrderPlacement/screens/OrderPreparing
 import DeliveryScreen from "./clinic/OrderPlacement/screens/DeliveryScreen";
 import RestaurentScreen from "../Screen/Clinic/restaurent";
 
+
+
+//delivery
+import index from '../Screen/delivery/index'
+import OrderDelivery from "./delivery/OrderDelivery";
+
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
@@ -163,6 +169,10 @@ const Navigation = () => {
         <Stack.Screen name="Delivery" component={DeliveryScreen} />
 
         {/* all rider component */}
+        <Stack.Screen name="index" component={index} />
+        <Stack.Screen name="OrderDelivery" component={OrderDelivery} />
+
+
       </Stack.Navigator>
     </NavigationContainer>
   );

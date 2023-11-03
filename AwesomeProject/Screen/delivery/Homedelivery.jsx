@@ -9,7 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import virusimage from  '../../assets/viirus.jpg';
 
 
-const Homedelivery = () => {
+const Homedelivery = ({navigation}) => {
     return (
         // <SafeAreaView>
             <View style={{flex:1,backgroundColor:'#329998'}}>            
@@ -27,14 +27,14 @@ const Homedelivery = () => {
                         <Pressable
                         // style={[styles.button, styles.buttonClose]}
                         onPress={
-                            () => navigation.navigate("UserProfile")
+                            () => navigation.navigate("index")
                             // () => setModalVisible(!modalVisible)
                             
                         }>
                             <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                                 <Ionicons name='person' size={45} color='white' />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Personal</Text>
-                                <Text style={{color:"white"}}>Profile</Text>
+                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Check</Text>
+                                <Text style={{color:"white"}}>Delivery</Text>
                             </View>
                         </Pressable>
 {/* 2 */}
@@ -45,80 +45,6 @@ const Homedelivery = () => {
                                 <MaterialIcons name='family-restroom' size={45} color='white' />
                                 <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Family</Text>
                                 <Text style={{color:"white"}}>Profile</Text>
-                            </View>
-                        </Pressable>
-{/* 3 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <MaterialIcons name='schedule' size={45} color='white' />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Schedule</Text>
-                                <Text style={{color:"white"}}>Profile</Text>
-                            </View>
-                        </Pressable>
-
-{/* 4 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <Ionicons name='newspaper-sharp' size={45} color='white' />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>News</Text>
-                            </View>
-                        </Pressable>
-
-{/* 5 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <FontAwesome5 name="clinic-medical" size={45} color="white" />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Clinic</Text>
-                            </View>
-                        </Pressable>
-
-{/* 6 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <FontAwesome5 name="print" size={45} color="white" />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>PDF</Text>
-                                <Text style={{color:"white"}}>Printout</Text>
-                            </View>
-                        </Pressable>
-
-{/* 7 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <Foundation name="alert" size={45} color="white" />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Alert</Text>
-                                <Text style={{color:"white"}}>System</Text>
-                            </View>
-                        </Pressable>
-
-{/* 8 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <MaterialCommunityIcons name="reminder" size={45} color="white" />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Reminder</Text>
-                                <Text style={{color:"white"}}>Vaccine</Text>
-                            </View>
-                        </Pressable>
-
-{/* 9 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={() => setModalVisible(!modalVisible)}>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <Ionicons name="md-book" size={45} color="white" />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Book</Text>
-                                <Text style={{color:"white"}}>Appointment</Text>
                             </View>
                         </Pressable>
 
