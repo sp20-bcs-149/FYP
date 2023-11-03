@@ -1,10 +1,9 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 
-import 'react-native-gesture-handler';
-import Navigation from './components/Navigation';
-
+import "react-native-gesture-handler";
+import Navigation from "./components/Navigation";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -13,7 +12,8 @@ import { useFonts } from "expo-font";
 import { UserLocationContext } from "./Context/UserLocationContext";
 import Colors from "./components/user/findClinic/Colors";
 import { ActivityIndicator } from "react-native";
-
+import { Provider } from "react-redux";
+import { store } from "./components/clinic/OrderPlacement/store";
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -36,23 +36,23 @@ export default function App() {
     })();
   }, []);
 
-
   return (
     <>
       <UserLocationContext.Provider value={{ location, setLocation }}>
-        <Navigation />
+        <Provider store={store}>
+          <Navigation />
+        </Provider>
         <StatusBar style="auto" />
       </UserLocationContext.Provider>
     </>
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
