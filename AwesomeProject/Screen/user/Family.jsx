@@ -9,6 +9,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRoute } from "@react-navigation/native";
 import { Entypo } from "@expo/vector-icons"; 
 import FolderModel from "../../components/user/familyProfile/folderModel";
+import FolderModelUpdate from "../../components/user/familyProfile/folderModelUpdate";
 //import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Family = ({navigation}) => {
@@ -19,39 +20,62 @@ const Family = ({navigation}) => {
     const [refresh, setRefresh] = useState(false);
 const [isContextMenuVisible, setContextMenuVisible] = useState(false);
 const [current_ID, setcurrent_ID] = useState(null);
+const [Selected_FolderName, setSelected_FolderName] = useState(null);
 const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
 
-const handleLongPress = (event) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleUpdate, setModalVisibleUpdate] = useState(false);
+
+
+  const handleLongPress = (event, item_id,item_Folder_Name) => {
     const { pageX, pageY } = event.nativeEvent;
     setContextMenuPosition({ x: pageX, y: pageY });
-
+    setcurrent_ID(item_id);
+    setSelected_FolderName(item_Folder_Name);
     setTimeout(() => {
       setContextMenuVisible(true);
     }, 1000); // Show options after 2 seconds
-    console.log("current_ID  " + current_ID);
+    console.log("current_ID ===============================>>>>>>>>>>>>>>>>>>>>>>>>> " + item_id);
   };
 
-  const handleEdit = () => {
+  const handleEdit = (current_ID) => {
     setContextMenuVisible(false);
-    alert("Edit Option Pressed" + current_ID);
-  };
+    setModalVisibleUpdate(!modalVisibleUpdate);
 
-  const handleDelete = () => {
-    // // alert("Delete Option Pressed" + current_ID);
-    // // setContextMenuVisible(false);
+    // alert("Edit Option Pressed" + current_ID);
 
-    //     axios
-    //     .delete(myURL + `/family/${current_ID}`)
-    //     .then((res) => {
-    //         console.log(res.data);
-    //         alert("Delete Option Pressed" + current_ID);
+    // axios
+    // .put(myURL + "/family/" + current_ID  + {})
+    // .then((res) => {
+    //     console.log(res.data);
+    //     alert("Updated Option Pressed" + current_ID);
 
-    //     })
-    //     .catch((err) => {
-    //         console.log(err);
-    //     });
+    // })
+    // .catch((err) => {
+    //     console.log(err);
+    // });
+
 
   };
+
+  const handleDelete = (current_ID) => {
+    alert("Delete Option Pressed" + current_ID);
+    setContextMenuVisible(false);
+
+    axios
+    .delete(myURL + `/family/${current_ID}`)
+    .then((res) => {
+        console.log(res.data);
+        alert("Delete Option Pressed" + current_ID);
+
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+    fetchData();
+  };
+
+  
 
     console.log(" ====> setDATA FAMILY " + JSON.stringify(data));
 
@@ -81,7 +105,6 @@ const handleLongPress = (event) => {
     }, []); // Run this effect only once, on component mount
 
 
-  const [modalVisible, setModalVisible] = useState(false);
 
 
 
@@ -106,11 +129,11 @@ const handleLongPress = (event) => {
                     </View>
                 </Pressable>
 
-                <View style={{flex:9/10,backgroundColor:'#FFFFFF',width:'100%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-evenly'}}> 
+                <View style={{flex:9/10,backgroundColor:'#FFFFFF',width:'100%',flexDirection:'row',flexWrap:'wrap',justifyContent:'space-evenly',alignItems:'flex-start',}}> 
  
                     {
                     data.map((item) => (
-                        <TouchableOpacity key={item._id}  onLongPress={handleLongPress} onPress={()=>{setcurrent_ID(item._id),navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name,Token_id:Token_id})}}>
+                        <TouchableOpacity key={item._id}  onLongPress={(event)=>{handleLongPress(event, item._id,item.Folder_Name)}} onPress={()=>{navigation.navigate("ChildRecord",{child_id : item._id,folderName:item.Folder_Name,Token_id:Token_id})}} >
                         <View  style={{backgroundColor:"#3C7DA3",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                             <Ionicons name='person' size={45} color='white' />
                             <Text style={{color:'white',fontSize:15,fontWeight:'bold'}}>{item.Folder_Name}</Text>
@@ -123,13 +146,27 @@ const handleLongPress = (event) => {
                 </View>
                 
                 </ScrollView>
-                      <FolderModel
-                            modalVisible={modalVisible}
-                            setModalVisible={setModalVisible}
-                            my_ID={Token_id}
-                        />
+
 
             </View>
+<FolderModel
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+      my_ID={Token_id}
+      fetchData = {fetchData}
+  />
+
+
+<FolderModelUpdate
+      modalVisibleUpdate={modalVisibleUpdate}
+      setModalVisibleUpdate={setModalVisibleUpdate}
+      my_ID={Token_id}
+      current_ID ={current_ID}
+      old_name = {Selected_FolderName}
+      fetchData = {fetchData}
+  />
+
+
 <Modal
     transparent={true}
     visible={isContextMenuVisible}
@@ -145,10 +182,10 @@ const handleLongPress = (event) => {
     },
     ]}
 >
-    <TouchableOpacity onPress={handleEdit} style={styles.contextMenuItem}>
+    <TouchableOpacity onPress={()=>handleEdit(current_ID)} style={styles.contextMenuItem}>
     <Text>Edit</Text>
     </TouchableOpacity>
-    <TouchableOpacity onPress={handleDelete} style={styles.contextMenuItem}>
+    <TouchableOpacity onPress={()=>handleDelete(current_ID)} style={styles.contextMenuItem}>
     <Text>Delete</Text>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => setContextMenuVisible(false)} style={styles.contextMenuItem}>

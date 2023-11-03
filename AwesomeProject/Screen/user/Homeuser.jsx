@@ -85,13 +85,18 @@ const Homeuser = ({ navigation }) => {
 
   useEffect(()=>{
     CheckNotificationlength();
-    checkProfileTrackpresent()
 
   },[])
+  
+  useEffect(() => {
+  // Check if Tokendata has been set, then call checkProfileTrackpresent
+  if (Tokendata && Tokendata._id) {
+    checkProfileTrackpresent();
+  }
+}, [Tokendata]);
 
  const checkProfileTrackpresent = ()=>{
-              axios
-              
+              axios              
                 .get(`${myURL}/OnlyUserRoutes/profile?my_ID=${Tokendata._id}`)
                 .then((res) => {
                   console.log("TOKEN DATA" + Tokendata);

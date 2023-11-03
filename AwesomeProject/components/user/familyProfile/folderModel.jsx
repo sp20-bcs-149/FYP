@@ -5,7 +5,7 @@ import MyComponentAlert from '../AlertCall';
 
 import myURL from '../../../services/myurls';
 
-const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
+const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID,fetchData }) => {
   // user register _id and Role get Here and pass to the post method
 
   console.log(" my_ID in Folder_Name  " + my_ID);
@@ -88,8 +88,8 @@ const FolderModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
                       console.log(res.data);
                       console.log("Profile Save!! ");
                       setModalVisible(!modalVisible);
-                      Alert.alert("SAVE PROFILE");
-
+                      Alert.alert("Folder Created");
+                      fetchData();
                     })
                     .catch((err) => {
                       console.log(err);
