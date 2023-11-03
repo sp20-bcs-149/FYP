@@ -3,7 +3,11 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { Ionicons } from '@expo/vector-icons';
 //
 import Homeuser from "./Homeuser";
+import Notification from "./Notification";
+
 import Extra2 from "./extacomponent";
+
+
 const Tab = createMaterialBottomTabNavigator();
 
 function UserBottomNavigation() {
@@ -12,31 +16,35 @@ function UserBottomNavigation() {
       <Tab.Navigator
         initialRouteName="Homeadmin"
         activeColor="white"
-        inactiveColor="black"
+        backgroundColor="red"
+        inactiveColor="#94D8D7"
         barStyle={{
           backgroundColor: "#329998",
-          borderTopColor: "orange",
+          borderTopColor: "white",
+          borderTopLeftRadius:20,
+          borderTopRightRadius:20,
           borderTopWidth: 0.2,
+          marginTop:-0.5,
         }}
-      >
+     >
         <Tab.Screen
           name="Homeuser"
           component={Homeuser}
           options={{
             tabBarLabel: "Home",
             tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="home" color="black" size={26} />
+              <MaterialCommunityIcons name="home" color="white" size={26} />
             ),
           }}
         />
         <Tab.Screen
-          name="Notifications"
+          name="Profile3"
           component={Extra2}
           options={{
-            tabBarLabel: "Notifications",
+            tabBarLabel: "Notification",
             tabBarIcon: ({ color }) => (
               // <MaterialCommunityIcons name="home" color="black" size={26} />
-              <Ionicons name="notifications" size={24} color="black" />
+              <Ionicons name="notifications" size={24} color="white" />
 
             ),
           }}
@@ -48,18 +56,30 @@ function UserBottomNavigation() {
             tabBarLabel: "Profile",
             tabBarIcon: ({ color }) => (
               // <MaterialCommunityIcons name="bell" color="black" size={26} />
-              <MaterialCommunityIcons name="face-man-profile" size={24} color="black" />
+              <MaterialCommunityIcons name="face-man-profile" size={24} color="white" />
             ),
           }}
         />
         <Tab.Screen
-          name="Settings"
+          name="Profile2"
           component={Extra2}
           options={{
-            tabBarLabel: "Settings",
+            tabBarLabel: "Profile2",
             tabBarIcon: ({ color }) => (
               // <MaterialCommunityIcons name="bell" color="black" size={26} />
-              <Ionicons name="settings" size={24} color="black" />
+              <MaterialCommunityIcons name="face-man-profile" size={24} color="white" />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name="Notification"
+          component={Notification}
+          options={{
+            tabBarLabel: "Notification",
+            tabBarIcon: ({ color }) => (
+              // <MaterialCommunityIcons name="bell" color="black" size={26} />
+              <Ionicons name="notifications" size={24} color="white" />
             ),
           }}
         />

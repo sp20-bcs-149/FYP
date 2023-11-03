@@ -1,36 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {View ,Text, StyleSheet, ScrollView, SafeAreaView,Image,Pressable,Modal,TextInput,Alert} from 'react-native';
 import axios from 'axios';
 import MyComponentAlert from '../AlertCall';
 
 import myURL from '../../../services/myurls';
 
-const FolderModelUpdate = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
+const FolderModelUpdate = ({modalVisibleUpdate, setModalVisibleUpdate, my_ID ,current_ID,old_name,fetchData}) => {
   // user register _id and Role get Here and pass to the post method
 
   console.log(" my_ID in Folder_Name  " + my_ID);
-  const [Folder_Name, SetFolderName] = useState("");
+  const [Folder_Name, SetFolderName] = useState('');
   // const [image,SetImage] = useState('');
   // const [Picture,setPicture] = useState('');
 
   const [errormsg, setErrormsg] = useState(null);
+
+  useEffect(() => {
+    if (old_name) {
+      SetFolderName(old_name);
+    }
+
+  }, []); // Update name state when profiledata.name changes
 
   return (
     <>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={modalVisibleUpdate}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
+          setModalVisibleUpdate(!modalVisibleUpdate);
         }}
       >
         <View style={styles.centeredView}>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              setModalVisible(!modalVisible);
+              setModalVisibleUpdate(!modalVisibleUpdate);
             }}
           >
             <Text style={styles.textStyle}> X </Text>
@@ -67,9 +74,10 @@ const FolderModelUpdate = ({ navigation, modalVisible, setModalVisible, my_ID })
                   marginLeft: 20,
                 }}
               >
-                Folder Name
+                Folder Rename
               </Text>
               <TextInput
+                value={Folder_Name}
                 style={styles.input}
                 onPressIn={() => {
                   setErrormsg(null);
@@ -83,13 +91,12 @@ const FolderModelUpdate = ({ navigation, modalVisible, setModalVisible, my_ID })
               <Pressable
                 onPress={(e) => {
                   axios
-                    .put(myURL + "/family/"+ "current_id", { Folder_Name })
+                    .put(myURL + "/family/"+ current_ID, { Folder_Name })
                     .then((res) => {
                       console.log(res.data);
-                      console.log("Profile Update!! ");
-                      setModalVisible(!modalVisible);
-                      Alert.alert("SAVE PROFILE");
-
+                      setModalVisibleUpdate(!modalVisibleUpdate);
+                      Alert.alert("Update Folder");
+                      fetchData();
                     })
                     .catch((err) => {
                       console.log(err);

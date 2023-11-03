@@ -97,6 +97,7 @@ const ChildRecord = ({navigation}) => {
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
               my_ID={child_id}
+              fetchData ={fetchData}
             />
 
             </View>

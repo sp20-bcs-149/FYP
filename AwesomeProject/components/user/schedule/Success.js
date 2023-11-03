@@ -28,6 +28,7 @@ const Success = ({ route, navigation }) => {
         style={styles.bckBtn}
         onPress={() => {
           navigation.navigate("Homeuser");
+          // navigation.navigate("ChildTrack");
         }}
       >
         <Text>Go To Home</Text>

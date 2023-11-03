@@ -4,7 +4,7 @@ import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
 import myURL from '../../../services/myurls';
 
-const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID }) => {
+const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID ,fetchData}) => {
   const [name, Setname] = useState("");
   const [gender, Setgender] = useState("");
   const [height, Setheight] = useState("");
@@ -288,6 +288,7 @@ const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID })
                     .catch((err) => {
                       console.log(err);
                     });
+                    fetchData();
                 }}
               >
                 <Text

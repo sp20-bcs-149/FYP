@@ -43,17 +43,6 @@ const UserProfile = ({ navigation }) => {
       });
   };
 
-  useEffect(() => {
-    const pollingInterval = setInterval(() => {
-      // getUserProfile();
-    }, 1000);
-
-    return () => clearInterval(pollingInterval);
-  }, []);
-
-  const handleProfileUpdate = () => {
-    // setRefreshFlag(!refreshFlag);
-  };
 
   const handleDeleteProfile = () => {
     Alert.alert(
@@ -223,6 +212,7 @@ const UserProfile = ({ navigation }) => {
         setModalVisible={setModalVisible}
         User_Token={Token}
         profiledata={resData}
+        getUserProfile={getUserProfile}
         // onUpdate={handleProfileUpdate}
       />
     </>

@@ -19,6 +19,7 @@ const PersonalModelProfile = ({
   setModalVisible,
   User_Token,
   profiledata,
+  getUserProfile
   // onUpdate,
 }) => {
   console.log("profiledata" + JSON.stringify(profiledata))
@@ -126,17 +127,13 @@ useEffect(() => {
           .put(myURL+"/OnlyUserRoutes/profile/"+profiledata._id, {my_ID,my_ROLE,name,gender,country,phoneno,dob, cnic,SelectedvaccineString})
           .then((res) => {
           console.log(res.data);
-          console.log("Profile Save!! ")
+          getUserProfile();
           setModalVisible(!modalVisible);
-          Alert.alert("SAVE PROFILE");
-          ()=>{navigation.navigate("Homeuser")}
-          
           // {Alert.alert("Hi")}
           })
           .catch((err)=> {
           console.log(err);
           })
-
 
     }
 
