@@ -21,9 +21,7 @@ import { featured } from "../../components/clinic/OrderPlacement/Constants";
 // import CartIcon from "../components/CartIcon";
 
 import { themeColors } from "../../components/clinic/OrderPlacement/themes";
-import Categories from "../../components/clinic/OrderPlacement/components/categories";
-import FeaturedRow from "../../components/clinic/OrderPlacement/components/featuredRow";
-import { featured } from "../../components/clinic/OrderPlacement/Constants";
+
 
 const handleGoBack = () => {
   dispatch(emptyCart());
