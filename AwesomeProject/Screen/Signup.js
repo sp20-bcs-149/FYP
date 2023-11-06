@@ -406,7 +406,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   modelinput: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: "",
     backgroundColor: "#FFFFFF",
     height: 50,
     width: 300,
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   modelradioLabel: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: "",
     color: "#FFFFFF",
     marginRight: 16,
   },
@@ -439,12 +439,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#1DBF73",
   },
   modelradioOption: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: "",
     color: "#1DBF73",
     fontWeight: "bold",
   },
   modelradioOptionActive: {
-    fontFamily: "Poppins-Medium",
+    fontFamily: "",
     color: "#FFFFFF",
   },
   modelbutton: {
