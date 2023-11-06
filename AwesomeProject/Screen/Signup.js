@@ -293,32 +293,40 @@ const SignUp = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
 
-              <Text
+              <View
                 style={{
-                  alignSelf: "center",
-                  color: "white",
-                  fontSize: 10,
-                  marginTop: 10,
-                }}
-              >
-                Help or Question?
-              </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Login");
+                  flexDirection: "row",
+                  marginLeft: 75,
+                  marginBottom: 30,
                 }}
               >
                 <Text
                   style={{
                     alignSelf: "center",
-                    color: "white",
-                    fontSize: 10,
-                    marginBottom: 30,
+                    color: "#30353b",
+                    fontSize: 14,
+                    marginTop: 8,
                   }}
                 >
-                  Login
+                  Already Have an Account?
                 </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Login");
+                  }}
+                >
+                  <Text
+                    style={{
+                      alignSelf: "center",
+                      color: "white",
+                      fontSize: 14,
+                      marginTop: 8,
+                    }}
+                  >
+                    Login
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </ScrollView>
           </View>
         </View>
@@ -337,9 +345,9 @@ const SignUp = ({ navigation }) => {
               keyboardType="number-pad"
               autoCapitalize="none"
             />
-            <Text style={[styles.modelradioLabel, { alignSelf: "center" }]}>
+            {/* <Text style={[styles.modelradioLabel, { alignSelf: "center" }]}>
               oedf
-            </Text>
+            </Text> */}
           </View>
           <TouchableOpacity
             style={styles.modelbutton}
@@ -354,7 +362,7 @@ const SignUp = ({ navigation }) => {
               setModalVisible(false);
             }}
           >
-            <Text style={styles.modelbuttonText}>ok</Text>
+            <Text style={styles.modelbuttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -392,12 +400,12 @@ const styles = StyleSheet.create({
   },
   modelcontainer: {
     flex: 1,
-    backgroundColor: "#1DBF73",
+    backgroundColor: "#329998",
     alignItems: "center",
     justifyContent: "center",
   },
   modeltitle: {
-    fontSize: 32,
+    fontSize: 20,
     fontFamily: "Poppins-Bold",
     color: "#FFFFFF",
     marginBottom: 32,

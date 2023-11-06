@@ -26,37 +26,9 @@ const Login = ({ navigation }) => {
   function checkfiled() {
     if (!email || !password) {
       setErrormsg("Please fillout all the filled !!! ");
-    } 
+    }
   }
 
-  // useEffect( async()=>{
-  //     //const tok = await AsyncStorage.setItem("token", JSON.stringify(LoginToken));
-  // },[])
-
-  // const sendVerificationEmail = ({email}) => {
-  // const emailBody = `
-  //   <p>Dear user,</p>
-  //   <p>Click the link below to verify your email:</p>
-  //   <a href="localhost:4000/signup">Verify Email</a>
-  // `;
-
-  // MailComposer.composeAsync({
-  //   recipients: ['adeelilyas7373@gmail.com'], // Replace with the user's email
-  //   subject: 'Verify Your Email',
-  //   body: emailBody,
-  //   isHtml: true,
-  // })
-  //   .then((result) => {
-  //     if (result.status === 'sent') {
-  //       Alert.alert('Email sent successfully!');
-  //     } else {
-  //       Alert.alert('Email not sent.');
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     Alert.alert('An error occurred:', error.message);
-  //   });
-  // }
   return (
     <>
       <ImageBackground source={img} resizeMode="cover" style={styles.img}>
@@ -210,7 +182,7 @@ const Login = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
 
-              <Text
+              {/* <Text
                 style={{
                   alignSelf: "center",
                   color: "white",
@@ -219,17 +191,24 @@ const Login = ({ navigation }) => {
                 }}
               >
                 Forgot Password?
-              </Text>
+              </Text> */}
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("SignUp");
                 }}
               >
                 <Text
-                  style={{ alignSelf: "center", color: "white", fontSize: 10 }}
+                  style={{
+                    alignSelf: "center",
+                    color: "#30353b",
+                    fontSize: 14,
+                    marginTop: 10,
+                  }}
                 >
                   Don't have Account?
-                  <Text style={{ textDecorationLine: "underline" }}>
+                  <Text
+                    style={{ textDecorationLine: "underline", color: "white" }}
+                  >
                     Signup
                   </Text>
                 </Text>
