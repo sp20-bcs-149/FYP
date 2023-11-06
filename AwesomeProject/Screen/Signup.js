@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
   },
   modeltitle: {
     fontSize: 32,
-    fontFamily: "Poppins-Bold",
+    fontFamily: "",
     color: "#FFFFFF",
     marginBottom: 32,
   },
