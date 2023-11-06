@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import myURL from "../services/myurls";
+import axios from "axios";
 import {
   View,
   Text,
@@ -9,6 +11,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Alert,
+  Modal,
 } from "react-native";
 import userService from "../services/userservices";
 
@@ -21,6 +24,9 @@ const SignUp = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [dbpincode, setdbPincode] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [errormsg, setErrormsg] = useState(null);
   const [passwordError, setpasswordError] = useState(null);
@@ -60,7 +66,7 @@ const SignUp = ({ navigation }) => {
           navigation.navigate("Login");
         })
         .catch((err) => {
-          console.log(err);
+          console.log("Error");
           // toast.error(err.response.data,{
           // // toast.error(err.history.data,{
           // position: toast.POSITION.TOP_CENTER
@@ -248,8 +254,24 @@ const SignUp = ({ navigation }) => {
               />
 
               <TouchableOpacity
-                onPress={() => {
-                  senddata();
+                // onPress={() => {
+                //   senddata();
+
+                // }}
+                onPress={(e) => {
+                  axios
+                    .post(`${myURL}/sendmail/`, {
+                      email,
+                    })
+
+                    .then((res) => {
+                      console.log("successfully request sent");
+                      setModalVisible(true);
+                      setdbPincode(res.data?.pincode);
+                    })
+                    .catch((err) => {
+                      console.log("ok");
+                    });
                 }}
               >
                 <Text
@@ -301,6 +323,41 @@ const SignUp = ({ navigation }) => {
           </View>
         </View>
       </ImageBackground>
+      <Modal visible={modalVisible} transparent animationType="slide">
+        <View style={styles.modelcontainer}>
+          <Text style={styles.modeltitle}>
+            Pincode is sent On your Email Address
+          </Text>
+          <View style={styles.modelinputContainer}>
+            <TextInput
+              style={styles.modelinput}
+              placeholder="enter pin"
+              value={pincode}
+              onChangeText={setPincode}
+              keyboardType="number-pad"
+              autoCapitalize="none"
+            />
+            <Text style={[styles.modelradioLabel, { alignSelf: "center" }]}>
+              oedf
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.modelbutton}
+            onPress={() => {
+              console.log(pincode + " " + dbpincode);
+              if (pincode.toString() === dbpincode.toString()) {
+                alert("Email Verified successfully");
+                senddata();
+
+                console.log("EQUAL");
+              }
+              setModalVisible(false);
+            }}
+          >
+            <Text style={styles.modelbuttonText}>ok</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </>
   );
 };
@@ -332,6 +389,74 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 5,
     paddingLeft: 10,
+  },
+  modelcontainer: {
+    flex: 1,
+    backgroundColor: "#1DBF73",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modeltitle: {
+    fontSize: 32,
+    fontFamily: "Poppins-Bold",
+    color: "#FFFFFF",
+    marginBottom: 32,
+  },
+  modelinputContainer: {
+    marginBottom: 32,
+  },
+  modelinput: {
+    fontFamily: "Poppins-Medium",
+    backgroundColor: "#FFFFFF",
+    height: 50,
+    width: 300,
+    borderRadius: 10,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  modelradioContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 32,
+  },
+  modelradioLabel: {
+    fontFamily: "Poppins-Medium",
+    color: "#FFFFFF",
+    marginRight: 16,
+  },
+  modelradioGroup: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  modelradioButton: {
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 10,
+    marginRight: 16,
+  },
+  modelradioButtonActive: {
+    backgroundColor: "#1DBF73",
+  },
+  modelradioOption: {
+    fontFamily: "Poppins-Medium",
+    color: "#1DBF73",
+    fontWeight: "bold",
+  },
+  modelradioOptionActive: {
+    fontFamily: "Poppins-Medium",
+    color: "#FFFFFF",
+  },
+  modelbutton: {
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 45,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  modelbuttonText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#1DBF73",
   },
 });
 

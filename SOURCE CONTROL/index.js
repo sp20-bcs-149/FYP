@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const port = 4000;
 //common
 var userSignup = require("./routes/users/signup");
+//var sendMail = require("./routes/users/sendmail");
 var userLogin = require("./routes/users/login");
 var registerdata = require("./routes/users/registerdata");
 //user
