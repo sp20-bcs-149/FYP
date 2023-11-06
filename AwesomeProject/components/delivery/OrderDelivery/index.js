@@ -20,7 +20,8 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { useNavigation } from "@react-navigation/native";
-
+import { useRoute } from "@react-navigation/native";
+//  ------------------------------------
 const order = orders[0];
 
 const ORDER_STATUSES = {
@@ -29,6 +30,8 @@ const ORDER_STATUSES = {
 };
 
 const OrderDelivery = () => {
+    const route = useRoute();
+  let orderback = route.params?.orderback;
   const [driverLocation, setDriverLocation] = useState(null);
   const [totalMinutes, setTotalMinutes] = useState(0);
   const [totalKm, setTotalKm] = useState(0);
@@ -207,20 +210,22 @@ const OrderDelivery = () => {
         <View style={styles.productDetailsContainer}>
           <Fontisto name="shopping-store" style={styles.iconStore} />
           <Text style={styles.heading}>Product Details:</Text>
-          <Text style={styles.productName}>{order.Vaccine.name}</Text>
-          <Text style={styles.productPrice}>Price: ${order.Vaccine.price}</Text>
+          <Text style={styles.productName}>{orderback.vaccine_name}</Text>
+          <Text style={styles.productPrice}>Price: ${orderback.price}</Text>
           <Text style={styles.productRating}>
             Rating: {order.Vaccine.rating}
           </Text>
           <Fontisto name="map-marker-alt" style={styles.iconLocation} />
           <View style={styles.destinationContainer}>
             <Text style={styles.destinationHeading}>Destination Address:</Text>
-            <Text style={styles.destinationAddress}>{order.Clinic.name}</Text>
+            <Text style={styles.destinationAddress}>{orderback.clinic_name}</Text>
             <Text style={styles.destinationAddress}>
-              {order.Clinic.address}
+              {orderback.address}
             </Text>
           </View>
         </View>
+
+        {/*  post request status accepted, from pending ,*/}
         <Pressable
           style={{
             ...styles.acceptButtonContainer,

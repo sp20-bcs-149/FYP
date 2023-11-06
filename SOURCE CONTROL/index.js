@@ -19,6 +19,8 @@ var ClinicRouter = require("./routes/Clinic/clinicProfile");
 var ClinicAppointmentRouter = require("./routes/Clinic/Appointment");
 var ClinicAppointmentAcceptedRouter = require("./routes/Clinic/Accepted_Rejected_User");
 var Clinic_vaccineRecord = require("./routes/Clinic/VaccineRecord");
+var clinicOrderPlacement = require("./routes/Clinic/ClinicOrderPlacement");
+
 
 //Admin
 var adminnewsRouter = require("./routes/Admin/News");
@@ -74,6 +76,7 @@ app.use(
   ClinicAppointmentAcceptedRouter
 );
 app.use("/clinic/VaccineRecord", Clinic_vaccineRecord);
+app.use("/clinic/clinicOrderPlacement", clinicOrderPlacement);
 
 //admin
 app.use("/admin/news", adminnewsRouter);

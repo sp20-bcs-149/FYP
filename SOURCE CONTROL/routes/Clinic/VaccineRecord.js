@@ -50,12 +50,21 @@ router.get("/", async (req, res) => {
   return res.send(row);
 });
 
+router.get("/my_ID", async (req, res) => {
+  const my_ID = req.query.my_ID;
+
+  let row = await Clinic_VaccineRecord.find({ my_ID: my_ID });
+  const vaccineNames = row.map(item => item.vaccine_name);
+  return res.send(vaccineNames);
+});
+
 router.get("/ID", async (req, res) => {
   const my_ID = req.query.my_ID;
 
   let row = await Clinic_VaccineRecord.find({ my_ID: my_ID });
   return res.send(row);
 });
+
 router.get("/name", async (req, res) => {
   const vaccine_name = req.query.vaccine_name;
   const regex = new RegExp(vaccine_name, "i");

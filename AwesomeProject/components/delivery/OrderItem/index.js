@@ -16,10 +16,10 @@ const OrderItem = ({ order }) => {
         margin: 10,
         justifyContent: "space-between",
       }}
-      onPress={() => navigation.navigate("OrderDelivery", { id: order.id })}
+      onPress={() => navigation.navigate("OrderDelivery", { orderback: order })}
     >
       <Image
-        source={{ uri: order.Vaccine.image }}
+        source={{ uri: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.macphun.com%2Fimg%2Fuploads%2Fcustomer%2Fhow-to%2F608%2F15542038745ca344e267fb80.28757312.jpg%3Fq%3D85%26w%3D1340&tbnid=lpE_IqzXYHRkEM&vet=12ahUKEwj7sdKXk6yCAxU8QaQEHQnKBc0QMygIegQIARBX..i&imgrefurl=https%3A%2F%2Fskylum.com%2Fit%2Fhow-to%2Fhow-to-make-picture-bigger&docid=o-3uHO2Z-E5ZJM&w=1340&h=2010&q=image&ved=2ahUKEwj7sdKXk6yCAxU8QaQEHQnKBc0QMygIegQIARBX' }}
         style={{
           width: "35%",
           height: "100%",
@@ -29,16 +29,16 @@ const OrderItem = ({ order }) => {
       />
       <View style={{ marginLeft: 10, flex: 1, paddingVertical: 5 }}>
         <Text style={{ fontSize: 18, fontWeight: "500" }}>
-          {order.Vaccine.name}
+          {order.vaccine_name}
         </Text>
-        <Text style={{ color: "grey" }}>{order.Vaccine.rating}</Text>
-        <Text style={{ color: "grey" }}>${order.Vaccine.price}</Text>
+        <Text style={{ color: "grey" }}>{}</Text>
+        <Text style={{ color: "grey" }}>${order.price}</Text>
         {/* <Entypo name="chevron-right" size={24} color="#6978ff"/> */}
         <Text style={{ marginTop: 10, fontWeight: "500" }}>
           Delivery Details:
         </Text>
-        <Text style={{ color: "grey" }}>{order.Clinic.name}</Text>
-        <Text style={{ color: "grey" }}>{order.Clinic.address}</Text>
+        <Text style={{ color: "grey" }}>{order.clinic_name}</Text>
+        <Text style={{ color: "grey" }}>{order.address}</Text>
       </View>
       <View
         style={{

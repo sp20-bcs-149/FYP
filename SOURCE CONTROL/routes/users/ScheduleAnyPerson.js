@@ -199,7 +199,10 @@ router.get("/report/month", async (req, res) => {
     // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
 
     // res.json(parsedData);
-    res.json(user);
+
+    const vaccineNames = user.map(item => item.selectedVaccine);
+
+    res.json(vaccineNames);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -243,7 +246,7 @@ router.get("/report/day", async (req, res) => {
           },
           {
             $match: {
-              createdDay: { $gte: past_day },
+              createdDay: { $lte: past_day },
             },
           },
         ]);
@@ -258,7 +261,8 @@ router.get("/report/day", async (req, res) => {
     // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
 
     // res.json(parsedData);
-    res.json(user);
+    const vaccineNames = user.map(item => item.selectedVaccine);
+    res.json(vaccineNames);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
@@ -315,51 +319,55 @@ router.get("/report/year", async (req, res) => {
     // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
 
     // res.json(parsedData);
-    res.json(user);
+    const vaccineNames = user.map(item => item.selectedVaccine);
+
+    res.json(vaccineNames);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // only for completed (for daily)
-router.get("/report/weak", async (req, res) => {
+router.get("/report/week", async (req, res) => {
   const clinic_my_ID = req.query.clinic_my_ID;
+
   // Create a new Date object to get the current date and time
   const date = new Date();
 
+  // Calculate the date for a week ago
+  const pastWeekDate = new Date(date);
+  pastWeekDate.setDate(pastWeekDate.getDate() - 7);
 
-  let past_week = date.getDate() - 7;
-
-  let pastyear = date.getFullYear() - 1;
-
-  // AT time createfolder == getmethod also run
-
-  console.log('pastmonth------->' + past_week);
   try {
     const user = await UserSchedule.aggregate([
-          {
-            $match: {
-              clinic_my_ID: clinic_my_ID,
-              status: 'completed',
-              created_at: {
-                $gte: past_week,
-                $lte: date
-              }
-            },
+      {
+        $match: {
+          clinic_my_ID: clinic_my_ID,
+          status: 'completed',
+          created_at: {
+            $gte: pastWeekDate, // Date from a week ago
+            $lte: date,         // Current date
           },
-        ]);
-   
+        },
+      },
+      {
+        $addFields: {
+          createdYear: { $week: '$created_at' },
+        },
+      },
+    ]);
+
     console.log("USER ----------- >" + user.length);
 
     if (!user) {
-      console.log("here is problem");
+      console.log("here is a problem");
       return res.status(404).json({ error: "User not found" });
     }
 
-    // const parsedData = JSON.parse(user.jsonData); // Parse JSON string
+    // Get the vaccine names from the filtered data
+    const vaccineNames = user.map(item => item.selectedVaccine);
 
-    // res.json(parsedData);
-    res.json(user);
+    res.json(vaccineNames);
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }

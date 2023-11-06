@@ -349,7 +349,7 @@ const Homeuser = ({ navigation }) => {
           {/* 6 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("PdfPrintOut")}
+            onPress={() => navigation.navigate("VaccineCardScreen",{ token_id: Tokendata._id,CheckProfile:CheckProfile })}
           >
             <View
               style={{

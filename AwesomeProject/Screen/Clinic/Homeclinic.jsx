@@ -56,6 +56,28 @@ const Homeclinic = ({ navigation }) => {
     }
   };
 
+
+  useEffect(() => {
+    // Check if Tokendata has been set, then call checkProfileTrackpresent
+    if (Tokendata && Tokendata._id) {
+      checkProfileTrackpresent();
+      }
+  }, [Tokendata]);
+
+ const checkProfileTrackpresent = ()=>{
+    axios              
+      .get(`${myURL}/routes/Clinic/clinicProfile/?my_ID=${Tokendata._id}`)
+      .then((res) => {
+        console.log("TOKEN DATA" + Tokendata);
+        console.log("Clinic data -->" + res.data);
+        setCheckProfile(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+ }
+
   return (
     // <SafeAreaView>
     <View style={{ flex: 1, backgroundColor: "#329998" }}>
@@ -253,7 +275,7 @@ const Homeclinic = ({ navigation }) => {
           {/* 6 */}
           <Pressable
             onPress={() =>
-              navigation.navigate("OrderClinicScreen", { token: Tokendata._id })
+              navigation.navigate("HomeScreen", { clinic_ID: Tokendata._id , clinic_name : CheckProfile.name,longitude: CheckProfile.longitude ,latitude : CheckProfile.latitude, address : CheckProfile.address })
             }
           >
             <View
@@ -281,7 +303,7 @@ const Homeclinic = ({ navigation }) => {
           {/* 6 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate('Charts')}
+            onPress={() => navigation.navigate('Charts',{ token: Tokendata._id})}
           >
             <View
               style={{

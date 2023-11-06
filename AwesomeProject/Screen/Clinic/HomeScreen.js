@@ -29,6 +29,7 @@ const handleGoBack = () => {
 };
 
 export default function OrderClinicScreen() {
+  const Token_id = "652526817e2e6e5e19dcd0a2";
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -72,6 +73,7 @@ export default function OrderClinicScreen() {
                 title={item.title}
                 categories={item.categories}
                 description={item.description}
+                Token_id ={Token_id}
               />
             );
           })}

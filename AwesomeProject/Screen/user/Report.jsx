@@ -104,12 +104,15 @@ const data3 = [
     legendFontSize: 15,
   },
 ];
-
+import { useRoute } from "@react-navigation/native";
 const Charts = () => {
+  const route = useRoute();
+  let Token_id = route.params?.token;
 
   const [periodValue, setPeriodValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const [fetch_data, setData] = useState([]);
+  const [AllClinic, setAllClinic] = useState([]);
 
   const [bcg,setBcg] = useState(0);
   const [polio,setPolio] = useState(0);
@@ -118,17 +121,46 @@ const Charts = () => {
   const [Flu,setFlu] = useState(0);
   const [Rabbies,setRabbies] = useState(0);
   const [other,setOther] = useState(0);
+  const matchCounts = [];
+
+    const [datasets, setDatasets] = useState([
+    {
+      data: [bcg, polio, 40, 30, 20, other],
+    },
+  ]);
 
   useEffect(() => {
+        fetchDataClinicVaccines();
         fetchData();
+
     },[]);
 
-    const fetchData = async () => {
+    const peroid = (item) => {
+      // console.log("CALLED +++++++> " + item);
+      if(item == "Year"){
+        fetchDataYear();
+        getReportValue();
+      }
+      if(item == "Month"){
+        fetchData();
+        getReportValue();
+      }
+      if(item == "Week"){
+        fetchDataWeek();
+        getReportValue();
+      }
+      if(item == "Day"){
+        fetchDataDay();
+        getReportValue();
+      }
+
+
+    }
+
+    const fetchDataClinicVaccines = async () => {
       try {
-        const response = await axios.get(myURL + `/user/scheduleAppointment/report/month?clinic_my_ID=65252a8772cb114eae4450fe`);
-        setData(response.data);
-
-
+        const response = await axios.get(myURL + `/clinic/VaccineRecord/my_ID?my_ID=${Token_id}`);
+        setAllClinic(response.data);
         console.log("============>REPORT DATA: " + JSON.stringify(response.data));
 
       } catch (error) {
@@ -136,31 +168,64 @@ const Charts = () => {
       }
     };
 
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(myURL + `/user/scheduleAppointment/report/month?clinic_my_ID=${Token_id}`);
+        setData(response.data);
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchDataDay = async () => {
+      try {
+        const response = await axios.get(myURL + `/user/scheduleAppointment/report/day?clinic_my_ID=${Token_id}`);
+        setData(response.data);
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchDataWeek = async () => {
+      try {
+        const response = await axios.get(myURL + `/user/scheduleAppointment/report/week?clinic_my_ID=${Token_id}`);
+        setData(response.data);
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    const fetchDataYear = async () => {
+      try {
+        const response = await axios.get(myURL + `/user/scheduleAppointment/report/year?clinic_my_ID=${Token_id}`);
+        setData(response.data);
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
+
       let count = 0;
 
     console.log("fetch_data-->" +fetch_data);
 
     const getReportValue = () =>{
-      // fetch_data.map((item)=>{
-      //   if(item.selectedVaccine == "BCG"){
-      //     setBcg(bcg+1);
-      //   }else if(item.selectedVaccine == "Polio"){
-      //     setPolio(polio+1);
-      //   }else{
-      //     setOther(other+1);
-      //   }
 
-      // })
-
-
-      fetch_data.forEach(item => {
-        if (item.selectedVaccine === "BCG") {
-          count++;
-          setBcg(count);
-        }
+      AllClinic.forEach(vaccine => {
+        const count = fetch_data.filter(monthVaccine => monthVaccine === vaccine).length;
+        matchCounts.push(count);
       });
 
-      console.log( "count ===> " +count);
+      const updatedDatasets = [...datasets];
+      updatedDatasets[0].data = matchCounts;
+      setDatasets(updatedDatasets);
+      console.log(matchCounts);
 
     }
 
@@ -187,14 +252,15 @@ const Charts = () => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={item => {
+          peroid(item.value);
           setPeriodValue(item.value);
           setIsFocus(false);
         }}
       />
-      <TouchableOpacity onPress={()=>{getReportValue()}}>
+      {/* <TouchableOpacity onPress={()=>{getReportValue()}}>
         <View><Text style={{padding:20}}>REPORT GET</Text></View>
         <Text>{ bcg }</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
         {/* <View>
           <Text>Fields</Text>
@@ -246,19 +312,10 @@ const Charts = () => {
         </Text>
         <LineChart
           data={{
-            labels: ["BCG", "Polio", "DTP", "Measles", "Flu", "Rabbies"],
-            datasets: [
-              {
-                data: [
-                  bcg,
-                  polio,
-                  40,
-                  30,
-                  20,
-                  other,
-                ],
-              },
-            ],
+            labels: AllClinic,
+            datasets: 
+              datasets
+            ,
           }}
           width={screenWidth} // from react-native
           height={220}

@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo,useEffect,useState } from "react";
 import { View, Text, FlatList, useWindowDimensions,  } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -7,6 +7,8 @@ import OrderItem from "../../components/delivery/OrderItem/index";
 import orders from "../../components/delivery/data/orders.json";
 import MapView, { Marker } from "react-native-maps";
 import { Entypo } from "@expo/vector-icons";
+import myURL from "../../services/myurls";
+import axios from "axios";
 
 const OrdersScreen = () => {
 
@@ -15,6 +17,19 @@ const OrdersScreen = () => {
 
   const snapPoints = useMemo(() => ["12%", "95%"], []);
   
+  const [resData, setResData] = useState([]);
+
+
+  useEffect(()=>{
+    axios
+      .get(`${myURL}/clinic/clinicOrderPlacement`)
+      .then((res) => {
+        setResData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[])
 
   //   useEffect(() => {
   //     (async () => {
@@ -36,14 +51,15 @@ const OrdersScreen = () => {
         followsUserLocation
         
       >
-        {orders.map((order) => (
+      {/*  */}
+        {resData.map((item) => (
           <Marker
-            key={order.id}
-            title={order.Clinic.name}
-            description={order.Clinic.address}
+            key={item._id}
+            title={item.clinic_name}
+            description={"nothing"}
             coordinate={{
-              latitude: order.Clinic.lat,
-              longitude: order.Clinic.lng,
+              latitude:47.9,
+              longitude: 27.9,
             }}
           >
             <View
@@ -76,14 +92,18 @@ const OrdersScreen = () => {
             You're Online
           </Text>
           <Text style={{ letterSpacing: 0.5, color: "grey" }}>
-            Available Orders: {orders.length}
+          {/*  */}
+            Available Orders: {resData.length}
           </Text>
         </View>
         <View style={{ flex: 1 }}>
+
+
+{/*  */}
           <FlatList
-            data={orders}
+            data={resData}
             renderItem={({ item }) => <OrderItem order={item} />}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={(item) => item._id.toString()}
           />
         </View>
       </BottomSheet>

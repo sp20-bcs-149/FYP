@@ -33,6 +33,7 @@ import ChildRecord from "../Screen/user/ChildRecord";
 import Schedule from "../Screen/user/Schedule";
 import News from "../Screen/user/News";
 import PdfPrintOut from "../Screen/user/PdfPrintOut";
+import VaccineCardScreen from "../Screen/user/pdfofVaccine";
 import ReminderVaccine from "../Screen/user/ReminderVaccine";
 import ChildTrack from "../Screen/user/ChildTrack";
 import VerificationForm from "../Screen/Clinic/VerificationForm";
@@ -63,10 +64,18 @@ import VaccineRecord from "../Screen/Clinic/VaccineRecord";
 import AppointmentRecord from "../Screen/Clinic/AppointmentRecord";
 import AppointmentDetails from "../Screen/Clinic/AppointmentDetails";
 
+
+import HomeScreen from '../Screen/Clinic/clinicOrder/HomeScreen';
+import DetailsScreen from '../Screen/Clinic/clinicOrder/DetailsScreen';
+import OrderScreen from '../Screen/Clinic/clinicOrder/OrdersScreen';
+import CartScreen from '../Screen/Clinic/clinicOrder/CartScreen';
+
+
+
 import OrderClinicScreen from "../Screen/Clinic/HomeScreen";
 import Restaurent from "../Screen/Clinic/restaurent";
 import ClinicScreen from "./clinic/OrderPlacement/screens/ClinicScreen";
-import CartScreen from "./clinic/OrderPlacement/screens/CartScreen";
+// import CartScreen from "./clinic/OrderPlacement/screens/CartScreen";
 import OrderPreparingScreen from "./clinic/OrderPlacement/screens/OrderPreparingScreen";
 import DeliveryScreen from "./clinic/OrderPlacement/screens/DeliveryScreen";
 import RestaurentScreen from "../Screen/Clinic/restaurent";
@@ -142,6 +151,7 @@ const Navigation = () => {
         <Stack.Screen name="Feedback" component={Feedback} />
         <Stack.Screen name="Charts" component={Charts} />
         <Stack.Screen name="ReportMenu" component={ReportMenu} />
+        <Stack.Screen name="VaccineCardScreen" component={VaccineCardScreen} />
 
         {/* all admin componets */}
         <Stack.Screen name="AlertSend" component={AlertSend} />
@@ -160,11 +170,17 @@ const Navigation = () => {
           name="AppointmentDetails"
           component={AppointmentDetails}
         />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Stack.Screen name="OrderScreen" component={OrderScreen} />
+        <Stack.Screen name="CartScreen" component={CartScreen} />
+
+
 
         <Stack.Screen name="OrderClinicScreen" component={OrderClinicScreen} />
         <Stack.Screen name="Restaurent" component={RestaurentScreen} />
         <Stack.Screen name="Clinic" component={ClinicScreen} />
-        <Stack.Screen name="Cart" component={CartScreen} />
+        {/* <Stack.Screen name="Cart" component={CartScreen} /> */}
         <Stack.Screen name="OrderPreparing" component={OrderPreparingScreen} />
         <Stack.Screen name="Delivery" component={DeliveryScreen} />
 
