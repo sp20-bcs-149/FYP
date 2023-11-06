@@ -21,6 +21,9 @@ import * as Location from "expo-location";
 import MapViewDirections from "react-native-maps-directions";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
+
+import axios from "axios";
+import myURL from "../../../services/myurls";
 //  ------------------------------------
 const order = orders[0];
 
@@ -32,6 +35,8 @@ const ORDER_STATUSES = {
 const OrderDelivery = () => {
     const route = useRoute();
   let orderback = route.params?.orderback;
+  let id = orderback._id;
+  console.log( "ID ______>" + id);
   const [driverLocation, setDriverLocation] = useState(null);
   const [totalMinutes, setTotalMinutes] = useState(0);
   const [totalKm, setTotalKm] = useState(0);
@@ -94,6 +99,8 @@ const OrderDelivery = () => {
 
   const onButtonPressed = () => {
     if (deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+      let order_status = "Accepted";
+
       bottomSheetRef.current?.collapse();
       mapRef.current.animateToRegion({
         latitude: driverLocation.latitude,
@@ -102,25 +109,55 @@ const OrderDelivery = () => {
         longitudeDelta: 0.01,
       });
       setDeliveryStatus(ORDER_STATUSES.DELIVERED);
+        axios
+          .put(myURL + "/clinic/clinicOrderPlacement/" + id, {
+          order_status
+          })
+          .then((res) => {
+          console.log(res.data);
+
+          // {Alert.alert("Hi")}
+          })
+          .catch((err) => {
+          console.log(err);
+          });
+
     }
     if (deliveryStatus === ORDER_STATUSES.DELIVERED) {
       bottomSheetRef.current?.collapse();
+      let order_status = "Completed";
+        axios
+          .put(myURL + "/clinic/clinicOrderPlacement/" + id, {
+          order_status
+          })
+          .then((res) => {
+          console.log(res.data);
+
+          // {Alert.alert("Hi")}
+          })
+          .catch((err) => {
+          console.log(err);
+          });
+
       Navigation.goBack();
-      console.warn("Delivery Finished");
+      // console.warn("Delivery Finished");
     }
   };
 
   const RenderButtonTitle = () => {
     if (deliveryStatus === ORDER_STATUSES.ACCEPTED) {
       return "Accept Order";
+
     }
     if (deliveryStatus === ORDER_STATUSES.DELIVERED) {
+
       return "Complete Delivery";
     }
   };
 
   const isButtonDisable = () => {
     if (deliveryStatus === ORDER_STATUSES.ACCEPTED) {
+
       return false;
     }
     if (deliveryStatus === ORDER_STATUSES.DELIVERED && isDriverClose) {
@@ -147,8 +184,8 @@ const OrderDelivery = () => {
         <MapViewDirections
           origin={driverLocation}
           destination={{
-            latitude: order.Clinic.lat,
-            longitude: order.Clinic.lng,
+            latitude: orderback.latitude,
+            longitude: orderback.longitude,
           }}
           strokeWidth={2}
           strokeColor="black"
@@ -163,8 +200,8 @@ const OrderDelivery = () => {
         />
         <Marker
           coordinate={{
-            latitude: order.Clinic.lat,
-            longitude: order.Clinic.lng,
+            latitude: orderback.latitude,
+            longitude: orderback.longitude,
           }}
           title={order.Clinic.name}
           description={order.Clinic.address}

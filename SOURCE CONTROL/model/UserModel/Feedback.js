@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 const Joi = require("@hapi/joi");
 
 var FeedbackSchema = mongoose.Schema({      
-        feedback: String,
-        satisfaction: String,
+    feedback: String,
+    satisfaction: String,
 
        
 });

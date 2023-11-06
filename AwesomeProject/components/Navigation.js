@@ -6,6 +6,7 @@ import Home from "../Screen/Home";
 import SignUp from "../Screen/Signup";
 import Login from "../Screen/Login";
 import EmailAuthentication from "../Screen/Authenticate";
+import OnboardingScreen from "../Screen/OnboardingScreen";
 //
 import SplashScreen from "../Screen/splashscreen";
 import Homeuser from "../Screen/user/Homeuser";
@@ -94,12 +95,14 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Login"}
+        initialRouteName={"OnboardingScreen"}
       >
+      
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         <Stack.Screen
           name="EmailAuthentication"
           component={EmailAuthentication}

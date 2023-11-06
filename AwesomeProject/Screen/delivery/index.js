@@ -58,8 +58,8 @@ const OrdersScreen = () => {
             title={item.clinic_name}
             description={"nothing"}
             coordinate={{
-              latitude:47.9,
-              longitude: 27.9,
+              latitude:item.latitude,
+              longitude: item.longitude,
             }}
           >
             <View
