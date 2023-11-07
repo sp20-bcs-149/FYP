@@ -3,6 +3,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 //
 import Homeclinic from "./Homeclinic";
 import Extra1 from "./extacomponent";
+import CProfile from "./CProfile";
 import ClinicBottomNavigation from "./bottomnavition";
 
 const Drawer = createDrawerNavigator();
@@ -29,7 +30,7 @@ function ClinicDrawer() {
         }}
       >
         <Drawer.Screen name="Home" component={ClinicBottomNavigation} />
-        {/* <Drawer.Screen name="Extra" component={Extra1} /> */}
+        <Drawer.Screen name="Profile" component={ClinicBottomNavigation} />
       </Drawer.Navigator>
     </>
   );

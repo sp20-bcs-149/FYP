@@ -86,7 +86,7 @@ const VaccineRecord = ({ navigation }) => {
             onPress={() => setModalVisible(!modalVisible)}
             style={{
               flexDirection: "row",
-              backgroundColor: "black",
+              backgroundColor: "#1590d6",
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 10,
@@ -122,7 +122,7 @@ const VaccineRecord = ({ navigation }) => {
             <View
               key={index}
               style={{
-                backgroundColor: "#E6EDED",
+                backgroundColor: "#329998",
                 width: "90%",
                 height: 200,
                 borderRadius: 10,
@@ -138,15 +138,25 @@ const VaccineRecord = ({ navigation }) => {
                   flexDirection: "row",
                 }}
               >
-                <View style={{ marginTop: 0 }}>
-                  <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+                <View>
+                  <Text style={{ color: "white", fontSize: 18 }}>
+                    Vaccine Name:
+                  </Text>
+                  {/* <Text
+                    style={{ fontSize: 25, fontWeight: "bold", color: "white" }}
+                  >
+                    {vaccineRecord.vaccine_name}
+                  </Text> */}
+                </View>
+                <View>
+                  <Text
+                    style={{ fontSize: 18, fontWeight: "bold", color: "white" }}
+                  >
                     {vaccineRecord.vaccine_name}
                   </Text>
-                </View>
-                <View style={{ marginTop: 8 }}>
-                  <Text style={{ backgroundColor: "#329998", color: "white" }}>
+                  {/* <Text style={{ backgroundColor: "#329998", color: "white" }}>
                     {vaccineRecord.manufacture}
-                  </Text>
+                  </Text> */}
                 </View>
               </View>
               <View style={style.line}></View>
@@ -158,18 +168,18 @@ const VaccineRecord = ({ navigation }) => {
                 }}
               >
                 <View>
-                  <Text style={{ fontSize: 11 }}>
+                  <Text style={{ fontSize: 13, color: "white" }}>
                     {" "}
                     Price : {vaccineRecord.price}
                   </Text>
                 </View>
                 <View>
-                  <Text style={{ fontSize: 11 }}>
+                  <Text style={{ fontSize: 13, color: "white" }}>
                     Quantity : {vaccineRecord.quantity}{" "}
                   </Text>
                 </View>
                 <View>
-                  <Text style={{ fontSize: 11 }}>
+                  <Text style={{ fontSize: 13, color: "white" }}>
                     Type : {vaccineRecord.vaccine_type}
                   </Text>
                 </View>

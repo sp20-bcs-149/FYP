@@ -119,28 +119,31 @@ const CProfile = ({ navigation }) => {
           <View style={{ alignItems: "center" }}>
             <Image
               source={person}
-              style={{ width: 100, height: 100, borderRadius: 100 }}
+              style={{
+                width: 120,
+                height: 120,
+                borderRadius: 100,
+                marginBottom: 140,
+              }}
             />
             <AntDesign
               name="pluscircle"
               size={24}
               color="white"
-              style={{ marginTop: -15 }}
+              style={{ marginTop: -150 }}
             />
             <Text
               style={{
                 margin: 5,
                 color: "white",
                 fontWeight: "bold",
-                fontSize: 20,
+                fontSize: 30,
+                fontWeight: "bold",
+                marginTop: 20,
               }}
             >
               {resData.name}
             </Text>
-            <Pressable onPress={() => setModalVisible(!modalVisible)}>
-              <Feather name="edit" size={35} color="white" />
-            </Pressable>
-            <Text style={{ color: "white" }}>EDIT</Text>
           </View>
         </View>
         <View style={{ flex: 6 / 10, margin: 40 }}>
@@ -245,21 +248,42 @@ const CProfile = ({ navigation }) => {
             }}
           ></View>
 
-          <Pressable
-            style={{ alignItems: "center", justifyContent: "center" }}
-            onPress={handleDelete}
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text
+            <Pressable
+              style={{ alignItems: "center", justifyContent: "center" }}
+              onPress={handleDelete}
+            >
+              <Text
+                style={{
+                  padding: 10,
+                  backgroundColor: "red",
+                  width: 100,
+                  textAlign: "center",
+                  color: "white",
+                  borderRadius: 10,
+                }}
+              >
+                Delete
+              </Text>
+            </Pressable>
+            <Pressable
               style={{
                 padding: 10,
-                backgroundColor: "red",
+                backgroundColor: "#346eeb",
+                width: 100,
+                justifyContent: "center",
+                alignItems: "center",
                 color: "white",
                 borderRadius: 10,
               }}
+              onPress={() => setModalVisible(!modalVisible)}
             >
-              Delete
-            </Text>
-          </Pressable>
+              {/* <Feather name="edit" size={35} color="white" /> */}
+              <Text style={{ color: "white" }}>EDIT</Text>
+            </Pressable>
+          </View>
           <ClinicModelProfile
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
