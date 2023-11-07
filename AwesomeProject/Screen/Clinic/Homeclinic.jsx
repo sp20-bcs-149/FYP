@@ -56,16 +56,15 @@ const Homeclinic = ({ navigation }) => {
     }
   };
 
-
   useEffect(() => {
     // Check if Tokendata has been set, then call checkProfileTrackpresent
     if (Tokendata && Tokendata._id) {
       checkProfileTrackpresent();
-      }
+    }
   }, [Tokendata]);
 
- const checkProfileTrackpresent = ()=>{
-    axios              
+  const checkProfileTrackpresent = () => {
+    axios
       .get(`${myURL}/routes/Clinic/clinicProfile/?my_ID=${Tokendata._id}`)
       .then((res) => {
         console.log("TOKEN DATA" + Tokendata);
@@ -75,8 +74,7 @@ const Homeclinic = ({ navigation }) => {
       .catch((err) => {
         console.log(err);
       });
-
- }
+  };
 
   return (
     // <SafeAreaView>
@@ -275,7 +273,13 @@ const Homeclinic = ({ navigation }) => {
           {/* 6 */}
           <Pressable
             onPress={() =>
-              navigation.navigate("HomeScreen", { clinic_ID: Tokendata._id , clinic_name : CheckProfile.name,longitude: CheckProfile.longitude ,latitude : CheckProfile.latitude, address : CheckProfile.address })
+              navigation.navigate("HomeScreen", {
+                clinic_ID: Tokendata._id,
+                clinic_name: CheckProfile.name,
+                longitude: CheckProfile.longitude,
+                latitude: CheckProfile.latitude,
+                address: CheckProfile.address,
+              })
             }
           >
             <View
@@ -299,11 +303,12 @@ const Homeclinic = ({ navigation }) => {
             </View>
           </Pressable>
 
-
           {/* 6 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate('Charts',{ token: Tokendata._id})}
+            onPress={() =>
+              navigation.navigate("Charts", { token: Tokendata._id })
+            }
           >
             <View
               style={{

@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -6,7 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Pressable,
-  FlatList
+  FlatList,
 } from "react-native";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -17,18 +17,16 @@ import myURL from "../../services/myurls";
 import axios from "axios";
 
 const AppointmentRecord = ({ navigation }) => {
-
   const route = useRoute();
   let Token = route.params?.token;
 
+  const [data, setResData] = useState([]);
 
-    const [data,setResData] = useState([]);
-
-    
   const getpendingAppointment = () => {
-
     axios
-      .get(`${myURL}/user/scheduleAppointment/clinic_my_ID/?clinic_my_ID=${Token}`)
+      .get(
+        `${myURL}/user/scheduleAppointment/clinic_my_ID/?clinic_my_ID=${Token}`
+      )
       .then((res) => {
         console.log("match User ID" + res.data);
         setResData(res.data);
@@ -38,11 +36,9 @@ const AppointmentRecord = ({ navigation }) => {
       });
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     getpendingAppointment();
-  },[])
-
-
+  }, []);
 
   return (
     <>
@@ -100,87 +96,102 @@ const AppointmentRecord = ({ navigation }) => {
             }}
           >
             {/* 1 - start */}
-          {
-            data.map((item,index) => (
-
-            <View
-              key={index}
-              style={{
-                backgroundColor: "#329998",
-                width: "90%",
-                height: 100,
-                borderRadius: 10,
-                justifyContent: "space-evenly",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
+            {data.map((item, index) => (
               <View
+                key={index}
                 style={{
-                  width: "100%",
-                  justifyContent: "space-around",
-                  flexDirection: "row",
+                  backgroundColor: "#329998",
+                  width: "90%",
+                  height: 100,
+                  borderRadius: 10,
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  marginTop: 20,
                 }}
               >
-                <Ionicons name="person" size={35} color="white" />
-                <View style={{ marginTop: 0 }}>
-                  <Text
-                    style={{ fontSize: 25, fontWeight: "bold", color: "white" }}
-                  >
-                    {item.patientName}
-                  </Text>
-                </View>
-                <Pressable onPress={()=>{navigation.navigate("AppointmentDetails",{put_id:item._id,patientName:item.patientName,cnic:item.cnicNumber,vaccinename:item.selectedVaccine,date:item.created_at,slot:item.selectedSlot,day:item.selectedDay,status:item.status})}}>
-                  <View style={{ marginTop: 8 }}>
+                <View
+                  style={{
+                    width: "100%",
+                    justifyContent: "space-around",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Ionicons name="person" size={35} color="white" />
+                  <View style={{ marginTop: 0 }}>
                     <Text
-                      style={{ backgroundColor: "#329998", color: "white" }}
+                      style={{
+                        fontSize: 25,
+                        fontWeight: "bold",
+                        color: "white",
+                      }}
                     >
-                      Details
+                      {item.patientName}
                     </Text>
                   </View>
-                </Pressable>
-              </View>
-              <View style={style.line}></View>
-              <View
-                style={{
-                  width: "100%",
-                  justifyContent: "space-around",
-                  flexDirection: "row",
-                }}
-              >
+                  <Pressable
+                    onPress={() => {
+                      navigation.navigate("AppointmentDetails", {
+                        put_id: item._id,
+                        patientName: item.patientName,
+                        cnic: item.cnicNumber,
+                        vaccinename: item.selectedVaccine,
+                        date: item.created_at,
+                        slot: item.selectedSlot,
+                        day: item.selectedDay,
+                        status: item.status,
+                      });
+                    }}
+                  >
+                    <View style={{ marginTop: 8 }}>
+                      <Text
+                        style={{ backgroundColor: "#329998", color: "white" }}
+                      >
+                        Details
+                      </Text>
+                    </View>
+                  </Pressable>
+                </View>
+                <View style={style.line}></View>
                 <View
                   style={{
-                    backgroundColor: "white",
-                    borderRadius: 5,
-                    width: 90,
-                    alignItems: "center",
-                    justifyContent: "center",
+                    width: "100%",
+                    justifyContent: "space-around",
+                    flexDirection: "row",
                   }}
                 >
-                  <Text style={{ fontSize: 11 }}>{item.created_at.length > 10 ?item.created_at.slice(0,10): '' } AM</Text>
-                </View>
-                <View>
-                  <Text style={{ fontSize: 11 }}> </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: "white",
-                    borderRadius: 5,
-                    width: 70,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{ fontSize: 11 }}>{item.currentTime}AM</Text>
+                  <View
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: 5,
+                      width: 90,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ fontSize: 11 }}>
+                      {item.created_at.length > 10
+                        ? item.created_at.slice(0, 10)
+                        : ""}{" "}
+                      AM
+                    </Text>
+                  </View>
+                  <View>
+                    <Text style={{ fontSize: 11 }}> </Text>
+                  </View>
+                  <View
+                    style={{
+                      backgroundColor: "white",
+                      borderRadius: 5,
+                      width: 70,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text style={{ fontSize: 11 }}>{item.currentTime}AM</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-
-            ))
-          }
-
-
-
+            ))}
 
             {/* 1 - end */}
           </View>

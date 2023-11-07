@@ -2,6 +2,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import Homeclinic from "./Homeclinic";
+import CProfile from "./CProfile";
 import Extra1 from "./extacomponent";
 const Tab = createMaterialBottomTabNavigator();
 

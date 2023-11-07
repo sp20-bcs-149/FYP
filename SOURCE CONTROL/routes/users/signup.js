@@ -82,6 +82,7 @@ const mailSender = require("../../middleware/mailSender");
 const { User } = require("../../model/user");
 const { UserVerification } = require("../../model/userVarification");
 const nodemailer = require("nodemailer");
+const config = require("config");
 //const { v4: uuidv4 } = require("uuid");
 require("dotenv").config();
 

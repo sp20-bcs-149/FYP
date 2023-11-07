@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -17,9 +17,10 @@ import myURL from "../../services/myurls";
 
 const AppointmentDetails = ({ navigation }) => {
   const route = useRoute();
-  let {put_id,patientName,cnic,vaccinename,date,slot,day} = route.params;
-  const [status,setstatus] = useState('completed');
-  
+  let { put_id, patientName, cnic, vaccinename, date, slot, day } =
+    route.params;
+  const [status, setstatus] = useState("completed");
+
   console.log("PUT_ID  " + put_id);
   return (
     <>
@@ -105,9 +106,7 @@ const AppointmentDetails = ({ navigation }) => {
                   <Text style={{ fontSize: 15 }}> </Text>
                 </View>
                 <View>
-                  <Text style={{ fontSize: 15, color: "white" }}>
-                    {cnic}
-                  </Text>
+                  <Text style={{ fontSize: 15, color: "white" }}>{cnic}</Text>
                 </View>
               </View>
               <View
@@ -126,7 +125,9 @@ const AppointmentDetails = ({ navigation }) => {
                   <Text style={{ fontSize: 15 }}> </Text>
                 </View>
                 <View>
-                  <Text style={{ fontSize: 15, color: "white" }}>{vaccinename}</Text>
+                  <Text style={{ fontSize: 15, color: "white" }}>
+                    {vaccinename}
+                  </Text>
                 </View>
               </View>
 
@@ -156,15 +157,15 @@ const AppointmentDetails = ({ navigation }) => {
                 }}
               >
                 <View>
-                  <Text style={{ fontSize: 15, color: "white" }}>
-                    Slot:
-                  </Text>
+                  <Text style={{ fontSize: 15, color: "white" }}>Slot:</Text>
                 </View>
                 <View>
                   <Text style={{ fontSize: 15 }}> </Text>
                 </View>
                 <View>
-                  <Text style={{ fontSize: 15, color: "white" }}>{slot} AM</Text>
+                  <Text style={{ fontSize: 15, color: "white" }}>
+                    {slot} AM
+                  </Text>
                 </View>
               </View>
               <View
@@ -175,9 +176,7 @@ const AppointmentDetails = ({ navigation }) => {
                 }}
               >
                 <View>
-                  <Text style={{ fontSize: 15, color: "white" }}>
-                    Day:
-                  </Text>
+                  <Text style={{ fontSize: 15, color: "white" }}>Day:</Text>
                 </View>
                 <View>
                   <Text style={{ fontSize: 15 }}> </Text>
@@ -194,48 +193,49 @@ const AppointmentDetails = ({ navigation }) => {
                 }}
               >
                 <View>
-                  <Text style={{ fontSize: 15, color: "white" }}>Created AT:</Text>
+                  <Text style={{ fontSize: 15, color: "white" }}>
+                    Created AT:
+                  </Text>
                 </View>
                 <View>
                   <Text style={{ fontSize: 15 }}> </Text>
                 </View>
                 <View>
                   <Text style={{ fontSize: 15, color: "white" }}>
-                    {date.length > 10 ? date.slice(0,10): '' }
+                    {date.length > 10 ? date.slice(0, 10) : ""}
                   </Text>
                 </View>
               </View>
               {
-                  
-                        <Pressable
-                          style={{
-                            backgroundColor: "white",
-                            width: 140,
-                            height: 30,
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: 10,
-                          }}
-                          onPress={()=>{
-                              axios
-                                .put(myURL + "/user/scheduleAppointment/" + put_id, {
-                                  status
-                                })
-                                .then((res) => {
-                                  console.log(res.data);
-                                  navigation.navigate("AppointmentRecord");
+                <Pressable
+                  style={{
+                    backgroundColor: "white",
+                    width: 140,
+                    height: 30,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: 10,
+                  }}
+                  onPress={() => {
+                    axios
+                      .put(myURL + "/user/scheduleAppointment/" + put_id, {
+                        status,
+                      })
+                      .then((res) => {
+                        console.log(res.data);
+                        navigation.navigate("AppointmentRecord");
 
-                                  // {Alert.alert("Hi")}
-                                })
-                                .catch((err) => {
-                                  console.log(err);
-                                });
-                            }}
-                        >
-                          <View>
-                            <Text>Recieved Patient</Text>
-                          </View>
-                        </Pressable>
+                        // {Alert.alert("Hi")}
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
+                  }}
+                >
+                  <View>
+                    <Text>Recieved Patient</Text>
+                  </View>
+                </Pressable>
               }
             </View>
             {/* 1 - end */}
