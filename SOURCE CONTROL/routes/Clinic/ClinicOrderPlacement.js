@@ -25,12 +25,21 @@ router.post("/", async (req, res)=>{
 
 
 router.get("/",  async (req,res)=>{
-    let row = await ClinicOrderPlacement.find();
+    let row = await ClinicOrderPlacement.find({order_status : 'pending'});
     return res.send(row);
 });
 
 
+// update record
+router.put("/:id", async (req, res) => {
+  let clinicOrderPlacement = await ClinicOrderPlacement.findById(req.params.id);
 
+    clinicOrderPlacement.order_status = req.body.order_status; 
+
+
+  await clinicOrderPlacement.save();
+  return res.send(clinicOrderPlacement);
+});
 
 
 module.exports = router;

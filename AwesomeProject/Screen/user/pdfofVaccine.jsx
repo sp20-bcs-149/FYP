@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react';
 import { StyleSheet, View, Text, Button, FlatList, SafeAreaView, Alert } from 'react-native';
-// import * as Print from 'expo-print';
+import * as Print from 'expo-print';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { useRoute } from '@react-navigation/native';
@@ -39,7 +39,7 @@ export default function VaccineCardScreen() {
                   <span style="font-size: 14px; font-weight: bold; color: grey;">Date: ${vaccine.created_at.substring(0, 10) + '...'}</span>
                   <span style="font-size: 14px; font-weight: bold; color: grey;">Time: ${vaccine.currentTime}</span>
               </div>
-              <p style="font-size: 12px; text-align: left; color: grey;">Clinic Address: $</p>
+              <p style="font-size: 12px; text-align: left; color: grey;">Clinic Address: [45 Near to Lahore]</p>
           </div>
       `).join('');
 
@@ -53,7 +53,7 @@ export default function VaccineCardScreen() {
                   <p style="margin: 10px;">Name: MUHAMMAD ADEEL</p>
                   <p style="margin: 10px;">Age: 21</p>
                   <p style="margin: 10px;">CNIC: 35201-378374873-9</p>
-                  <p style="margin: 10px;">Address: [Address Here]</p>
+                  <p style="margin: 10px;">Address: [45 Near to Lahore]</p>
                   <hr style="border: 0; height: 1px; background-color: grey; margin: 10px 0;" />
                   <h2 style="text-align: center; font-size: 20px; color: grey; margin: 10px;">Injected Vaccine</h2>
 
@@ -99,21 +99,18 @@ export default function VaccineCardScreen() {
                     <Text style={{ margin: 10 }}>Address: [Address Here]</Text>
                     <View style={styles.separator}></View>
                     <Text style={{ alignSelf: 'center', justifyContent: 'center', fontSize: 20, color: "grey", margin: 10 }}>Injected Vaccine</Text>
-
-                    <FlatList 
-                        data={data}
-                        renderItem={({ item ,index}) => (
-                            <View key={item._id} style={styles.vaccineContainer}>
+                    {
+                        data.map((item,index)=>(
+                            <View key={index} style={styles.vaccineContainer}>
                                 <Text style={styles.vaccineName}>{item.selectedVaccine}</Text>
                                 <View style={styles.dateTimeContainer}>
                                     <Text style={styles.vaccineDate}>Date: {item.created_at}</Text>
                                     <Text style={styles.vaccineTime}>Time: {item.currentTime}</Text>
                                 </View>
-                                <Text style={styles.CAddress}>Clinic Address: {}</Text>
+                                <Text style={styles.CAddress}>Clinic Address: 45 Near to Lahore</Text>
                             </View>
-                        )}
-                        keyExtractor={item => item.name}
-                    />
+                        )) 
+                    }
                 </View>
             </View>
             <View style={styles.footer}>
@@ -147,7 +144,8 @@ const styles = StyleSheet.create({
     CAddress: {
         fontSize: 12,
         textAlign: 'left',
-        color: "grey"
+        color: "grey",
+        textAlign:'center'
     },
     card: {
         padding: 10,
