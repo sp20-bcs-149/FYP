@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Image,
+  Alert
 } from "react-native";
 import React,{useState,useEffect} from "react";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -20,14 +21,32 @@ const DetailsScreen = ({ navigation }) => {
   const item = route.params?.vaccine;
   const passDatatoOrder = route.params?.passDatatoOrder;
 
-      let  clinic_ID = passDatatoOrder.clinic_ID;
-      let  vaccine_name = item.name;
-      let  price= item.price;
-      let  clinic_name= passDatatoOrder.clinic_name;
-      let  address= passDatatoOrder.address;
-      let  order_status= "Pending";
-      let  longitude= passDatatoOrder.longitude;
-      let  latitude= passDatatoOrder.latitude;
+  // State to hold cart items with a quantity property
+  const [quantity, setquantity] = useState(0);
+  const [disablebutton, setdisablebutton] = useState(false);
+
+  // Function to handle the quantity changes for increment and decrement
+  const handleQuantityChange = (delta) => {
+    setquantity(Math.max(quantity + delta, 0));
+
+    // setCartItems((currentItems) =>
+    //   currentItems.map((item) => {
+    //     if (item.id === id) {
+    //       return { ...item, quantity: Math.max(item.quantity + delta, 0) }; // Ensure quantity is not negative
+    //     }
+    //     return item;
+    //   })
+    // );
+  };
+
+    let  clinic_ID = passDatatoOrder.clinic_ID;
+    let  vaccine_name = item.name;
+    let  price= item.price;
+    let  clinic_name= passDatatoOrder.clinic_name;
+    let  address= passDatatoOrder.address;
+    let  order_status= "Pending";
+    let  longitude= passDatatoOrder.longitude;
+    let  latitude= passDatatoOrder.latitude;
 
   console.log("vaccine ---- > " + JSON.stringify(item))
   const [newitemString,setnewitemString] = useState([]);
@@ -123,23 +142,46 @@ const DetailsScreen = ({ navigation }) => {
             ${item.price}
           </Text>
 
+        <View style={{ marginRight: 0, alignItems: 'center' }}>
+
+          <View style={style.actionBtn}>
+            <MaterialIcons
+              name="remove"
+              size={25}
+              color="black"
+              onPress={() => handleQuantityChange( -1)}
+            />
+            <Text style={{ fontWeight: 'bold', fontSize: 18,color:'black',paddingLeft:30,paddingRight:30 }}>
+             {quantity}
+            </Text>
+            <MaterialIcons
+              name="add"
+              size={25}
+              color="black"
+              onPress={() => handleQuantityChange( 1)}
+            />
+          </View>
+        </View>
             
         <View style={{marginTop: 80, marginBottom:20}}>
           <SecondaryButton title="ORDER" onPress={() => {
-            axios
-              .post(myURL+"/clinic/clinicOrderPlacement", {clinic_ID,vaccine_name,price,clinic_name,address,order_status,longitude,latitude})
-              .then((res) => {
-              console.log(res.data);
-              console.log("Profile Save!! ")
-              // setModalVisible(!modalVisible);
-              Alert.alert("SAVE PROFILE");
-              // ()=>{navigation.navigate("")}
-              
-              // {Alert.alert("Hi")}
-              })
-              .catch((err)=> {
-              console.log(err);
-              })
+            if(quantity == 0){
+                Alert.alert("Quantity is not given");
+            }else{
+              axios
+                .post(myURL+"/clinic/clinicOrderPlacement", {clinic_ID,vaccine_name,price,quantity,clinic_name,address,order_status,longitude,latitude})
+                .then((res) => {
+                 
+                  console.log(res.data);
+                  navigation.navigate("OrderScreen")
+                  Alert.alert("Order PLACE");
+                  
+                })
+                .catch((err)=> {
+                console.log(err);
+                })
+
+            }
           }} />
         </View>
         </View>
@@ -165,12 +207,23 @@ const style = StyleSheet.create({
     borderTopLeftRadius: 40,
   },
   detailsText:{
-marginTop: 10,
-lineHeight: 22,
-fontSize: 16,
-color: "#fff"
-
+    marginTop: 10,
+    lineHeight: 22,
+    fontSize: 16,
+    color: "#fff"
   },
+  actionBtn: {
+    width: 150,
+    height:30,
+    backgroundColor: '#fff',
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    borderRadius: 30,
+    padding: 5,
+  },
+
 });
 
 export default DetailsScreen;

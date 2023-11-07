@@ -1,7 +1,7 @@
-import { View, Text, Dimensions, SafeAreaView, ScrollView,StyleSheet,TouchableOpacity } from "react-native";
+import { View, Text, Dimensions,Button , SafeAreaView, ScrollView,StyleSheet,TouchableOpacity } from "react-native";
 import React ,{useState,useEffect}from "react";
 import { Dropdown } from 'react-native-element-dropdown';
-
+import DropDownPicker from 'react-native-dropdown-picker';
 import {
   LineChart,
   BarChart,
@@ -105,9 +105,14 @@ const data3 = [
   },
 ];
 import { useRoute } from "@react-navigation/native";
-const Charts = () => {
-  const route = useRoute();
-  let Token_id = route.params?.token;
+
+
+
+
+const ReportChartsAdmin = () => {
+  // const route = useRoute();
+  // let Token_id = route.params?.token;
+
 
   const [periodValue, setPeriodValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
@@ -121,65 +126,76 @@ const Charts = () => {
   const [Flu,setFlu] = useState(0);
   const [Rabbies,setRabbies] = useState(0);
   const [other,setOther] = useState(0);
+  const [alldataclinic,setAlldataclinic] = useState([]);
   const matchCounts = [];
+
+  const [selectedName, setSelectedName] = useState(null);
+  const [selected_id, setSelectedId] = useState(null);
+  const [Token_id, setToken_id] = useState("652526817e2e6e5e19dcd0a2");
 
     const [datasets, setDatasets] = useState([
     {
-      data: [ 40, 30, 20, 5],
+      data: [bcg, polio, 40, 30, 20, other],
     },
   ]);
 
   useEffect(() => {
-        fetchDataClinicVaccines();
-        fetchDataYear();
-        
+    Alldataclinic();
+    fetchDataClinicVaccines();
+    fetchData();
 
     },[]);
 
   useEffect(()=>{
       getReportValue();
-    },[fetch_data])
-
+  },[fetch_data])
+    
     const peroid = (item) => {
       console.log(" CALLED +++++++> " + item);
       if(item == "Year"){
         fetchDataYear();
-        
-      console.log("inside  CALLED +++++++> " + item);
-
       }
       if(item == "Month"){
-        fetchDataMonth();
-        
+        fetchData();
       }
       if(item == "Week"){
         fetchDataWeek();
-        
       }
       if(item == "Day"){
         fetchDataDay();
-        
       }
       getReportValue();
-
     }
 
-    const fetchDataClinicVaccines = async () => {
+
+    const Alldataclinic = async () => {
       try {
-        const response = await axios.get(myURL + `/clinic/VaccineRecord/my_ID?my_ID=${Token_id}`);
-        setAllClinic(response.data);
-        console.log("============>REPORT DATA: setAllClinic " + JSON.stringify(response.data));
+        const response = await axios.get(myURL + `/routes/Clinic/clinicProfile/AllClinic`);
+        setAlldataclinic(response.data);
+        console.log("============>REPORT DATA alldataclinic: " + JSON.stringify(response.data));
 
       } catch (error) {
         console.error(error);
       }
     };
 
-    const fetchDataMonth = async () => {
+
+    const fetchDataClinicVaccines = async () => {
+      try {
+        const response = await axios.get(myURL + `/clinic/VaccineRecord/my_ID?my_ID=${Token_id}`);
+        setAllClinic(response.data);
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const fetchData = async () => {
       try {
         const response = await axios.get(myURL + `/user/scheduleAppointment/report/month?clinic_my_ID=${Token_id}`);
         setData(response.data);
-        console.log("============>REPORT DATA: fetchDataMonth " + JSON.stringify(response.data));
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
 
       } catch (error) {
         console.error(error);
@@ -189,7 +205,7 @@ const Charts = () => {
       try {
         const response = await axios.get(myURL + `/user/scheduleAppointment/report/day?clinic_my_ID=${Token_id}`);
         setData(response.data);
-        console.log("============>REPORT DATA: fetchDataDay " + JSON.stringify(response.data));
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
 
       } catch (error) {
         console.error(error);
@@ -199,7 +215,7 @@ const Charts = () => {
       try {
         const response = await axios.get(myURL + `/user/scheduleAppointment/report/week?clinic_my_ID=${Token_id}`);
         setData(response.data);
-        console.log("============>REPORT DATA: fetchDataWeek " + JSON.stringify(response.data));
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
 
       } catch (error) {
         console.error(error);
@@ -209,7 +225,7 @@ const Charts = () => {
       try {
         const response = await axios.get(myURL + `/user/scheduleAppointment/report/year?clinic_my_ID=${Token_id}`);
         setData(response.data);
-        console.log("============>REPORT DATA: fetchDataYear " + JSON.stringify(response.data));
+        console.log("============>REPORT DATA: " + JSON.stringify(response.data));
 
       } catch (error) {
         console.error(error);
@@ -220,7 +236,7 @@ const Charts = () => {
 
       let count = 0;
 
-    console.log("fetch_data : fetchDataYear --------->" +fetch_data);
+    console.log("fetch_data-->" +fetch_data);
 
     const getReportValue = () =>{
 
@@ -232,14 +248,43 @@ const Charts = () => {
       const updatedDatasets = [...datasets];
       updatedDatasets[0].data = matchCounts;
       setDatasets(updatedDatasets);
-      console.log( "matchCounts  ==> " + matchCounts);
+      console.log(matchCounts);
 
     }
 
     return (
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       <SafeAreaView style={{ flex: 1, marginTop: 50 }}>
+      <View>
+      <Dropdown
+        style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={alldataclinic}
+        search
+        maxHeight={300}
+        labelField="name"
+        // valueField="my_ID"
+        placeholder={!isFocus ? 'Select Period' : '...'}
+        searchPlaceholder="Search..."
+        value={periodValue}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+        onChange={item => {
+          setSelectedName(item.name);
+          setSelectedId(item.my_ID);
+          setToken_id(item.my_ID);
+          setPeriodValue(item.value);
+          setIsFocus(false);
+        }}
+      />
+        <Text>Selected Name: {selectedName}</Text>
+        <Text>Selected _id: {selected_id}</Text>
 
+        {/* <Button title="Clear Selection" onPress={() => setSelectedName(null)} /> */}
+      </View>
 
       <Text style={{marginBottom:15, marginTop: 15}}>Specific Period</Text>
       <Dropdown
@@ -260,7 +305,7 @@ const Charts = () => {
         onBlur={() => setIsFocus(false)}
         onChange={item => {
           peroid(item.value);
-          // setPeriodValue(item.value);
+          setPeriodValue(item.value);
           setIsFocus(false);
         }}
       />
@@ -436,4 +481,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Charts;
+export default ReportChartsAdmin;

@@ -19,7 +19,7 @@ const OrderItem = ({ order }) => {
       onPress={() => navigation.navigate("OrderDelivery", { orderback: order })}
     >
       <Image
-        source={{ uri: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fmedia.macphun.com%2Fimg%2Fuploads%2Fcustomer%2Fhow-to%2F608%2F15542038745ca344e267fb80.28757312.jpg%3Fq%3D85%26w%3D1340&tbnid=lpE_IqzXYHRkEM&vet=12ahUKEwj7sdKXk6yCAxU8QaQEHQnKBc0QMygIegQIARBX..i&imgrefurl=https%3A%2F%2Fskylum.com%2Fit%2Fhow-to%2Fhow-to-make-picture-bigger&docid=o-3uHO2Z-E5ZJM&w=1340&h=2010&q=image&ved=2ahUKEwj7sdKXk6yCAxU8QaQEHQnKBc0QMygIegQIARBX' }}
+        source={require('../../../components/clinic/clinicOrder/bikeGuy.png')}
         style={{
           width: "35%",
           height: "100%",

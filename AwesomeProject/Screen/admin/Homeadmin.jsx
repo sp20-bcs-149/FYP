@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {View ,Text, StyleSheet, ScrollView, SafeAreaView,Image,Pressable,Modal,TextInput,Alert} from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -7,6 +7,8 @@ import { Foundation } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import virusimage from  '../../assets/viirus.jpg';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
 
 
 const Homeadmin = ({navigation}) => {
@@ -14,7 +16,29 @@ const Homeadmin = ({navigation}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+  const [Tokendata, setTokenData] = useState([]);
 
+  useEffect(() => {
+    getLoggedInUser();  
+  }, []);
+
+
+
+  getLoggedInUser = async () => {
+    try {
+      const storedToken = await AsyncStorage.getItem("token");
+      console.log("Retrieved token:", storedToken);
+      setTokenData(jwtDecode(storedToken));
+      //setTokenData(storedToken);  //older
+      return storedToken;
+    } catch (error) {
+      console.error("Error retrieving token:", error);
+      return null;
+    }
+  };
+
+
+  
     return (
         // <SafeAreaView>
             <View style={{flex:1,backgroundColor:'#329998'}}>            
@@ -23,7 +47,7 @@ const Homeadmin = ({navigation}) => {
                         <Image  source={virusimage} style={{width:"100%",height:200,}} />
                     </View>
                     <View style={{justifyContent:'center',alignItems:'flex-end',marginTop:30,marginRight:30}}>
-                        <Text style={{fontWeight:'bold',color:'white'}}>Welcome Admin! </Text>
+                        <Text style={{fontWeight:'bold',color:'white'}}>Welcome Admin {Tokendata.name}! </Text>
                     </View>
                     <View style={{marginTop:0,alignSelf:'center',}}><Text style={{alignSelf:'center',fontSize:35,fontWeight:'bold',marginTop:0}}><Text style={{color:"white",fontSize:40}}>V</Text>accine <Text style={{color:"white",fontSize:35}}>A</Text>pp</Text></View>
 
@@ -32,29 +56,30 @@ const Homeadmin = ({navigation}) => {
                         <Pressable
                         // style={[styles.button, styles.buttonClose]}
                         onPress={
-                            () => navigation.navigate("")
+                            () => {navigation.navigate("NewsAdmin")}
                             // () => setModalVisible(!modalVisible)
                             
                         }>
                             <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                                 <Ionicons name='person' size={45} color='white' />
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Personal</Text>
-                                <Text style={{color:"white"}}>Profile</Text>
+                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>News</Text>
+                                <Text style={{color:"white"}}>[For User]</Text>
                             </View>
                         </Pressable>
 {/* 2 */}
                         <Pressable
                         // style={[styles.button, styles.buttonClose]}
                         onPress={
-                            () => navigation.navigate("")
-                            // () => setModalVisible(!modalVisible)
+                           () => {
+                                navigation.navigate("ReportChartsAdmin")
+                           }
                             
                         }>
                             <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                                 <Ionicons name="notifications-circle" size={45} color="white" />
 
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Vaccine </Text>
-                                <Text style={{color:"white"}}>Notification</Text>
+                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Report </Text>
+                                <Text style={{color:"white"}}>Clinic</Text>
                             </View>
                         </Pressable>
 
@@ -62,23 +87,24 @@ const Homeadmin = ({navigation}) => {
                         <Pressable
                         // style={[styles.button, styles.buttonClose]}
                         onPress={
-                            () => navigation.navigate("AlertSend")
-                            // () => setModalVisible(!modalVisible)
+                            () => { 
+                                navigation.navigate("CategoriesScreen")
+                            }
                             
                         }>
                             <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
                                 <Foundation name="alert" size={45} color="white" />
 
 
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Alert </Text>
-                                <Text style={{color:"white"}}>System</Text>
+                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Register</Text>
+                                <Text style={{color:"white"}}>User</Text>
                             </View>
                         </Pressable>
 {/* 2 */}
                         <Pressable
                         // style={[styles.button, styles.buttonClose]}
                         onPress={
-                            () => navigation.navigate("NewsSend")
+                           () => {}
                             // () => setModalVisible(!modalVisible)
                             
                         }>
@@ -86,8 +112,8 @@ const Homeadmin = ({navigation}) => {
                                 <MaterialCommunityIcons name="newspaper-variant" size={45} color="white" />
 
 
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>NEWS</Text>
-                                <Text style={{color:"white"}}>System</Text>
+                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Register</Text>
+                                <Text style={{color:"white"}}>Clinic</Text>
                             </View>
                         </Pressable>
 

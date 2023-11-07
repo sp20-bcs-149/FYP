@@ -36,6 +36,9 @@ const OrderDelivery = () => {
     const route = useRoute();
   let orderback = route.params?.orderback;
   let id = orderback._id;
+
+  let order_status = "Pending";
+
   console.log( "ID ______>" + id);
   const [driverLocation, setDriverLocation] = useState(null);
   const [totalMinutes, setTotalMinutes] = useState(0);
@@ -272,6 +275,8 @@ const OrderDelivery = () => {
           disabled={isButtonDisable()}
         >
           <Text style={styles.acceptButtonText}>{RenderButtonTitle()}</Text>
+          {/* <Text style={styles.acceptButtonText}>{order_status == "Pending" ? "Accepted" : "Completed"}</Text> */}
+
         </Pressable>
       </BottomSheet>
     </GestureHandlerRootView>

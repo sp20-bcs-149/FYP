@@ -343,7 +343,7 @@ const ChildTrack = ({navigation}) => {
                                     <Text style={{fontSize:10,}}>Vaccine name: OPV</Text>
                                     <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
                                 </View>
-                                <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}>Feedback</Text></View>
+                                <View><Text style={{backgroundColor:"#fff",borderRadius:5,padding:2,color:'white'}}></Text></View>
                             </View>
                          )
                         }

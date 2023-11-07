@@ -58,6 +58,11 @@ import PlaceDetail from "./user/findClinic/search/PlaceDetail";
 import AlertSend from "../Screen/admin/alertsend";
 import AlertAdminforEditDelete from "../Screen/admin/alertAdminforEditDelete";
 import NewsSend from "../Screen/admin/NewsSend";
+import NewsSendUpdate from "../Screen/admin/NewsSendUpdate";
+import ReportChartsAdmin from "../Screen/admin/Report";
+import NewsAdmin from "../Screen/admin/News";
+import CategoriesScreen from "../Screen/admin/RegisterAllUserClinicDeli/HomeScreen";
+import ListScreen from "../Screen/admin/RegisterAllUserClinicDeli/ListScreen";
 
 //All clinic screen
 import ClinicProfile from "../Screen/Clinic/CProfile";
@@ -70,7 +75,6 @@ import HomeScreen from '../Screen/Clinic/clinicOrder/HomeScreen';
 import DetailsScreen from '../Screen/Clinic/clinicOrder/DetailsScreen';
 import OrderScreen from '../Screen/Clinic/clinicOrder/OrdersScreen';
 import CartScreen from '../Screen/Clinic/clinicOrder/CartScreen';
-
 
 
 import OrderClinicScreen from "../Screen/Clinic/HomeScreen";
@@ -95,7 +99,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"OnboardingScreen"}
+        initialRouteName={"Login"}
       >
       
         <Stack.Screen name="Home" component={Home} />
@@ -159,10 +163,16 @@ const Navigation = () => {
         {/* all admin componets */}
         <Stack.Screen name="AlertSend" component={AlertSend} />
         <Stack.Screen name="NewsSend" component={NewsSend} />
+        <Stack.Screen name="ReportChartsAdmin" component={ReportChartsAdmin} />
+        <Stack.Screen name="NewsAdmin" component={NewsAdmin} />
+        <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} />
+        <Stack.Screen name="ListScreen" component={ListScreen} />
+        <Stack.Screen name="NewsSendUpdate" component={NewsSendUpdate} />
         <Stack.Screen
           name="AlertAdminforEditDelete"
           component={AlertAdminforEditDelete}
         />
+
 
         {/* all clinic component */}
         <Stack.Screen name="VerificationForm" component={VerificationForm} />

@@ -177,7 +177,7 @@ const Login = ({ navigation }) => {
                       } else if (mytok.role.toLowerCase() == "admin") {
                         navigation.navigate("AdminDrawer");
                       } else if (mytok.role.toLowerCase() == "delivery") {
-                        navigation.navigate("DeliveryDrawer");
+                        navigation.navigate("index");
                       } else {
                         console.log("first define role");
                       }

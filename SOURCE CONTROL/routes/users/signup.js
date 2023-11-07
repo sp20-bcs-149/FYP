@@ -129,4 +129,47 @@ router.post("/signup", async (req, res) => {
   // res.send("Logged in Successfully");
 });
 
+router.get("/user", async (req, res) => {
+  try {
+    const user = await User.find({role:{ $regex: /user/i }});
+
+    if (!user) {
+      return res.status(404).json({ error: "user not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/clinic", async (req, res) => {
+  try {
+    const user = await User.find({role:{ $regex: /clinic/i }});
+
+    if (!user) {
+      return res.status(404).json({ error: "user not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/delivery", async (req, res) => {
+  try {
+    const user = await User.find({role:{ $regex: /delivery/i }});
+
+    if (!user) {
+      return res.status(404).json({ error: "user not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+
 module.exports = router;

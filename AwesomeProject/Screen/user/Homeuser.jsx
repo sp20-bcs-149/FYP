@@ -59,7 +59,15 @@ const Homeuser = ({ navigation }) => {
     }
   };
 
-
+  const HandleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      console.log("Removed Token");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  }
 
     
     const CheckNotificationlength = () => {
@@ -114,6 +122,7 @@ const Homeuser = ({ navigation }) => {
     navigation.navigate('Feedback');
   };
 
+
   // useEffect(() => {
   //   // Set up a monthly interval (in milliseconds)
   //   const interval = 1 * 24 * 60 * 60 * 1000; // 30 days 1 replace with 30
@@ -149,9 +158,7 @@ const Homeuser = ({ navigation }) => {
           }}
         >
           <Pressable
-            onPress={() => {
-              navigation.navigate("Login");
-            }}
+            onPress={()=>{HandleLogout()}}
           >
             <Text> logout </Text>
           </Pressable>
@@ -372,33 +379,6 @@ const Homeuser = ({ navigation }) => {
             </View>
           </Pressable>
 
-          {/* 7 */}
-          <Pressable
-            // style={[styles.button, styles.buttonClose]}
-            onPress={() => {
-              navigation.navigate("Alert");
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: "#94D8D7",
-                width: 150,
-                height: 150,
-                borderRadius: 10,
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <Foundation name="alert" size={45} color="white" />
-              <Text
-                style={{ color: "white", fontSize: 20, fontWeight: "bold" }}
-              >
-                Alert
-              </Text>
-              <Text style={{ color: "white" }}>System</Text>
-            </View>
-          </Pressable>
 
           {/* 8 */}
           <Pressable

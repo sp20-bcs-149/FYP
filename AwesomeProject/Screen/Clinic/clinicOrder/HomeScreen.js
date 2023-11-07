@@ -189,6 +189,13 @@ const HomeScreen = ({ navigation }) => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.flatListContent}
       />
+      {/* Static button at the bottom */}
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("OrderScreen")}}>
+          <Text style={styles.buttonText}>Check Order</Text>
+        </TouchableOpacity>
+      </View>
+
     </SafeAreaView>
   );
 };
@@ -262,6 +269,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingVertical: 20,
     alignItems: 'center',
+  },
+    buttonContainer: {
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingBottom: 20, // Adjust the padding to control the button's position
+  },
+  button: {
+    backgroundColor: "#329998", // Customize the button styles
+    borderRadius: 10,
+    padding: 15,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 

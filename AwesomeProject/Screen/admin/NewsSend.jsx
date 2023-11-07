@@ -37,7 +37,7 @@ const NewsSend = ({navigation}) => {
           .post(myURL+"/admin/news/", {vaccine_name,information,allergies,treatment,Detail,side_effect})
           .then((res) => {
           console.log(res.data);
-          ()=>{navigation.navigate("AdminDrawer")}
+          ()=>{navigation.navigate("NewsAdmin")}
           Alert.alert("SAVE PROFILE");
 
           

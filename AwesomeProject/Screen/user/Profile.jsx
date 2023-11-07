@@ -26,6 +26,9 @@ const UserProfile = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [refreshFlag, setRefreshFlag] = useState(false);
   const [editedProfileData, setEditedProfileData] = useState({});
+  const [splitarrayString,setSplitArrayString] = useState([]);
+  
+  console.log("splitarrayString===>" + splitarrayString);
 
   useEffect(() => {
     getUserProfile();
@@ -37,6 +40,9 @@ const UserProfile = ({ navigation }) => {
       .then((res) => {
         console.log("match User ID" + res.data);
         setResData(res.data);
+        const withoutCOma = res.data.SelectedvaccineString.replace(/"/g, '')
+        const splitString = withoutCOma.split(",").map((name) => name.trim());
+        setSplitArrayString(splitString)
       })
       .catch((err) => {
         console.log(err);
@@ -201,7 +207,11 @@ const UserProfile = ({ navigation }) => {
             ></View>
             <Text style={{ color: "gray" }}>Previous Vaccination:</Text>
             <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {resData.SelectedvaccineString}
+              {
+                splitarrayString.map((vaccineName, index) => (
+                  <Text key={index}> {vaccineName}</Text>
+                ))
+              }
             </Text>
           </View>
         </View>
