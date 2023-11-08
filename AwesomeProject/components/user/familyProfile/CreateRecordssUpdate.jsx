@@ -4,7 +4,7 @@ import { CheckBox } from 'react-native-elements';
 import axios from 'axios';
 import myURL from '../../../services/myurls';
 
-const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _ID,my_ID,P_name,P_gender,P_weight,P_height,P_dob,P_cnic,SelectedvaccineString }) => {
+const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _ID,my_ID,P_name,P_gender,P_weight,P_height,P_dob,P_cnic,SelectedvaccineString,fetchData2 }) => {
 
   const [name, Setname] = useState( P_name||"");
   const [gender, Setgender] = useState(P_gender||"");
@@ -311,10 +311,12 @@ const CreateRecordModelUpdate = ({ navigation, modalVisible, setModalVisible, _I
                   axios
                     .put(myURL + "/family/familyInside/" + _ID, {my_ID, name, gender, height, weight, dob, cnic,SelectedvaccineString})
                     .then((res) => {
-                      console.log(res.data);
-                      console.log("Profile Update!! ");
+                      // fetchData2();
                       setModalVisible(!modalVisible);
-                      Alert.alert("Profile is Save ");
+                      navigation.navigate("Family");
+                      Alert.alert("Profile Update!! ");
+
+                      console.log(res.data);
                     })
                     .catch((err) => {
                       console.log(err);

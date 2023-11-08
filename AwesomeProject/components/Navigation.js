@@ -69,6 +69,7 @@ import ClinicProfile from "../Screen/Clinic/CProfile";
 import VaccineRecord from "../Screen/Clinic/VaccineRecord";
 import AppointmentRecord from "../Screen/Clinic/AppointmentRecord";
 import AppointmentDetails from "../Screen/Clinic/AppointmentDetails";
+import Homeclinic from "../Screen/Clinic/Homeclinic";
 
 
 import HomeScreen from '../Screen/Clinic/clinicOrder/HomeScreen';
@@ -99,7 +100,7 @@ const Navigation = () => {
       {/* <Stack.Navigator  screenOptions={{headerShown:false}} initialRouteName={'Splash'}> */}
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={"Login"}
+        initialRouteName={"OnboardingScreen"}
       >
       
         <Stack.Screen name="Home" component={Home} />
@@ -187,6 +188,7 @@ const Navigation = () => {
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
         <Stack.Screen name="OrderScreen" component={OrderScreen} />
         <Stack.Screen name="CartScreen" component={CartScreen} />
+        <Stack.Screen name="Homeclinic" component={Homeclinic} />
 
 
 

@@ -86,7 +86,7 @@ const VaccineRecord = ({ navigation }) => {
             onPress={() => setModalVisible(!modalVisible)}
             style={{
               flexDirection: "row",
-              backgroundColor: "#1590d6",
+              backgroundColor: "#fff",
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 10,
@@ -99,7 +99,7 @@ const VaccineRecord = ({ navigation }) => {
           >
             <Text
               style={{
-                color: "white",
+                color: "#329998",
                 textAlign: "center",
                 fontWeight: "bold",
                 letterSpacing: 0.5,
@@ -107,7 +107,7 @@ const VaccineRecord = ({ navigation }) => {
             >
               Add Vaccine
             </Text>
-            <MaterialIcons name="library-add" size={30} color="white" />
+            <MaterialIcons name="library-add" size={30} color="#329998" />
           </TouchableOpacity>
         </View>
         <View
@@ -195,15 +195,31 @@ const VaccineRecord = ({ navigation }) => {
                 <AntDesign
                   name="edit"
                   size={24}
-                  color="#3C7DA3"
+                  color="#fff"
                   style={{ margin: 10 }}
                 />
+              <TouchableOpacity onPress={()=>{
+                              axios
+                .delete(`${myURL}/routes/Clinic/VaccineRecord/vaccines/${vaccineRecord._id}`)
+                .then((res) => {
+                  console.log(res.data);
+                  getVaccineRecord();
+                  Alert.alert("Delete Record");
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+               }}>
+
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="#FF0000"
+                  color="#fff"
                   style={{ margin: 10 }}
                 />
+  
+              </TouchableOpacity>
+
               </View>
             </View>
           ))}
@@ -213,6 +229,7 @@ const VaccineRecord = ({ navigation }) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         token={token}
+        getVaccineRecord={getVaccineRecord}
       />
     </View>
   );

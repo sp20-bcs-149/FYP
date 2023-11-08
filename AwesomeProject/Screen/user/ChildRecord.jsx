@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { Text,View,StyleSheet,ScrollView, Pressable } from 'react-native';
+import { Text,View,StyleSheet,ScrollView, Pressable,TouchableOpacity } from 'react-native';
 import myURL from '../../services/myurls';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
@@ -48,8 +48,12 @@ const ChildRecord = ({navigation}) => {
     <>
             <View style={style.container}>
             <ScrollView style={{width:'100%'}}>
-                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',flexDirection:'column'}}> 
-                    <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',flexDirection:'row'}}> 
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={{backgroundColor:''}}>
+                    <Text style={{ color: '#fff', fontSize: 20,  marginTop: 35,marginLeft:20, marginRight: 90, }}>&#x2190;</Text>
+                  </TouchableOpacity>
+
+                    <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900',marginRight:20}}>
                         {Folder_Name}
                     </Text>
                 </View>
@@ -72,12 +76,12 @@ const ChildRecord = ({navigation}) => {
                                 </View>
                                 {/* <View style={style.line}></View> */}
                                 <View style={{width:"85%",justifyContent:'space-around',alignItems:'center',flexDirection:'row'}}>
-                                    <View><Text style={{fontSize:11,}}>Age : {item.dob} Year</Text></View>
-                                    <View><Text style={{fontSize:11,}}>Weight : {item.weight} Kg</Text></View>
-                                    <View><Text style={{fontSize:11,}}>Height : {item.height} cm</Text></View>
+                                    <View><Text style={{fontSize:11,}}>DOB : {item.dob} </Text></View>
+                                    <View><Text style={{fontSize:11,}}>{item.weight} Kg</Text></View>
+                                    <View><Text style={{fontSize:11,}}>{item.height} cm</Text></View>
                                 </View>
                             </View>
-                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{sourcePath:"ChildFamily",my_ID:child_id,Clicked_child_id:item._id,name:item.name,gender:item.gender,weight:item.weight,height:item.height,dob:item.dob,previousvaccine:item.SelectedvaccineString,cnic:item.cnic,Token_id:Token_id})}}>
+                            <Pressable style={{backgroundColor:'',padding:20}}  onPress={()=>{navigation.navigate("ChildTrack",{sourcePath:"ChildFamily",my_ID:child_id,Clicked_child_id:item._id,name:item.name,gender:item.gender,weight:item.weight,height:item.height,dob:item.dob,previousvaccine:item.SelectedvaccineString,cnic:item.cnic,Token_id:Token_id,fetchData1:fetchData})}}>
                                 <View style={{alignSelf:'center',marginLeft:-20}}>
                                   <AntDesign name="caretright" size={24} color="#3C7DA3" style={{}} />
                                 </View>

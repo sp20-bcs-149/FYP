@@ -114,7 +114,11 @@ const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
             <View style={styles.container1}>
                 <ScrollView>
 
-                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',}}> 
+                <View style={{flex:1/10,backgroundColor:'#3C7DA3',width:'100%',flexDirection:'row',justifyContent:'space-evenly'}}> 
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={{backgroundColor:''}}>
+                    <Text style={{ color: '#fff', fontSize: 20,  marginTop: 35,marginLeft:-20, marginRight: 10, }}>&#x2190;</Text>
+                  </TouchableOpacity>
+
                     <Text style={{color:'white',marginTop:30,marginBottom:10,fontSize:25,fontWeight:'900',flexDirection:'row',textAlign:'center'}}>
                         Family Profile
                     </Text>

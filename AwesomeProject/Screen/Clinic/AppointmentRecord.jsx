@@ -139,6 +139,7 @@ const AppointmentRecord = ({ navigation }) => {
                         slot: item.selectedSlot,
                         day: item.selectedDay,
                         status: item.status,
+                        getpending: getpendingAppointment
                       });
                     }}
                   >

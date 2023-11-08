@@ -42,13 +42,13 @@ const CProfile = ({ navigation }) => {
         console.log(err);
       });
   };
-  useEffect(() => {
-    const pollingInterval = setInterval(() => {
-      getClinicProfile();
-    }, 1000);
+  // useEffect(() => {
+  //   const pollingInterval = setInterval(() => {
+  //     getClinicProfile();
+  //   }, 1000);
 
-    return () => clearInterval(pollingInterval);
-  }, []);
+  //   return () => clearInterval(pollingInterval);
+  // }, []);
 
   const handleProfileUpdate = () => {
     setRefreshFlag(!refreshFlag);
@@ -290,6 +290,8 @@ const CProfile = ({ navigation }) => {
             clinic_Token={Token}
             profiledata={resData}
             onUpdate={handleProfileUpdate}
+            getClinicProfile={getClinicProfile}
+            
           />
         </View>
       </View>

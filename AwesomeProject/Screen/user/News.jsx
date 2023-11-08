@@ -1,11 +1,11 @@
 import {React,useEffect,useState} from 'react';
-import { Text,View,StyleSheet,ScrollView,FlatList } from 'react-native';
+import { Text,View,StyleSheet,ScrollView,FlatList,TouchableOpacity } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import axios from 'axios';
 import myURL from '../../services/myurls';
 
-const News = () => {
+const News = ({navigation}) => {
 
       const [newsData, setNewsData] = useState([]);
 
@@ -26,7 +26,11 @@ const News = () => {
   return (
     <>
             <View style={style.container}>
-                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',flexDirection:'row'}}> 
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={{backgroundColor:''}}>
+                        <Text style={{ color: '#fff', fontSize: 20,  marginTop: 35,marginLeft:20, marginRight: 100, }}>&#x2190;</Text>
+                    </TouchableOpacity>
+
                     <Text style={{color:'white',marginTop:30,fontSize:25,textAlign:'center',fontWeight:'900'}}>
                         News
                     </Text>

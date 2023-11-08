@@ -24,6 +24,15 @@ const Homeadmin = ({navigation}) => {
 
 
 
+    const HandleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      console.log("Removed Token");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  }
   getLoggedInUser = async () => {
     try {
       const storedToken = await AsyncStorage.getItem("token");
@@ -47,6 +56,12 @@ const Homeadmin = ({navigation}) => {
                         <Image  source={virusimage} style={{width:"100%",height:200,}} />
                     </View>
                     <View style={{justifyContent:'center',alignItems:'flex-end',marginTop:30,marginRight:30}}>
+                        <Pressable
+                                onPress={()=>{HandleLogout()}}
+                            >
+                                <Text> logout </Text>
+                        </Pressable>
+
                         <Text style={{fontWeight:'bold',color:'white'}}>Welcome Admin {Tokendata.name}! </Text>
                     </View>
                     <View style={{marginTop:0,alignSelf:'center',}}><Text style={{alignSelf:'center',fontSize:35,fontWeight:'bold',marginTop:0}}><Text style={{color:"white",fontSize:40}}>V</Text>accine <Text style={{color:"white",fontSize:35}}>A</Text>pp</Text></View>
@@ -98,22 +113,6 @@ const Homeadmin = ({navigation}) => {
 
                                 <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Register</Text>
                                 <Text style={{color:"white"}}>User</Text>
-                            </View>
-                        </Pressable>
-{/* 2 */}
-                        <Pressable
-                        // style={[styles.button, styles.buttonClose]}
-                        onPress={
-                           () => {}
-                            // () => setModalVisible(!modalVisible)
-                            
-                        }>
-                            <View style={{backgroundColor:"#94D8D7",width:150,height:150,borderRadius:10,justifyContent:'center',alignItems:'center',marginTop:20}}>
-                                <MaterialCommunityIcons name="newspaper-variant" size={45} color="white" />
-
-
-                                <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Register</Text>
-                                <Text style={{color:"white"}}>Clinic</Text>
                             </View>
                         </Pressable>
 

@@ -17,7 +17,7 @@ var FamilyInside = mongoose.model("FamilyInside", UserFamilyInsideSchema);
 function validateFamilyInside(data){
     const schema = Joi.object({
         my_ID : Joi.string().required(),
-        name: Joi.string().min(1).required(),
+        name: Joi.string().required(),
         gender: Joi.string().min(1).required(),
         height: Joi.string().min(1).required(),
         weight: Joi.string().min(1).required(),

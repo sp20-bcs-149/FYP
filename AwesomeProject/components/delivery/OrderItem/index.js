@@ -1,10 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable, } from "react-native";
 import orders from "../data/orders.json";
 import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const OrderItem = ({ order }) => {
+const OrderItem = ({ order,fetchdata }) => {
   const navigation = useNavigation();
   return (
     <Pressable
@@ -16,7 +16,7 @@ const OrderItem = ({ order }) => {
         margin: 10,
         justifyContent: "space-between",
       }}
-      onPress={() => navigation.navigate("OrderDelivery", { orderback: order })}
+      onPress={() => navigation.navigate("OrderDelivery", { orderback: order,fetchdata2:fetchdata })}
     >
       <Image
         source={require('../../../components/clinic/clinicOrder/bikeGuy.png')}

@@ -137,7 +137,7 @@ const Charts = () => {
     },[]);
 
   useEffect(()=>{
-      getReportValue();
+      // getReportValue();
     },[fetch_data])
 
     const peroid = (item) => {

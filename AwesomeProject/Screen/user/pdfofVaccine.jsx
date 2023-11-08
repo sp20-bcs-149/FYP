@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { StyleSheet, View, Text, Button, FlatList, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, View, Text, Button, FlatList, SafeAreaView, Alert,TouchableOpacity } from 'react-native';
 import * as Print from 'expo-print';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
@@ -7,7 +7,7 @@ import { useRoute } from '@react-navigation/native';
 import myURL from '../../services/myurls';
 import axios from 'axios';
 
-export default function VaccineCardScreen() {
+export default function VaccineCardScreen({navigation}) {
     const route = useRoute();
     let token_id = route.params?.token_id;
     let CheckProfile = route.params?.CheckProfile;
@@ -88,7 +88,18 @@ export default function VaccineCardScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <View style={styles.header}>
+                <View style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    // justifyContent: 'space-around',
+                    padding: 10,
+                    backgroundColor: '#f8f8f8'
+
+                }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()} style={{backgroundColor:''}}>
+                        <Text style={{ color: '#329998', fontSize: 20,  marginTop: 0,marginLeft:0, marginRight: 0, }}>&#x2190;</Text>
+                    </TouchableOpacity>
+
                     <Text style={styles.headerText}>Vaccine Card</Text>
                 </View>
 
@@ -96,7 +107,7 @@ export default function VaccineCardScreen() {
                     <Text style={{ margin: 10 }}>Name: {CheckProfile.name}</Text>
                     <Text style={{ margin: 10 }}>DOB: {CheckProfile.dob}</Text>
                     <Text style={{ margin: 10 }}>CNIC: {CheckProfile.cnic}</Text>
-                    <Text style={{ margin: 10 }}>Address: [Address Here]</Text>
+                    {/* <Text style={{ margin: 10 }}>Address: [Address Here]</Text> */}
                     <View style={styles.separator}></View>
                     <Text style={{ alignSelf: 'center', justifyContent: 'center', fontSize: 20, color: "grey", margin: 10 }}>Injected Vaccine</Text>
                     {

@@ -22,6 +22,7 @@ const ChildTrack = ({navigation}) => {
   let dob = route.params?.dob;
   let my_ID = route.params?.my_ID;
   let Clicked_child_id = route.params?.Clicked_child_id;
+  let fetchData = route.params?.fetchDataRefresh;
 
   console.log("Clicked_child_id==========",Clicked_child_id);
 
@@ -267,7 +268,10 @@ const ChildTrack = ({navigation}) => {
     <>
             <View style={style.container}>
             <ScrollView width="100%">
-                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%'}}> 
+                <View style={{flex:1/10,backgroundColor:'#329998',width:'100%',flexDirection:'row'}}> 
+                  <TouchableOpacity onPress={() => navigation.goBack()} style={{backgroundColor:''}}>
+                    <Text style={{ color: '#fff', fontSize: 20,  marginTop: 50,marginLeft:40, marginRight: 10 }}>&#x2190;</Text>
+                  </TouchableOpacity>
                     <Text style={{color:'white',marginTop:30,fontSize:20,padding:20,textAlign:'center',fontWeight:'700'}}>
                         Vaccination Track
                     </Text>
@@ -279,24 +283,26 @@ const ChildTrack = ({navigation}) => {
                     <Text style={{fontSize:19,fontWeight:'900',color:'black',padding:10,textAlign:'center',marginTop:10}}>{name}</Text>
                     <View style={{backgroundColor:"#FFFFFF",width:"90%",alignSelf:'center',height:100,borderRadius:10,justifyContent:'space-evenly',alignItems:'center',marginTop:20,marginBottom:5,}}>
                         <View style={{width:"90%",flexDirection:'row',justifyContent:'space-between',alignContent:'center'}}>
+                          
                             <View ><Text>Height: {height} cm </Text></View>
                             <View ><Text>Weight: {weight} Kg</Text></View>
+
                         </View>
                         <View style={style.line}></View>
                         { sourcePath=="ChildFamily" ?
                           <View style={{width:"90%",flexDirection:'row',justifyContent:'space-between',alignContent:'center'}}>
                               <Pressable onPress={() => setModalVisible(!modalVisible)}><View ><Text><Feather name="edit" size={24} color="#329998" /></Text></View></Pressable>
                               <Pressable onPress={() =>{
-                                              axios
-                                                .delete(myURL + "/family/familyInside/" + Clicked_child_id)
-                                                .then((res) => {
-                                                  console.log(res.data);
-                                                  alert("Delete Record");
-                                                  navigation.navigate("ChildRecord");
-                                                })
-                                                .catch((err) => {
-                                                  console.log(err);
-                                                });
+                                    axios
+                                      .delete(myURL + "/family/familyInside/" + Clicked_child_id)
+                                      .then((res) => {
+                                        console.log(res.data);
+                                        alert("Delete Record");
+                                        navigation.navigate("ChildRecord");
+                                      })
+                                      .catch((err) => {
+                                        console.log(err);
+                                      });
                               } }><View ><AntDesign name="delete" size={24} color="#FF0000" /></View></Pressable>
                           </View>
                           : 
@@ -306,51 +312,72 @@ const ChildTrack = ({navigation}) => {
                     
                     <View style={{justifyContent:'flex-start',width:'80%'}}>
                         <View style={{backgroundColor:'#fff'}}><Text>PREVIOUS VACCINES</Text></View>
+
                         {/* 1 */}
                         {
-                          myvaccineArray.map((name,index) => 
-                          <View key={index} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                            <AntDesign name="star" size={35} color="#329998" />
+                          myvaccineArray.length > 0 ? 
+                            myvaccineArray.map((name,index) => 
+                            <View key={index} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
+                              <AntDesign name="star" size={35} color="#329998" />
 
 
-                            <View style={{flexDirection:'column',alignItems:"flex-start"}}>
-                              {
-                                
-                                 <Text key={index} style={{fontSize:11,padding:10,fontWeight:'bold',marginRight:180}}>{name.replace(/"/g,'')}</Text>
-                              }
-                            </View>
-                            {/* <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}></Text></View> */}
-                        </View>
-                        )
+                              <View style={{flexDirection:'column',alignItems:"flex-start"}}>
+                                {
+                                  
+                                  <Text key={index} style={{fontSize:11,padding:10,fontWeight:'bold',marginRight:180}}>{name.replace(/"/g,'')}</Text>
+                                }
+                              </View>
+                              {/* <View><Text style={{backgroundColor:"#C2185B",borderRadius:5,padding:2,color:'white'}}></Text></View> */}
+                          </View>
+                          )
+                        :
+                        <Text>No Vaccine Selected</Text>
                         }
                         {/* 1 end */}
+                      <View  style={{
+                         width:'90%',
+                          backgroundColor: 'white', // Set your desired line color
+                          marginTop:0,
+                          alignSelf:'center',
+                          borderBottomWidth:0.5,
+                          borderBottomColor:'gray',
+                          marginTop:20}}>
+
+                      </View>
 
                     </View>
+
                     <View style={{marginBottom:30,}}></View>
 
                     {/*--------------------  */}
 
                     <View style={{justifyContent:'flex-start',width:'80%'}}>
                         <View style={{backgroundColor:'#fff'}}><Text>INJECTED VACCINES</Text></View>
+                        
                         {/* 1 */}
                         {
-                          completedata.map((injected_item,injected_index)=>
+                          completedata.length > 0 ? 
+                            completedata.map((injected_item,injected_index)=>
 
-                            <View key={injected_index} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
-                                <AntDesign name="star" size={35} color="#329998" />
-                                <View style={{flexDirection:'column',}}>
-                                    <Text style={{fontSize:11,fontWeight:'bold'}}>{injected_item.selectedVaccine}</Text>
-                                    <Text style={{fontSize:10,}}>Vaccine name: OPV</Text>
-                                    <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
-                                </View>
-                                <View><Text style={{backgroundColor:"#fff",borderRadius:5,padding:2,color:'white'}}></Text></View>
-                            </View>
-                         )
+                              <View key={injected_index} style={{marginTop:20,flexDirection:'row',justifyContent:'space-between'}}>
+                                  <AntDesign name="star" size={35} color="#329998" />
+                                  <View style={{flexDirection:'column',}}>
+                                      <Text style={{fontSize:11,fontWeight:'bold'}}>{injected_item.selectedVaccine}</Text>
+                                      <Text style={{fontSize:10,}}>Vaccine name: OPV</Text>
+                                      <Text style={{fontSize:10,}}>Given on 05/06/2022 At ...</Text>
+                                  </View>
+                                  <View><Text style={{backgroundColor:"#fff",borderRadius:5,padding:2,color:'white'}}></Text></View>
+                              </View>
+                            )
+                          :
+                          <Text style={{padding:20,color:'gray'}}>No Vaccine Injected</Text>
                         }
                         {/* 1 end */}
+                      <View style={{marginBottom:30,}}></View>
+
+                      <View style={style.line}></View>
 
                     </View>
-                    <View style={{marginBottom:30,}}></View>
 
 
                     <View style={{justifyContent:'flex-start',width:'80%'}}>
@@ -424,6 +451,7 @@ const ChildTrack = ({navigation}) => {
                 </View>
                 </ScrollView>
               <CreateRecordModelUpdate
+                navigation={navigation}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
                 _ID={Clicked_child_id}
@@ -436,6 +464,7 @@ const ChildTrack = ({navigation}) => {
                 P_dob={dob}
                 P_cnic={cnic}
                 P_SelectedvaccineString={previousvaccine}
+                fetchData2={fetchData}
               />
             </View>
     </>
@@ -455,11 +484,12 @@ const style = StyleSheet.create({
     }
     ,
     line: {
-        height: 1,
         width:'90%',
         backgroundColor: 'white', // Set your desired line color
         marginTop:0,
-        alignSelf:'center'
+        alignSelf:'center',
+        borderBottomWidth:0.5,
+        borderBottomColor:'gray'
   },
 })
 

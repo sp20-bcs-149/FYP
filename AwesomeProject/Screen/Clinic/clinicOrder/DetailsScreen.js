@@ -173,7 +173,7 @@ const DetailsScreen = ({ navigation }) => {
                 .then((res) => {
                  
                   console.log(res.data);
-                  navigation.navigate("OrderScreen")
+                  navigation.navigate("Homeclinic")
                   Alert.alert("Order PLACE");
                   
                 })

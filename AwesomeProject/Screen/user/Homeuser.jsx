@@ -116,7 +116,8 @@ const Homeuser = ({ navigation }) => {
                 });
 
  }
-
+  const CheckProfilelength = Object.keys(CheckProfile).length;
+  console.log("CheckProfilelength ===>" + CheckProfilelength)
   const navigateToFeedback = () => {
     // Replace 'Feedback' with the name of your Feedback screen
     navigation.navigate('Feedback');
@@ -185,18 +186,11 @@ const Homeuser = ({ navigation }) => {
           <Pressable
             // style={[styles.button, styles.buttonClose]}
             onPress={() => {
-              axios
-                .get(`${myURL}/OnlyUserRoutes/profile?my_ID=${Tokendata._id}`)
-                .then((res) => {
-                  console.log("match User ID" + res.data);
-                  setCheckProfile(res.data);
-                  navigation.navigate("UserProfile", { token: Tokendata });
-                })
-                .catch((err) => {
-                  setCheckProfile();
-                  setModalVisible(!modalVisible);
-                  //console.log(err);
-                });
+              CheckProfilelength > 0 ?
+              navigation.navigate("UserProfile", { token: Tokendata })
+              :
+              setModalVisible(!modalVisible)
+
             }}
           >
             <View
@@ -224,7 +218,13 @@ const Homeuser = ({ navigation }) => {
           {/* 6 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => {navigation.navigate("ChildTrack",{sourcePath:"User",my_ID:CheckProfile._id,Clicked_child_id:CheckProfile._id,name:CheckProfile.name,dob:CheckProfile.dob,previousvaccine:CheckProfile.SelectedvaccineString,cnic:CheckProfile.cnic,Token_id:CheckProfile.my_ID})}}
+            onPress={() => {
+              CheckProfilelength > 0 ?
+                navigation.navigate("ChildTrack",{sourcePath:"User",my_ID:CheckProfile._id,Clicked_child_id:CheckProfile._id,name:CheckProfile.name,dob:CheckProfile.dob,previousvaccine:CheckProfile.SelectedvaccineString,cnic:CheckProfile.cnic,Token_id:CheckProfile.my_ID})
+              :
+              setModalVisible(!modalVisible)
+              }
+            }
           >
             <View
               style={{
@@ -251,7 +251,12 @@ const Homeuser = ({ navigation }) => {
           {/* 2 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("Family", { token_id: Tokendata._id })}
+            onPress={() =>
+              CheckProfilelength > 0 ?
+                navigation.navigate("Family", { token_id: Tokendata._id })
+              :
+              setModalVisible(!modalVisible)
+            }
           >
             <View
               style={{
@@ -276,7 +281,12 @@ const Homeuser = ({ navigation }) => {
           {/* 3 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("ScheduleHome",{user:Tokendata._id,source: 'Homeuser'})}
+            onPress={() =>
+              CheckProfilelength > 0 ?
+                navigation.navigate("ScheduleHome",{user:Tokendata._id,source: 'Homeuser'})
+              :
+              setModalVisible(!modalVisible)
+            }
           >
             <View
               style={{
@@ -329,7 +339,13 @@ const Homeuser = ({ navigation }) => {
           {/* 5 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("ScheduleHome",{user:Tokendata._id,source: 'clinicfinder'})}
+            onPress={() =>
+              CheckProfilelength > 0 ?
+               navigation.navigate("ScheduleHome",{user:Tokendata._id,source: 'clinicfinder'})
+              :
+              setModalVisible(!modalVisible)
+             
+            }
           >
             <View
               style={{
@@ -356,7 +372,14 @@ const Homeuser = ({ navigation }) => {
           {/* 6 */}
           <Pressable
             // style={[styles.button, styles.buttonClose]}
-            onPress={() => navigation.navigate("VaccineCardScreen",{ token_id: Tokendata._id,CheckProfile:CheckProfile })}
+            onPress={() => 
+              CheckProfilelength > 0 ?
+                navigation.navigate("VaccineCardScreen",{ token_id: Tokendata._id,CheckProfile:CheckProfile })
+              :
+              setModalVisible(!modalVisible)
+
+            
+            }
           >
             <View
               style={{
@@ -468,6 +491,7 @@ const Homeuser = ({ navigation }) => {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         token={Tokendata}
+        checkProfileTrackpresent={checkProfileTrackpresent}
       />
       <Modal
             animationType="slide"

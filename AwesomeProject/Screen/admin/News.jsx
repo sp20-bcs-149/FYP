@@ -11,7 +11,12 @@ const NewsAdmin = ({navigation}) => {
       const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
-    // Fetch news data from your backend
+    fetchNews();
+}, []);
+
+
+  const fetchNews = async () => {
+        // Fetch news data from your backend
     
     fetch(`${myURL}/admin/news`)
       .then((response) => response.json())
@@ -22,9 +27,10 @@ const NewsAdmin = ({navigation}) => {
       .catch((error) => {
         console.error('Error fetching news data:', error);
       });
-  }, []);
 
-    const handleDeleteProfile = (id) => {
+  }
+
+  const handleDeleteProfile = (id) => {
     Alert.alert(
       "Delete Profile",
       "Are you sure you want to delete the profile?",
@@ -43,7 +49,7 @@ const NewsAdmin = ({navigation}) => {
                   console.log(res.data);
                   console.log("Profile Save!!");
                   Alert.alert("Delete Record");
-                  navigation.navigate("Homeuser");
+                  navigation.navigate("AdminDrawer");
                 })
                 .catch((err) => {
                   console.log(err);
@@ -69,7 +75,7 @@ const NewsAdmin = ({navigation}) => {
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end', padding: 10 }}>
                     <TouchableOpacity
                     onPress={() => {
-                        navigation.navigate("NewsSend");
+                        navigation.navigate("NewsSend",{fetch :fetchNews });
                     }}
                     style={{
                         backgroundColor: '#329998',

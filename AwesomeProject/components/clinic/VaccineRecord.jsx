@@ -19,6 +19,7 @@ const VaccineRecord = ({
   modalVisible,
   setModalVisible,
   token,
+  getVaccineRecord
 }) => {
   const my_ID = token;
   const my_ROLE = token.role;
@@ -106,10 +107,9 @@ const VaccineRecord = ({
                 price,
               })
               .then((res) => {
-                console.log("Vaccine Record saved");
+                getVaccineRecord();
                 setModalVisible(!modalVisible);
                 Alert.alert("Record Saved");
-                navigation.navigate("Homeclinic");
               })
               .catch((err) => {
                 console.log(err);

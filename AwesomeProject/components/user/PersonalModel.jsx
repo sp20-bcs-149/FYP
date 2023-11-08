@@ -6,7 +6,7 @@ import { CheckBox } from 'react-native-elements';
 
 import myURL from '../../services/myurls';
 
-const PersonalModel = ({navigation,modalVisible,setModalVisible,token}) => {
+const PersonalModel = ({navigation,modalVisible,setModalVisible,token,checkProfileTrackpresent}) => {
 
 
   // user register _id and Role get Here and pass to the post method
@@ -90,6 +90,7 @@ const PersonalModel = ({navigation,modalVisible,setModalVisible,token}) => {
           console.log("Profile Save!! ")
           setModalVisible(!modalVisible);
           Alert.alert("SAVE PROFILE");
+          checkProfileTrackpresent();
           ()=>{navigation.navigate("Homeuser")}
           
           // {Alert.alert("Hi")}

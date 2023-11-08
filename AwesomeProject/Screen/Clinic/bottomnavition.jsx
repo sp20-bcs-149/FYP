@@ -4,6 +4,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import Homeclinic from "./Homeclinic";
 import CProfile from "./CProfile";
 import Extra1 from "./extacomponent";
+
 const Tab = createMaterialBottomTabNavigator();
 
 function ClinicBottomNavigation() {

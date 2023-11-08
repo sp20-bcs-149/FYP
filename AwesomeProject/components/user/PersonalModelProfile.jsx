@@ -251,7 +251,7 @@ useEffect(() => {
                   return (
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }} key={index}>
                       <CheckBox
-                        checked={vaccine.checked || isSelected} // Auto-check if it was selected
+                        checked={vaccine.checked } // Auto-check if it was selected
                         onPress={() => {
                           const updatedVaccines = [...vaccines];
                           updatedVaccines[index].checked = !vaccines[index].checked;

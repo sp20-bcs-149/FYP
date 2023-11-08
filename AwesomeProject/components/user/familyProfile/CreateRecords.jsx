@@ -68,6 +68,26 @@ const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID ,f
     }
   };
 
+  const senddata =  async () => {
+        const selectedVaccines = vaccines.filter(vaccine => vaccine.checked).map(vaccine => vaccine.name);
+        const SelectedvaccineString = JSON.stringify(selectedVaccines.join(','));
+        console.log("SELECTED VACCINE  : " + SelectedvaccineString);
+        axios
+          .post(myURL + "/family/familyInside", { my_ID, name, gender, height, weight, dob, cnic,SelectedvaccineString})
+          .then((res) => {
+            console.log(res.data);
+            setModalVisible(!modalVisible);
+            fetchData();
+            navigation.navigate("Family");
+            Alert.alert("Profile in Family Save ");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+
+  }
+
   return (
     <>
       <Modal
@@ -234,7 +254,6 @@ const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID ,f
                   setIsCnicEntered(false);
                 }}
                 onChangeText={handleCnicChange}
-                value={cnic}
                 placeholder="XXXXX-XXXXXXX-X"
                 keyboardType="numeric"
                 maxLength={15}
@@ -274,21 +293,7 @@ const CreateRecordModel = ({ navigation, modalVisible, setModalVisible, my_ID ,f
 
               <Pressable
                 onPress={(e) => {
-                  const selectedVaccines = vaccines.filter(vaccine => vaccine.checked).map(vaccine => vaccine.name);
-                  const SelectedvaccineString = JSON.stringify(selectedVaccines.join(','));
-                  console.log("SELECTED VACCINE  : " + SelectedvaccineString);
-                  axios
-                    .post(myURL + "/family/familyInside", { my_ID, name, gender, height, weight, dob, cnic,SelectedvaccineString})
-                    .then((res) => {
-                      console.log(res.data);
-                      console.log("Profile Save!! ");
-                      setModalVisible(!modalVisible);
-                      Alert.alert("Profile is Save ");
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                    fetchData();
+                  senddata();
                 }}
               >
                 <Text

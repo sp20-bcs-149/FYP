@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
 } from "react-native";
+
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -41,7 +42,7 @@ const UserProfile = ({ navigation }) => {
         console.log("match User ID" + res.data);
         setResData(res.data);
         const withoutCOma = res.data.SelectedvaccineString.replace(/"/g, '')
-        const splitString = withoutCOma.split(",").map((name) => name.trim());
+        const splitString = withoutCOma.split(",");
         setSplitArrayString(splitString)
       })
       .catch((err) => {
@@ -89,7 +90,7 @@ const UserProfile = ({ navigation }) => {
         <View style={{ flex: 1 }}>
           <View
             style={{
-              height: 300,
+              height: 350,
               justifyContent: "center",
               backgroundColor: "#329998",
               borderBottomLeftRadius: 40,
@@ -137,22 +138,17 @@ const UserProfile = ({ navigation }) => {
               <Text style={{ margin: 0, color: "white", marginBottom: 10 }}>
                 {resData.country}
               </Text>
-              <Pressable onPress={() => setModalVisible(true)}>
-                <Feather name="edit" size={35} color="white" />
-              </Pressable>
-              <Text style={{ color: "white" }}>EDIT</Text>
-              <Pressable onPress={handleDeleteProfile}>
-                <Text
-                  style={{
-                    padding: 10,
-                    backgroundColor: "red",
-                    color: "white",
-                    borderRadius: 10,
-                  }}
-                >
-                  Delete
-                </Text>
-              </Pressable>
+              <View style={{width:"70%",flexDirection:'row',justifyContent:'space-between',}}>
+                <Pressable onPress={() => setModalVisible(true)}>
+                  <Feather name="edit" size={35} color="white" />
+                  <Text style={{color:'white',textAlign:'center'}}>Edit</Text>
+                </Pressable>
+                <Pressable onPress={handleDeleteProfile}>
+                  <AntDesign name="delete" size={35} color="white" />
+                  <Text style={{color:'white',textAlign:'center'}}>Delete</Text>
+
+                </Pressable>
+              </View>
             </View>
           </View>
 

@@ -50,7 +50,18 @@ const Notification = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={{
+        backgroundColor: "#329998",
+        padding: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        marginBottom: 20,
+        borderRadius: 10,
+        flexDirection:'row'
+      }}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={{backgroundColor:''}}>
+              <Text style={{ color: '#fff', fontSize: 20,  marginTop: 0,marginLeft:0, marginRight: 30, }}>&#x2190;</Text>
+          </TouchableOpacity>
         <Text style={styles.headerText}>Notifications/Alerts</Text>
       </View>
       <FlatList

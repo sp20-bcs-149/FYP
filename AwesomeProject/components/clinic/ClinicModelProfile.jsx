@@ -24,6 +24,7 @@ const ClinicModelProfile = ({
   setModalVisible,
   clinic_Token,
   profiledata,
+  getClinicProfile
 }) => {
   const [my_ID, setmy_ID] = useState(clinic_Token._id);
   const [my_ROLE, setmy_ROLE] = useState(clinic_Token.my_ROLE);
@@ -35,16 +36,16 @@ const ClinicModelProfile = ({
   // ID OF THE USER -- THERE ARE MANY USER LOGIN AT RUN TIME
   // const [_my_ID,SetmyID] = useState('');
   // const [_my_ROLE,SetROLE] = useState('');
-  const [name, SetName] = useState("");
-  const [registrationId, SetRegistrationId] = useState(0);
-  const [country, SetCountry] = useState("");
-  const [phoneno, SetPhoneno] = useState("");
-  const [city, SetCity] = useState("");
-  const [address, SetAddress] = useState("");
-  const [postalCode, SetPostalCode] = useState("");
-  const [latitude, SetLatitude] = useState("74.676346823");
-  const [longitude, SetLongitude] = useState("31.2784783");
-  const [status, setStatus] = useState("");
+  const [name, SetName] = useState("" || profiledata.name);
+  const [registrationId, SetRegistrationId] = useState(0 || profiledata.registrationId);
+  const [country, SetCountry] = useState("" || profiledata.country);
+  const [phoneno, SetPhoneno] = useState("" || profiledata.phoneno);
+  const [city, SetCity] = useState("" || profiledata.city);
+  const [address, SetAddress] = useState("" || profiledata.address);
+  const [postalCode, SetPostalCode] = useState("" || profiledata.postalCode);
+  const [latitude, SetLatitude] = useState("" || profiledata.latitude);
+  const [longitude, SetLongitude] = useState("" || profiledata.longitude);
+  const [status, setStatus] = useState("" || profiledata.status);
 
   const findMyLocation = async () => {
     try {
@@ -106,6 +107,7 @@ const ClinicModelProfile = ({
                 Name
               </Text>
               <TextInput
+                value={name}
                 style={styles.input}
                 onChangeText={(name) => {
                   SetName(name);
@@ -127,11 +129,12 @@ const ClinicModelProfile = ({
                 Registration Id
               </Text>
               <TextInput
+                value={registrationId}
                 style={styles.input}
                 onChangeText={(registrationId) => {
                   SetRegistrationId(registrationId);
                 }}
-                placeholder="Enter CNIC [without -]"
+                placeholder="Enter Registration ID "
               />
 
               <Text
@@ -146,6 +149,7 @@ const ClinicModelProfile = ({
                 Phone Number
               </Text>
               <TextInput
+                value={phoneno}
                 style={styles.input}
                 onChangeText={(phone) => {
                   SetPhoneno(phone);
@@ -165,6 +169,7 @@ const ClinicModelProfile = ({
                 Country
               </Text>
               <TextInput
+              value={country}
                 style={styles.input}
                 onChangeText={(country) => {
                   SetCountry(country);
@@ -183,6 +188,7 @@ const ClinicModelProfile = ({
                 address
               </Text>
               <TextInput
+              value={address}
                 style={styles.input}
                 onChangeText={(address) => {
                   SetAddress(address);
@@ -201,6 +207,7 @@ const ClinicModelProfile = ({
                 city
               </Text>
               <TextInput
+              value={city}
                 style={styles.input}
                 onChangeText={(city) => {
                   SetCity(city);
@@ -220,6 +227,7 @@ const ClinicModelProfile = ({
                 Postal code
               </Text>
               <TextInput
+              value={postalCode}
                 style={styles.input}
                 onChangeText={(postalCode) => {
                   SetPostalCode(postalCode);
@@ -270,11 +278,10 @@ const ClinicModelProfile = ({
                       }
                     )
                     .then((res) => {
+                      getClinicProfile();
                       console.log(res.data);
-                      console.log("Profile Save!! ");
                       setModalVisible(!modalVisible);
                       Alert.alert("SAVE PROFILE");
-                      navigation.navigate("Homeuser");
 
                       // {Alert.alert("Hi")}
                     })

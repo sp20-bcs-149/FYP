@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import myURL from '../../../services/myurls';
 import axios from 'axios';
+import { TouchableOpacity } from 'react-native';
 
 const OrderScreen = ({ navigation }) => {
   const [resData, setResData] = useState([]);
@@ -24,7 +25,9 @@ const OrderScreen = ({ navigation }) => {
     <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
     <ScrollView>
       <View style={style.header}>
-        <MaterialIcons name="arrow-back" size={28} onPress={() => navigation.goBack()} />
+        <TouchableOpacity onPress={() => navigation.goBack()} >
+          <MaterialIcons name="arrow-back" size={28}  />
+        </TouchableOpacity>
         <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 10 }}>
           Orders
         </Text>

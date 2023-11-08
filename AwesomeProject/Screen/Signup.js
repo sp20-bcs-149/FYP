@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import myURL from "../services/myurls";
 import axios from "axios";
+import { Picker } from '@react-native-picker/picker';
+
 import {
   View,
   Text,
@@ -12,6 +14,7 @@ import {
   ScrollView,
   Alert,
   Modal,
+  ActivityIndicator ,
 } from "react-native";
 import userService from "../services/userservices";
 
@@ -31,6 +34,10 @@ const SignUp = ({ navigation }) => {
   const [errormsg, setErrormsg] = useState(null);
   const [passwordError, setpasswordError] = useState(null);
 
+
+  const [buttondiable,setButtondiable] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const validatePassword = (password) => {
     // Define the regular expression pattern for the password rules
     const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
@@ -42,7 +49,7 @@ const SignUp = ({ navigation }) => {
     return isValid;
   };
 
-  async function senddata() {
+   function verfiyFiled(){
     const isValidPassword = validatePassword(password);
     if (password.length < 8) {
       setErrormsg("Password should be at least 8 characters long.");
@@ -55,7 +62,29 @@ const SignUp = ({ navigation }) => {
       setpasswordError(
         "Password should be atleast 1 Small,Large and 1 special character and 1 digit and 8 digit"
       );
-    } else {
+    }else{
+      setButtondiable(true);
+      setLoading(true);
+      axios
+        .post(`${myURL}/sendmail/`, {
+          email,
+        })
+
+        .then((res) => {
+          console.log("successfully request sent");
+          setModalVisible(true);
+          setdbPincode(res.data?.pincode);
+        })
+        .catch((err) => {
+          console.log("error");
+        });
+      setLoading(false);
+      setButtondiable(false);
+    }
+  }
+
+  async function senddata() {
+
       // navigation.navigate("EmailAuthentication",{name,email,password,role});
 
       userService
@@ -72,7 +101,7 @@ const SignUp = ({ navigation }) => {
           // position: toast.POSITION.TOP_CENTER
           // });
         });
-    }
+    
     //console.log("Signup Successfully data : " +name,email,password,role);
   }
 
@@ -125,6 +154,13 @@ const SignUp = ({ navigation }) => {
                     </Text>
                   </View>
                 ) : null}
+
+                {loading && (
+                <View style={styles.indicatorContainer}>
+                  <ActivityIndicator size="large" color="#fff" />
+                </View>
+                )}
+
               </Text>
               {passwordError ? (
                 <Text
@@ -242,36 +278,37 @@ const SignUp = ({ navigation }) => {
               >
                 Role
               </Text>
-              <TextInput
-                onPressIn={() => {
-                  setErrormsg(null);
-                }}
-                style={styles.input}
-                onChangeText={(role) => {
-                  setRole(role.toLowerCase());
-                }}
-                placeholder="User || Admin || Delivery || Clinic"
-              />
-
+              <View style={{
+                  backgroundColor: "#EDEEEF",
+                  width: "70%",
+                  height: 40,
+                  alignSelf: "center",
+                  borderRadius: 5,
+                  paddingLeft: 10,
+              }}>
+                      <Picker
+                        selectedValue={role}
+                        onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
+                        style={{marginTop:-7,marginLeft:-10}}
+                      >
+                        {/* Placeholder Item */}
+                        <Picker.Item label="Select role:" value="" />
+                        {/* Actual Options */}
+                        <Picker.Item label="user" value="user" />
+                        <Picker.Item label="Deliveryman" value="delivery" />
+                        <Picker.Item label="Clinic" value="clinic" />
+                      </Picker>
+                </View>
+                {/* <Text>{role}</Text> */}
               <TouchableOpacity
+                disabled={buttondiable}
+
                 // onPress={() => {
                 //   senddata();
 
                 // }}
                 onPress={(e) => {
-                  axios
-                    .post(`${myURL}/sendmail/`, {
-                      email,
-                    })
-
-                    .then((res) => {
-                      console.log("successfully request sent");
-                      setModalVisible(true);
-                      setdbPincode(res.data?.pincode);
-                    })
-                    .catch((err) => {
-                      console.log("ok");
-                    });
+                    verfiyFiled();
                 }}
               >
                 <Text
@@ -405,7 +442,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   modeltitle: {
-    fontSize: 32,
+    fontSize: 20,
     fontFamily: "",
 
     color: "#FFFFFF",
@@ -467,6 +504,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#1DBF73",
   },
+    label: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  pickerContainer: {
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 20,
+  },
+  picker: {
+    height: 50,
+  },
+
 });
 
 export default SignUp;

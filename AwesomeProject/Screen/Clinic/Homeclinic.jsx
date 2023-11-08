@@ -55,6 +55,15 @@ const Homeclinic = ({ navigation }) => {
       return null;
     }
   };
+  const HandleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem("token");
+      console.log("Removed Token");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  }
 
   useEffect(() => {
     // Check if Tokendata has been set, then call checkProfileTrackpresent
@@ -92,12 +101,11 @@ const Homeclinic = ({ navigation }) => {
           }}
         >
           <Pressable
-            onPress={() => {
-              navigation.navigate("Login");
-            }}
+            onPress={()=>{HandleLogout()}}
           >
             <Text> logout </Text>
           </Pressable>
+
 
           <Text style={{ fontWeight: "bold", color: "white" }}>
             Welcome, <Text>{Tokendata.name} </Text>!{" "}

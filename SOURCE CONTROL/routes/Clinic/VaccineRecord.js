@@ -72,11 +72,11 @@ router.get("/name", async (req, res) => {
   let row = await Clinic_VaccineRecord.find({ vaccine_name: regex });
   return res.send(row);
 });
+
 router.delete("/:id", async (req, res) => {
-  let clinic_VaccineRecord = await Clinic_VaccineRecord.findByIdAndDelete(
-    req.params.id
-  );
+  let clinic_VaccineRecord = await Clinic_VaccineRecord.findByIdAndDelete(req.params.id);
   return res.send(clinic_VaccineRecord);
 });
+
 
 module.exports = router;

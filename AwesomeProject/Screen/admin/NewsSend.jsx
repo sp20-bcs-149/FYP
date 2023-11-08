@@ -4,9 +4,10 @@ import axios from 'axios';
 import MyComponentAlert from '../../components/user/AlertCall';
 
 import myURL from '../../services/myurls';
-
+import { useRoute } from '@react-navigation/native';
 const NewsSend = ({navigation}) => {
-
+  const route = useRoute();
+  let fetchdata = route.params?.fetch;
 
   // user register _id and Role get Here and pass to the post method
 
@@ -36,9 +37,9 @@ const NewsSend = ({navigation}) => {
         axios
           .post(myURL+"/admin/news/", {vaccine_name,information,allergies,treatment,Detail,side_effect})
           .then((res) => {
-          console.log(res.data);
-          ()=>{navigation.navigate("NewsAdmin")}
-          Alert.alert("SAVE PROFILE");
+            fetchdata();
+            navigation.navigate("NewsAdmin")
+            Alert.alert("SAVE PROFILE");
 
           
           // {Alert.alert("Hi")}
@@ -70,24 +71,24 @@ const NewsSend = ({navigation}) => {
                          </Text>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Vaccine Name</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(name)=>{Setvaccine_name(name)}} placeholder='Enter Name'/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(name)=>{Setvaccine_name(name)}} placeholder='Enter Vaccine Name'/>
                         
                         {/* {console.log(firstname)} */}
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Vaccine Information</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(gender)=>{Setinformation(gender)}}  placeholder="Enter Gender"/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(gender)=>{Setinformation(gender)}}  placeholder="Enter Vaccine Info"/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Allergies Reaction</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}}  onChangeText={(cnic)=>{Setallergies(cnic)}}  placeholder="Enter CNIC [without -]"/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}}  onChangeText={(cnic)=>{Setallergies(cnic)}}  placeholder="Enter Reaction"/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Treatment</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}}  onChangeText={(age)=>{Settreatment(age)}}  placeholder="Enter Age  "/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}}  onChangeText={(age)=>{Settreatment(age)}}  placeholder="Enter Treatment  "/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Details</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}}  onChangeText={(phone)=>{SetDetail(phone)}}  placeholder="Enter Phone"/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}}  onChangeText={(phone)=>{SetDetail(phone)}}  placeholder="Enter Details"/>
 
                         <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Side Effect</Text>
-                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(country)=>{Setside_effect(country)}}  placeholder="Enter Country"/>
+                        <TextInput style={styles.input} onPressIn={()=>{setErrormsg(null)}} onChangeText={(country)=>{Setside_effect(country)}}  placeholder="Enter SideEffect"/>
                         {/* <Text style={{alignSelf:'flex-start',color:'black',fontSize:15,margin:10,marginLeft:20}}>Images</Text>
                         <TextInput style={styles.input} onChangeText={(country)=>{setcountry(country)}}  placeholder="Enter Image"/> */}
 

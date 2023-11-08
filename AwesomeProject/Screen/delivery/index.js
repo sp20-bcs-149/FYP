@@ -21,6 +21,10 @@ const OrdersScreen = () => {
 
 
   useEffect(()=>{
+    fetch();
+  },[])
+
+  const fetch = async() => {
     axios
       .get(`${myURL}/clinic/clinicOrderPlacement`)
       .then((res) => {
@@ -29,8 +33,8 @@ const OrdersScreen = () => {
       .catch((err) => {
         console.log(err);
       });
-  },[])
 
+  }
   //   useEffect(() => {
   //     (async () => {
   //       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -102,7 +106,7 @@ const OrdersScreen = () => {
 {/*  */}
           <FlatList
             data={resData}
-            renderItem={({ item }) => <OrderItem order={item} />}
+            renderItem={({ item }) => <OrderItem order={item} fetchdata={fetch} />}
             keyExtractor={(item) => item._id.toString()}
           />
           

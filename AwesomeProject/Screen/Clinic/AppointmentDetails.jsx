@@ -19,6 +19,8 @@ const AppointmentDetails = ({ navigation }) => {
   const route = useRoute();
   let { put_id, patientName, cnic, vaccinename, date, slot, day } =
     route.params;
+    getpendingAppointment = route.params?.getpending;
+
   const [status, setstatus] = useState("completed");
 
   console.log("PUT_ID  " + put_id);
@@ -223,6 +225,7 @@ const AppointmentDetails = ({ navigation }) => {
                       })
                       .then((res) => {
                         console.log(res.data);
+                        getpendingAppointment();
                         navigation.navigate("AppointmentRecord");
 
                         // {Alert.alert("Hi")}

@@ -5,6 +5,7 @@ import {
   useWindowDimensions,
   ActivityIndicator,
   Pressable,
+  Alert
 } from "react-native";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -37,6 +38,9 @@ const OrderDelivery = () => {
   let orderback = route.params?.orderback;
   let id = orderback._id;
 
+  let fetchdata2 = route.params?.fetchdata2;
+
+  
   let order_status = "Pending";
 
   console.log( "ID ______>" + id);
@@ -134,9 +138,11 @@ const OrderDelivery = () => {
           order_status
           })
           .then((res) => {
+            fetchdata2();
+            Alert.alert("Order Completed");
+
           console.log(res.data);
 
-          // {Alert.alert("Hi")}
           })
           .catch((err) => {
           console.log(err);
